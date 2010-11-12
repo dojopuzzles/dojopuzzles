@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block conteudo %}
+	<h1>{{ problema.titulo }}</h1>
+
+    <div id="descricao_problema">
+        {{ problema.descricao }}
+    </div>
+
+    <a href="{% url problema-aleatorio %}">Não gostei! Mostre outro problema!</a>
+
+    <h2>Você já viu estes problemas:</h2>
+    {% for prob in problemas_visualizados %}
+    <p><a href="{% url exibe-problema prob.id %}">{{ prob.titulo }}</a></p>
+    {% endfor %}
+{% endblock %}
+
+</body>
+</html>
