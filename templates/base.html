@@ -26,24 +26,35 @@
 <head>
     <title>{{ titulo_pagina }}</title>
     <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+    <link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}base.css" />
 </head>
 
 <body>
     <div id="header">
-        <div id="logo"></div>
+        <div id="logo">
+            <h1>Problemas para Coding Dojo</h1>
+        </div>
         <div id="navigation">
+            <ul id="main-navigation">
+                <li><a href="{% url problema-aleatorio %}">Problemas</a></li>
+            </ul>
+            <!--form>
+                <label for="s">Encontre um problema</label> <input id="s" type="text"><a href="">Buscar</a>
+            </form-->
         </div><!--/navigation-->
     </div><!--/header-->
 
     <div id="content">
         <div class="one-column-content">
+            {% block one-column-content %}{% endblock %}
         </div><!--/one-column-content-->
    
         <div class="two-column-content">
             <div id="column-one-content">
+                {% block column-one-content %}{% endblock %}
             </div><!--column-one-content-->
-
             <div id="sidebar">
+                {% block sidebar %}{% endblock %}
             </div><!--/sidebar-->
         </div><!--two-column-content-->
     </div><!--/content-->

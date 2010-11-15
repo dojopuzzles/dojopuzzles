@@ -1,19 +1,25 @@
 {% extends "base.html" %}
 
-{% block conteudo %}
-	<h1>{{ problema.titulo }}</h1>
-
-    <div id="descricao_problema">
-        {{ problema.descricao }}
+{% block column-one-content %}
+    <div class="main-content">
+        <h2>{{ problema.titulo }}</h2>
+        <a href="{% url problema-aleatorio %}">Não gostei! Mostre outro problema!</a>
+        <br/><br/>
+        <div id="descricao_problema">
+                {{ problema.descricao|linebreaksbr }}
+            </pre>
+        </div>
+        <br/>
     </div>
-
-    <a href="{% url problema-aleatorio %}">Não gostei! Mostre outro problema!</a>
-
-    <h2>Você já viu estes problemas:</h2>
-    {% for prob in problemas_visualizados %}
-    <p><a href="{% url exibe-problema prob.id %}">{{ prob.titulo }}</a></p>
-    {% endfor %}
 {% endblock %}
 
-</body>
-</html>
+{% block sidebar %}
+    <div class="sidebar-box">
+        <h2>Você já viu estes problemas:</h2><br/>
+        <ul>
+        {% for prob in problemas_visualizados %}
+            <li><a href="{% url exibe-problema prob.id %}">{{ prob.titulo }}</a></li>
+        {% endfor %}
+        </ul>
+    </div>
+{% endblock %}
