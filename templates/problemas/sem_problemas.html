@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block column-one-content %}
+    <div class="main-content">
+        <h2>Não existem mais problemas</h2><br/>
+        <p>Você já visualizou todos os problemas cadastrados. Tem certeza que nenhum deles ter agradou?</p>
+    </div>
+{% endblock %}
+
+{% block sidebar %}
+    <div class="sidebar-box">
+        <h2>Você já viu estes problemas:</h2><br/>
+        <ul>
+        {% for prob in problemas_visualizados %}
+            <li><a href="{% url exibe-problema prob.id %}">{{ prob.titulo }}</a></li>
+        {% endfor %}
+        </ul>
+    </div>
+{% endblock %}
