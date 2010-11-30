@@ -5,23 +5,40 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 
-from problemas.models import Problema
+from dojo.problemas.models import Problema
 
 def problema_aleatorio(request):
     """ Exibe um problema aleatório da lista de problemas cadastrados """
+    numero_problemas = len(Problema.objects.all())
+
+    if numero_problemas == 0:
+        return HttpResponseRedirect(reverse('nenhum-problema-cadastrado'))
+
+    problemas_visualizados = request.COOKIES.get('problemas_visualizados', '')
+    lista_problemas_visualizados = problemas_visualizados.split(',')
+
+    if len(lista_problemas_visualizados) == numero_problemas:
+        return HttpResponseRedirect(reverse('sem-problemas-novos'))
 
     # Este modo de obter um registro aleatório é considerado muito
     # lento pela documentação do Django. É necessário fazer uma
     # solução melhor.
     problema_escolhido = Problema.objects.order_by('?')[0]
+    if str(problema_escolhido.id) in lista_problemas_visualizados:
+        while str(problema_escolhido.id) in lista_problemas_visualizados:
+            problema_escolhido = Problema.objects.order_by('?')[0]
 
-    return HttpResponseRedirect(reverse('exibe-problema', args=[problema_escolhido.id]))
+    if len(problemas_visualizados) == 0:
+        problemas_visualizados = str(problema_escolhido.id)
+    else:
+        problemas_visualizados = '{0},{1}'.format(problemas_visualizados, str(problema_escolhido.id))
+
+    response = HttpResponseRedirect(reverse('exibe-problema', args=[problema_escolhido.id]))        
+    response.set_cookie("problemas_visualizados", problemas_visualizados)
+    return response
 
 def exibe_problema(request, problema_id):
-    """
-        Exibe o problema informado e armazena um COOKIE no browser
-        indicando os problemas que já foram visualizados.
-    """
+    """ Exibe o problema informado """
     try:
         problema = Problema.objects.get(pk = problema_id)
 
@@ -31,7 +48,6 @@ def exibe_problema(request, problema_id):
             for id in problemas:
                 problemas_visualizados.append(Problema.objects.get(pk=id))
             if str(problema.id) not in problemas:
-                print "ei"
                 problemas.append(str(problema.id))
             problemas = ','.join(problemas)
         else:
@@ -39,10 +55,15 @@ def exibe_problema(request, problema_id):
 
         response = render_to_response('problema.html', locals(), RequestContext(request))
 
-        response.set_cookie("problemas_visualizados", problemas)
-        #response.delete_cookie("problemas_visualizados")
-
     except Problema.DoesNotExist:
         raise Http404
 
     return response
+
+def sem_problemas_novos(request):
+    return render_to_response('sem_problemas_novos.html', locals(), RequestContext(request))
+    
+def sem_problemas(request):
+    """ Exibido se nenhum problema estiver cadastrado no sistema """
+    return render_to_response('sem_problemas.html', locals(), RequestContext(request))
+

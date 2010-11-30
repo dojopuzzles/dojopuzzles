@@ -1,3 +1,4 @@
+#!-*- coding: utf-8 -*-
 from django.conf.urls.defaults import *
 from django.conf import settings
 
@@ -6,9 +7,8 @@ from django.contrib import admin
 admin.autodiscover()
 
 urlpatterns = patterns('',
-    url(r'^$', 'problemas.views.problema_aleatorio', name='problema-aleatorio'),
-    url(r'^problema/$', 'problemas.views.problema_aleatorio', name='problema-aleatorio'),
-    url(r'^problema/(?P<problema_id>\d+)/$', 'problemas.views.exibe_problema', name='exibe-problema'),
+    (r'problemas/', include('dojo.problemas.urls')),
+    (r'^$', lambda x: HttpResponseRedirect('/problemas/')), # Criar página inicial
 
     # Uncomment the admin/doc line below to enable admin documentation:
     (r'^admin/doc/', include('django.contrib.admindocs.urls')),

@@ -49,6 +49,9 @@ body {
     float: right;
 }
 
+
+
+
 .one-column-content {
     margin-top: 10px;
     padding: 15px;
@@ -68,6 +71,8 @@ body {
     border: 1px solid #D0C9B6;
     float: right;
     width: 250px;
+    font-family: Verdana, sans-serif;
+    font-size: 12px;
 }
 
 .main-content {

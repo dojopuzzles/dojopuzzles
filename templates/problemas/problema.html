@@ -6,8 +6,9 @@
         <a href="{% url problema-aleatorio %}">Não gostei! Mostre outro problema!</a>
         <br/><br/>
         <div id="descricao_problema">
+            {% autoescape off %}
                 {{ problema.descricao|linebreaksbr }}
-            </pre>
+            {% endautoescape %}
         </div>
         <br/>
     </div>
