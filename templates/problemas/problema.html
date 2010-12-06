@@ -2,9 +2,11 @@
 
 {% block column-one-content %}
     <div class="main-content">
-        <h2>{{ problema.titulo }}</h2>
-        <a href="{% url problema-aleatorio %}">Não gostei! Mostre outro problema!</a>
-        <br/><br/>
+        <h1>{{ problema.titulo }}</h1>
+        <button>Gostei! Vamos usar esse!</button>
+        <button>Talvez. Mostre-me outro.</button>
+        <button>Não gostei! Mostre-me outro.</button>
+
         <div id="descricao_problema">
             {% autoescape off %}
                 {{ problema.descricao|linebreaksbr }}
@@ -16,7 +18,7 @@
 
 {% block sidebar %}
     <div class="sidebar-box">
-        <h2>Você já viu estes problemas:</h2><br/>
+        <h1>Já visualizados</h1>
         <ul>
         {% for prob in problemas_visualizados %}
             <li><a href="{% url exibe-problema prob.id %}">{{ prob.titulo }}</a></li>

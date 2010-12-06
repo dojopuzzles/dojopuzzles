@@ -6,4 +6,5 @@ urlpatterns = patterns('dojo.problemas.views',
     url(r'^(?P<problema_id>\d+)/$', 'exibe_problema', name='exibe-problema'), 
     url(r'^todos_visualizados/$', 'sem_problemas_novos', name='sem-problemas-novos'),
     url(r'^nenhum_problema/$', 'sem_problemas', name='nenhum-problema-cadastrado'),
+    url(r'^todos/$', 'todos_problemas', name='todos-problemas'),
 )

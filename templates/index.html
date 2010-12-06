@@ -1,27 +1,41 @@
 {% extends "base.html" %}
 
 {% block one-column-content %}
-    <p>Um Coding Dojo &eacute; um encontro onde um grupo de programadores se re&uacute;ne para treinar
-    t&eacute;cnicas e metodologias de desenvolvimento de software atrav&eacute;s da solu&ccedil;&atilde;o
-    de um pequeno desafio de programa&ccedil;&atilde;o.</p>
+    <p>Um Coding Dojo &eacute; um encontro onde um grupo de programadores se
+    re&uacute;ne para treinar t&eacute;cnicas e metodologias de desenvolvimento
+    de software atrav&eacute;s da solu&ccedil;&atilde;o de um pequeno desafio
+    de programa&ccedil;&atilde;o. <a href="{% url sobre %}">Saiba mais...</a></p>
 
-    <p>Apesar do desafio, o objetivo do encontro não é a sua solução, e sim o aprendizado colaborativo e 
-    divertido de boas práticas de desenvolvimento. <a href="">Leia mais...</a></p>
+    <p>Existem diversas p&aacute;ginas na Internet com problemas dos mais
+    variados formatos que podem ser utilizados em um Dojo. Aqui voc&ecirc; tem
+    mais uma op&ccedil;&atilde;o para encontrar o seu problema.</p>
 {% endblock %}
 
 {% block column-one-content %}
     <div class="main-content">
-        <h2>{{ problema.titulo }}</h2>
-        <a href="{% url problema-aleatorio %}">Não gostei! Mostre outro problema!</a>
+        <h1>Escolhendo o problema</h1>
+
+        <p>Existem três maneiras de encontrar um bom problema nesta página:</p>
+        <ol>
+            <li>Escolhendo um problema aleatório</li>
+            <li>Através do formulário de busca</li>
+            <li>Pela listagem completa de problemas</li>
+        </ol>
+
+        <p>Caso o problema que você escolha seja realmente utilizado em um Dojo
+        indique na página do problema, para que possamos saber quais são os 
+        problemas mais escolhidos e quais os que não escolhidos.</p>
         
-        <p>Uma das primeiras ações no início de um Dojo é a escolha do problema que será
-        trabalhado durante o encontro. Este problema pode ser sugerido por algum dos participantes, 
-        ser obtido em algum livro ou em algum dos diversos sites de problemas.</p>
+        <button>Mostre-me um problema aleatório</button>
     </div>
 {% endblock %}
 
 {% block sidebar %}
     <div class="sidebar-box">
-        <h2>Colabore</h2>
+        <h1>CONTRIBUA</h1>
+        <p>Participou de um Dojo e resolveu um problema interessante? Ou 
+        voc&ecirc; criou um novo problema? Ajude a aumentar a nossa base de
+        problemas dispon&iacute;veis. Envie <a href="{% url contribua %}">aqui</a> o seu 
+        problema.</p>
     </div>
 {% endblock %}

@@ -61,9 +61,17 @@ def exibe_problema(request, problema_id):
     return response
 
 def sem_problemas_novos(request):
+    """ Exibido se todos os problemas cadastrados já tiverem sido exibidos """
+    if "problemas_visualizados" in request.COOKIES:
+        problemas = request.COOKIES["problemas_visualizados"].split(',')
+        problemas_visualizados = []
+        for id in problemas:
+            problemas_visualizados.append(Problema.objects.get(pk=id))
     return render_to_response('sem_problemas_novos.html', locals(), RequestContext(request))
     
 def sem_problemas(request):
     """ Exibido se nenhum problema estiver cadastrado no sistema """
     return render_to_response('sem_problemas.html', locals(), RequestContext(request))
 
+def todos_problemas(request):
+    pass

@@ -67,6 +67,10 @@ body {
 
 .two-column-content {
     margin-top: 10px;
+    line-height: 20px;
+    font-family: Verdana, sans-serif;
+    font-size: 12px;
+    color: #4C4C4C;   
 }
 
 .box-content {
@@ -103,6 +107,16 @@ body {
     color: #E91B1B;
 }
 
+.main-content p {
+    padding: 8px;
+}
+
+.main-content ol {
+    list-style-type: lower-roman;
+    padding-left: 25px;
+    line-height:25px;
+}
+
 .sidebar-box {
     padding: 10px;
 }
@@ -115,9 +129,11 @@ h1 {
     font-family: Verdana, sans-serif;
     color: #FF7700;
     font-size: 24px;
+    margin-bottom: 15px;
 }
 
 h2 {
     font-family: Verdana, sans-serif;
     color: #FF7700;
+    margin-bottom: 10px;
 }
