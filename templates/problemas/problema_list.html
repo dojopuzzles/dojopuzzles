@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+
+{% block column-one-content %}
+    <div class="main-content">
+        <h1>Todos os problemas</h1>
+
+        <ul>
+        {% for problema in object_list %}
+            <li><a href="{% url exibe-problema problema.id %}">{{ problema.titulo }}</a></li>
+        {% empty %}
+        <li>Nenhum problema encontrado</li>
+        {% endfor %}
+        </ul>
+
+        <br/>
+    </div>
+{% endblock %}
