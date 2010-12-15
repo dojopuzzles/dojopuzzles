@@ -117,6 +117,12 @@ body {
     line-height:25px;
 }
 
+.main-content ul {
+    list-style-type: square;
+    padding-left: 25px;
+    line-height:25px;
+}
+
 .sidebar-box {
     padding: 10px;
 }

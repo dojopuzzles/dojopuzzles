@@ -1,9 +1,15 @@
 {% extends 'base.html' %}
 
-
 {% block column-one-content %}
     <div class="main-content">
         <h1>Todos os problemas</h1>
+
+        {{ hits }} problemas cadastrados.
+        
+        {% if is_paginated %}
+            <br/><br/>
+            Problema {{ first_on_page }} ao problema {{ last_on_page }}.
+        {% endif %}
 
         <ul>
         {% for problema in object_list %}
@@ -12,6 +18,26 @@
         <li>Nenhum problema encontrado</li>
         {% endfor %}
         </ul>
+
+        {% if is_paginated %}
+            <br/>
+            {% if has_previous %}
+                <a href="?page={{ previous }}">anterior</a> |
+            {% endif %}
+
+            {% for pagenumber in page_range %}
+                {% if pagenumber == page %}
+                    {{ pagenumber }} |
+                {% else %}
+                    <a href="?page={{ pagenumber }}">{{ pagenumber }}</a> |
+                {% endif %}
+            {% endfor %}
+
+            {% if has_next %}
+                <a href="?page={{ next }}">próxima</a>
+            {% endif %}
+        {% endif %}
+</div>
 
         <br/>
     </div>
