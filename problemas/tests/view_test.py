@@ -17,8 +17,8 @@ class UrlsTestCase(TestCase):
             
     def test_existencia_urls(self):
         response = self.client.get(reverse('problema-aleatorio'))
-        self.assertNotEqual(response.status_code, 404)
-        
+        self.assertNotEqual(response.status_code, 404)   
+
         response = self.client.get(reverse('exibe-problema', args=[self.problema.id]))
         self.assertNotEqual(response.status_code, 404)
         
@@ -28,9 +28,10 @@ class UrlsTestCase(TestCase):
         response = self.client.get(reverse('nenhum-problema-cadastrado'))
         self.assertNotEqual(response.status_code, 404)
 
+        response = self.client.get(reverse('todos-problemas'))
+        self.assertNotEqual(response.status_code, 404)
+
 class ProblemaAleatorioTest(TestCase):
-    """ """
-    
     def setUp(self):
         # Cadastra 10 problemas que serão utilizados nos testes
         for i in xrange(1,11):
@@ -56,16 +57,18 @@ class ProblemaAleatorioTest(TestCase):
             # Como temos 'numero_problemas' problemas de teste cadastrados, 
             # após 'numero_problemas' chamadas de problemas aleatórios, 
             # todos os problemas devem ser visualizados uma única vez
-            response = self.client.get(reverse('problema-aleatorio'))
-            problema_visualizado = response['Location']
-            if problema_visualizado in problemas_visualizados:
-                self.fail('Reexibindo problema já visualizado')
-            problemas_visualizados.append(response['Location'])
+            response = self.client.get(reverse('problema-aleatorio'), follow=True)
+            if 'problema' in response.context:
+                problema_visualizado = response.context['problema']
+
+                if problema_visualizado.id in problemas_visualizados:
+                    self.fail('Reexibindo problema já visualizado')
+
+                problemas_visualizados.append(problema_visualizado.id)
 
         # Após exibir todos os problemas, uma solicitação de um problema 
         # aleatório deve informar que não existe mais nenhum problema novo 
         # cadastrado
         response = self.client.get(reverse('problema-aleatorio'))
         self.assertRedirects(response, reverse('sem-problemas-novos'))
-
 
