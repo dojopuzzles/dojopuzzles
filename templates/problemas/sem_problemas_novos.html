@@ -11,8 +11,8 @@
     <div class="sidebar-box">
         <h1>Já Visualizados</h1>
         <ul>
-        {% for prob in problemas_visualizados %}
-            <li><a href="{% url exibe-problema prob.id %}">{{ prob.titulo }}</a></li>
+        {% for problema in problemas_visualizados %}
+            <li><a href="{% url exibe-problema problema.id %}">{{ problema.titulo }}</a></li>
         {% endfor %}
         </ul>
     </div>
