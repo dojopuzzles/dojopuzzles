@@ -4,7 +4,7 @@ from django.test.client import Client
 
 from django.core.urlresolvers import reverse
 
-from dojo.problemas.models import Problema
+from dojo.problemas.models import Problema, ProblemaUtilizado
 
 class UrlsTestCase(TestCase):
     """ Testa as URLs da aplicação """
@@ -31,6 +31,7 @@ class UrlsTestCase(TestCase):
         self.assertNotEqual(response.status_code, 404)
 
 class ExibicaoProblemaTestCase(TestCase):
+
     def setUp(self):
         # Cadastra 2 problemas que serão utilizados nos testes
         for i in xrange(1,3):
@@ -155,3 +156,57 @@ class ProblemaNaoDesejadoTest(TestCase):
             self.assertTrue(problema_nao_gostei in problemas_que_nao_gostei)
         except KeyError:
             self.fail('Problema que o usuário não gostou não está na lista de problemas recusados.')
+            
+class ProblemasGosteiTestCase(TestCase):
+
+    def setUp(self):
+        titulo = "Título do Problema 1"
+        descricao = "Descrição do Problema 1"
+        self.problema = Problema(titulo=titulo, descricao=descricao)
+        self.problema.save()
+        self.client = Client()
+        
+    def tearDown(self):
+        Problema.objects.all().delete()
+        ProblemaUtilizado.objects.all().delete()
+
+    def test_problema_exibido_pela_primeira_vez(self):
+        """ Um problema exibido pela primeira vez deve informar que nunca foi utilizado em um Dojo """
+        response = self.client.get(reverse('exibe-problema', args=[self.problema.id]))
+        self.assertContains(response, 'Este problema ainda não foi utilizado em nenhum Dojo.', 1)
+
+    def test_problema_utilizado_em_um_dojo(self):
+        """ Se alguém informar que gostou e vai utilizar um problema em um Dojo
+        ao exibir este problema ele tem que informar quantas vezes ele já foi utilizado """
+
+        url_gostei_e_vou_usar = "{0}?gostei".format(reverse('exibe-problema', args=[self.problema.id]))
+        response = self.client.get(url_gostei_e_vou_usar)
+        self.assertEqual(self.problema.utilizacoes, 1)
+        self.assertContains(response, 'Este problema foi utilizado em 1 Dojo(s).', 1)
+        self.assertContains(response, 'Você está resolvendo este problema.', 1)
+
+        try:
+            problema_utilizado = self.client.session['problema_utilizado']
+            self.assertEqual(problema_utilizado, self.problema)
+        except KeyError:
+            self.fail('Problema que o usuário vai utilizar para o Dojo não está indicado.')
+
+        # Se um novo usuário escolher este problema
+        self.client.session.flush()
+        url_gostei_e_vou_usar = "{0}?gostei".format(reverse('exibe-problema', args=[self.problema.id]))
+        response = self.client.get(url_gostei_e_vou_usar)
+        self.assertEqual(self.problema.utilizacoes, 2)
+        self.assertContains(response, 'Este problema foi utilizado em 2 Dojo(s).', 1)
+        
+    def test_exibicao_problema_utilizado(self):
+        """ Ao selecionar um problema para exibir não deve mais mostrar os botãoes de escolha """
+        response = self.client.get(reverse('exibe-problema', args=[self.problema.id]))
+        self.assertContains(response, 'id="botao_gostei"')
+        self.assertContains(response, 'id="botao_talvez"')
+        self.assertContains(response, 'id="botao_nao_gostei"')
+
+        url_gostei_e_vou_usar = "{0}?gostei".format(reverse('exibe-problema', args=[self.problema.id]))
+        response = self.client.get(url_gostei_e_vou_usar)
+        self.assertNotContains(response, 'id="botao_gostei"')
+        self.assertNotContains(response, 'id="botao_talvez"')
+        self.assertNotContains(response, 'id="botao_nao_gostei"')        

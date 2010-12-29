@@ -7,3 +7,11 @@ class Problema(models.Model):
 
     def __unicode__(self):
         return self.titulo
+
+    def _get_utilizacoes(self):
+        return ProblemaUtilizado.objects.filter(problema=self).count()
+    utilizacoes = property(_get_utilizacoes)
+
+class ProblemaUtilizado(models.Model):
+    problema = models.ForeignKey(Problema)
+    data_utilizacao = models.DateField(auto_now_add=True)

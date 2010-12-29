@@ -5,7 +5,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 
-from dojo.problemas.models import Problema
+from dojo.problemas.models import Problema, ProblemaUtilizado
 
 import simplejson
 
@@ -19,9 +19,6 @@ def problema_aleatorio(request):
     problemas_visualizados = []
     if request.session.has_key('problemas_visualizados'):
         problemas_visualizados = request.session['problemas_visualizados']
-
-#    if len(problemas_visualizados) == numero_problemas:
-#        return HttpResponseRedirect(reverse('sem-problemas-novos'))
 
     problemas_nao_gostei = []
     if request.session.has_key('problemas_que_nao_gostei'):
@@ -58,6 +55,11 @@ def exibe_problema(request, problema_id):
     """ Exibe o problema informado """
     try:
         problema = Problema.objects.get(pk = problema_id)
+        
+        if 'gostei' in request.GET:
+            ProblemaUtilizado(problema=problema).save()
+            request.session['problema_utilizado'] = problema
+
         problemas_visualizados = []
         if request.session.has_key('problemas_visualizados'):
             problemas_visualizados = request.session['problemas_visualizados']
