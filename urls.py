@@ -15,7 +15,7 @@ urlpatterns = patterns('',
     url(r'^contribua/$', 'django.views.generic.simple.direct_to_template',
         {'template': 'index.html'}, name='contribua'),
     url(r'^sobre/$', 'django.views.generic.simple.direct_to_template',
-        {'template': 'index.html'}, name='sobre'),
+        {'template': 'sobre.html'}, name='sobre'),
 
     # Uncomment the admin/doc line below to enable admin documentation:
     (r'^admin/doc/', include('django.contrib.admindocs.urls')),

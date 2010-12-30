@@ -5,9 +5,11 @@
         <h1>{{ problema.titulo }}</h1>
         
         {% if not request.session.problema_utilizado %}
-        <button id="botao_gostei">Gostei! Vamos usar esse!</button>
-        <button id="botao_talvez">Talvez. Mostre-me outro.</button>
-        <button id="botao_nao_gostei">Não gostei! Mostre-me outro problema.</button>
+        <p>
+            <a id="botao_gostei" class="button" href="#" onclick="this.blur();"><span>Gostei! Vamos usar esse!</span></a>
+            <a id="botao_talvez" class="button" href="#" onclick="this.blur();"><span>Talvez. Mas mostre-me outro.</span></a>
+            <a id="botao_nao_gostei" class="button" href="#" onclick="this.blur();"><span>Não gostei! Mostre-me outro problema.</span></a>
+        </p>
         {% else %}
             {% if request.session.problema_utilizado == problema %}
             Você está resolvendo este problema.
