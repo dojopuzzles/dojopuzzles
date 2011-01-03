@@ -53,16 +53,22 @@ body {
 .one-column-content {
     margin-top: 10px;
     padding: 15px;
+    font-family: Verdana, sans-serif;
+    font-size: 12px;
+    color: #696969;
+    line-height: 20px;
 }
 
 .one-column-content p {
-    line-height: 20px;
     padding-top: 5px;
     padding-bottom: 5px;
-    font-family: Verdana, sans-serif;
-    font-size: 12px;
     width: 70%;
-    color: #696969;
+}
+
+.one-column-content ul {
+    list-style-type: circle;
+    line-height: 20px;
+    padding-left: 20px;
 }
 
 .two-column-content {
@@ -135,6 +141,7 @@ h1 {
     font-family: Verdana, sans-serif;
     color: #FF7700;
     font-size: 24px;
+    margin-top: 10px;
     margin-bottom: 15px;
 }
 
