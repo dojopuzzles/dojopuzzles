@@ -1,4 +1,4 @@
-# Django settings for problemas_dojo project.
+# Django settings for dojopuzzles project.
 import os
 
 SITE_ROOT = os.path.dirname(os.path.realpath(__file__))
@@ -7,12 +7,12 @@ DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
-    ('Renne Rocha', 'rennerocha@rrsoftware.com.br'),
+    ('Renne Rocha', 'rennerocha@gmail.com'),
 )
 
 MANAGERS = ADMINS
 
-_db_name = os.path.join(SITE_ROOT, 'problemas.db')
+_db_name = os.path.join(SITE_ROOT, 'dojopuzzles.db')
 
 DATABASES = {
     'default': {
@@ -50,12 +50,12 @@ USE_L10N = True
 
 # Absolute path to the directory that holds media.
 # Example: "/home/media/media.lawrence.com/"
-MEDIA_ROOT = '/home/rennerocha/webapps/media_dojo/'
+MEDIA_ROOT = '/home/rennerocha/webapps/dojopuzzles_media'
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash if there is a path component (optional in other cases).
 # Examples: "http://media.lawrence.com", "http://example.com/media/"
-MEDIA_URL = 'http://dojo.rrsoftware.com.br/media/'
+MEDIA_URL = 'http://dojopuzzles.com/media/'
 
 # URL prefix for admin media -- CSS, JavaScript and images. Make sure to use a
 # trailing slash.
@@ -80,7 +80,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
 )
 
-ROOT_URLCONF = 'dojo.urls'
+ROOT_URLCONF = 'dojopuzzles.urls'
 
 TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
@@ -106,7 +106,7 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.admin',
-    'dojo.problemas',
+    'dojopuzzles.problemas',
 )
 
 try:

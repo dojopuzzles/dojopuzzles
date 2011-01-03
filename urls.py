@@ -9,7 +9,7 @@ from django.contrib import admin
 admin.autodiscover()
 
 urlpatterns = patterns('',
-    (r'problemas/', include('dojo.problemas.urls')),
+    (r'problemas/', include('dojopuzzles.problemas.urls')),
     url(r'^$', 'django.views.generic.simple.direct_to_template',
         {'template': 'index.html'}, name='inicio'),
     url(r'^contribua/$', 'django.views.generic.simple.direct_to_template',

@@ -5,7 +5,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 
-from dojo.problemas.models import Problema, ProblemaUtilizado
+from dojopuzzles.problemas.models import Problema, ProblemaUtilizado
 
 import simplejson
 
