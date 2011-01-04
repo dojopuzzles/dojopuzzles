@@ -1,6 +1,7 @@
 #!-*- coding: utf-8 -*-
 from django.conf.urls.defaults import *
 from django.conf import settings
+from django.http import HttpResponse
 
 from django.views.generic.simple import direct_to_template
 
@@ -25,4 +26,7 @@ urlpatterns = patterns('',
 
     url(r'^media/(.*)$', 'django.views.static.serve',
         {'document_root': settings.MEDIA_ROOT}),
+
+    (r'^robots\.txt$', lambda r: HttpResponse("User-agent: *\nDisallow: /", mimetype="text/plain"))
+
 )

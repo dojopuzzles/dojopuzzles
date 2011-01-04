@@ -7,8 +7,6 @@ from django.template import RequestContext
 
 from dojopuzzles.problemas.models import Problema, ProblemaUtilizado
 
-import simplejson
-
 def problema_aleatorio(request):
     """ Exibe um problema aleatório da lista de problemas cadastrados """
     numero_problemas = len(Problema.objects.all())
