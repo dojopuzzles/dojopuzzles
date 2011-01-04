@@ -16,7 +16,7 @@ urlpatterns = patterns('',
     url(r'^$', 'django.views.generic.simple.direct_to_template',
         {'template': 'index.html'}, name='inicio'),
     url(r'^sobre/$', 'django.views.generic.simple.direct_to_template',
-        {'template': 'sobre.html'}, name='sobre'),
+        {'template': 'sobre.html', 'extra_context':{'titulo_pagina':'Sobre'}}, name='sobre'),
 
     # Uncomment the admin/doc line below to enable admin documentation:
     (r'^admin/doc/', include('django.contrib.admindocs.urls')),

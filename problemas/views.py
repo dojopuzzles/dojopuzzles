@@ -64,18 +64,21 @@ def exibe_problema(request, problema_id):
         problemas_visualizados.append(problema)
         problemas_visualizados = list(set(problemas_visualizados))
         request.session['problemas_visualizados'] = problemas_visualizados
+        titulo_pagina = problema.titulo
         response = render_to_response('problema.html', locals(), RequestContext(request))
+        return response
     except Problema.DoesNotExist:
         raise Http404
-    return response
 
 def sem_problemas_novos(request):
     """ Exibido se todos os problemas cadastrados já tiverem sido exibidos """
     problemas_visualizados = []
     if request.session.has_key('problemas_visualizados'):
         problemas_visualizados = request.session['problemas_visualizados']
+    titulo_pagina = 'Todos os problemas visualizados'
     return render_to_response('sem_problemas_novos.html', locals(), RequestContext(request))
 
 def sem_problemas(request):
     """ Exibido se nenhum problema estiver cadastrado no sistema """
+    titulo_pagina = 'Nenhum problema cadastrado'
     return render_to_response('sem_problemas.html', locals(), RequestContext(request))

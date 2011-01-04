@@ -14,7 +14,8 @@ class EnvioContribuicaoTestCase(TestCase):
     def test_deve_existir_url(self):
         response = self.client.get(reverse('contribua'))
         self.assertNotEqual(response.status_code, 404)
-        
+        self.assertContains(response, "<title>DojoPuzzles.com - Contribua</title>", 1)
+
     def test_deve_renderizar_formulario_correto(self):
         response = self.client.get(reverse('contribua'))
         self.assertEqual(response.status_code, 200)

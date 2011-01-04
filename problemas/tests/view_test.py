@@ -20,15 +20,20 @@ class UrlsTestCase(TestCase):
 
         response = self.client.get(reverse('exibe-problema', args=[self.problema.id]))
         self.assertNotEqual(response.status_code, 404)
-        
+        titulo = "<title>DojoPuzzles.com - {0}</title>"
+        self.assertContains(response, titulo.format(self.problema.titulo), 1)
+
         response = self.client.get(reverse('sem-problemas-novos'))
         self.assertNotEqual(response.status_code, 404)
+        self.assertContains(response, "<title>DojoPuzzles.com - Todos os problemas visualizados</title>", 1)
         
         response = self.client.get(reverse('nenhum-problema-cadastrado'))
         self.assertNotEqual(response.status_code, 404)
+        self.assertContains(response, "<title>DojoPuzzles.com - Nenhum problema cadastrado</title>", 1)
 
         response = self.client.get(reverse('todos-problemas'))
         self.assertNotEqual(response.status_code, 404)
+        self.assertContains(response, "<title>DojoPuzzles.com - Problemas cadastrados</title>", 1)
 
 class ExibicaoProblemaTestCase(TestCase):
 

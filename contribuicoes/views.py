@@ -19,6 +19,7 @@ def contribuicao(request):
     else:
         form = ContribuicaoForm()
 
+    titulo_pagina = 'Contribua'
     return render_to_response('contribua.html', 
                               locals(), 
                               RequestContext(request))
