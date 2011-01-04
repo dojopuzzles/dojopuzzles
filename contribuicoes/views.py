@@ -1,4 +1,5 @@
 #-*- coding: utf-8 -*-
+from django.contrib import messages
 from django.core.mail import send_mail
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
@@ -23,6 +24,7 @@ def contribuicao(request):
                               RequestContext(request))
                               
 def contribuicao_recebida(request):
+    messages.add_message(request, messages.INFO, 'Mensagem enviada com sucesso. Obrigado pelo contato!')
     return render_to_response('index.html', 
                               locals(), 
                               RequestContext(request))

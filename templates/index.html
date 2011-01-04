@@ -1,6 +1,12 @@
 {% extends "base.html" %}
 
 {% block one-column-content %}
+    {% if messages %}
+        {% for message in messages %}
+        <h2>{{ message }}</h2>
+        {% endfor %}
+    {% endif %}
+
     <p>Um Coding Dojo &eacute; um encontro onde um grupo de programadores se
     re&uacute;ne para treinar t&eacute;cnicas e metodologias de desenvolvimento
     de software atrav&eacute;s da solu&ccedil;&atilde;o de um pequeno desafio

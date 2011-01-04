@@ -1,10 +1,29 @@
 {% extends "base.html" %}
 
 {% block one-column-content %}
+    <style>
+        /* TODO Transferir este código para arquivo de CSS */
+        form ul li {
+            list-style-type: none;
+            padding-bottom: 10px;
+            display: block;
+        }
+        .formulario label {
+            float: left;
+            width: 150px;
+            font-weight: bold;
+        }
+    </style>
+
     <h1>Contribua</h1>
 
     <form method="POST" action="." id="contribua_form">{% csrf_token %}
-    {{ form.as_ul }}
+    <ul class="formulario">
+        <li>{{ form.nome.label_tag }}{{ form.nome }}{{ form.nome.errors }}</li>
+        <li>{{ form.email.label_tag }}{{ form.email }}{{ form.email.errors }}</li>
+        <li>{{ form.assunto.label_tag }}{{ form.assunto }}{{ form.assunto.errors }}</li>
+        <li>{{ form.mensagem.label_tag }}{{ form.mensagem }}{{ form.mensagem.errors }}</li>
+    </ul>
     <a id="botao_enviar" class="button" href="#" onclick="this.blur();"><span>Enviar mensagem</span></a>
     </form>
 
