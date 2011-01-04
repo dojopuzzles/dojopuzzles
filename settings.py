@@ -55,9 +55,10 @@ MEDIA_ROOT = '/home/rennerocha/webapps/dojopuzzles_media'
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash if there is a path component (optional in other cases).
 # Examples: "http://media.lawrence.com", "http://example.com/media/"
-MEDIA_URL = 'http://dojopuzzles.com/media/'
+#MEDIA_URL = 'http://dojopuzzles.com/media/'
 
-# URL prefix for admin media -- CSS, JavaScript and images. Make sure to use a
+
+# URL prefix for admin media -- CSS, JavaScript and images. Macontribuicoes/contribua/ke sure to use a
 # trailing slash.
 # Examples: "http://foo.com/media/", "/media/".
 ADMIN_MEDIA_PREFIX = '/media_admin/'
@@ -107,7 +108,14 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.admin',
     'dojopuzzles.problemas',
+    'dojopuzzles.contribuicoes',
 )
+
+EMAIL_USE_TLS       = True
+EMAIL_HOST          = 'smtp.gmail.com'
+EMAIL_HOST_USER     = 'usuario@gmail.com'
+EMAIL_HOST_PASSWORD = 'senha'
+EMAIL_PORT          = 587
 
 try:
     from local_settings import *

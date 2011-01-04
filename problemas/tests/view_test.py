@@ -4,7 +4,7 @@ from django.test.client import Client
 
 from django.core.urlresolvers import reverse
 
-from dojo.problemas.models import Problema, ProblemaUtilizado
+from dojopuzzles.problemas.models import Problema, ProblemaUtilizado
 
 class UrlsTestCase(TestCase):
     """ Testa as URLs da aplicação """

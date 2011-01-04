@@ -7,7 +7,7 @@
         {% if not request.session.problema_utilizado %}
         <p>
             <a id="botao_gostei" class="button" href="#" onclick="this.blur();"><span>Gostei! Vamos usar esse!</span></a>
-            <a id="botao_talvez" class="button" href="#" onclick="this.blur();"><span>Talvez. Mas mostre-me outro.</span></a>
+            <!--a id="botao_talvez" class="button" href="#" onclick="this.blur();"><span>Talvez. Mas mostre-me outro.</span></a-->
             <a id="botao_nao_gostei" class="button" href="#" onclick="this.blur();"><span>Não gostei! Mostre-me outro problema.</span></a>
         </p>
         {% else %}
@@ -16,11 +16,13 @@
             {% endif %}
         {% endif %}
 
+        <br/><p>
         {% if problema.utilizacoes == 0 %}
             Este problema ainda não foi utilizado em nenhum Dojo.
         {% else %}
             Este problema foi utilizado em {{ problema.utilizacoes }} Dojo(s).
         {% endif %}
+        </p>
 
         <div id="descricao_problema">
             {% autoescape off %}
