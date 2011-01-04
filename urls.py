@@ -10,10 +10,10 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     (r'problemas/', include('dojopuzzles.problemas.urls')),
+    (r'contribuicoes/', include('dojopuzzles.contribuicoes.urls')),
+
     url(r'^$', 'django.views.generic.simple.direct_to_template',
         {'template': 'index.html'}, name='inicio'),
-    url(r'^contribua/$', 'django.views.generic.simple.direct_to_template',
-        {'template': 'index.html'}, name='contribua'),
     url(r'^sobre/$', 'django.views.generic.simple.direct_to_template',
         {'template': 'sobre.html'}, name='sobre'),
 
