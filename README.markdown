@@ -13,6 +13,6 @@ Onde está?
 Quero ajudar. #ComoFas
 ----------------------
 > Voce pode ajudar::
-1. [Cadastrando um problema/solução](http://dojopuzzles.com/contribuicoes/contribua/)
-2. [Fazendo um fork](https://github.com/rennerocha/dojopuzzles/)
-4. [Indicando uma Funcionalidade/Problema](https://github.com/rennerocha/dojopuzzles/issues)
+* [Cadastrando um problema/solução](http://dojopuzzles.com/contribuicoes/contribua/)
+* [Fazendo um fork](https://github.com/rennerocha/dojopuzzles/)
+* [Indicando uma Funcionalidade/Problema](https://github.com/rennerocha/dojopuzzles/issues)
