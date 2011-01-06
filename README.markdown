@@ -12,7 +12,7 @@ Onde está?
 
 Quero ajudar. #ComoFas
 ----------------------
-> Voce pode ajudar::
-* [Cadastrando um problema/solução](http://dojopuzzles.com/contribuicoes/contribua/)
-* [Fazendo um fork](https://github.com/rennerocha/dojopuzzles/)
-* [Indicando uma Funcionalidade/Problema](https://github.com/rennerocha/dojopuzzles/issues)
+> Voce pode ajudar
+> * [Cadastrando um problema/solução](http://dojopuzzles.com/contribuicoes/contribua/)
+> * [Fazendo um fork](https://github.com/rennerocha/dojopuzzles/)
+> * [Indicando uma Funcionalidade/Problema](https://github.com/rennerocha/dojopuzzles/issues)
