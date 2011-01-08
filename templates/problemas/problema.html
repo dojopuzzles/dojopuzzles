@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
 {% block column-one-content %}
+<div id="column-one-content" class="box-content">
     <div class="main-content">
         <h1>{{ problema.titulo }}</h1>
         
@@ -31,9 +32,11 @@
         </div>
         <br/>
     </div>
+</div>
 {% endblock %}
 
 {% block sidebar %}
+<div id="sidebar" class="box-content">
     <div class="sidebar-box">
         <h1>Já visualizados</h1>
         <ul>
@@ -42,6 +45,7 @@
         {% endfor %}
         </ul>
     </div>
+</div>
 {% endblock %}
 
 {% block javascript %}

@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
 {% block column-one-content %}
+<div id="column-one-content" class="box-content">
     <div class="main-content">
         <h1>Todos os problemas</h1>
 
@@ -15,7 +16,7 @@
         {% for problema in object_list %}
             <li><a href="{% url exibe-problema problema.id %}">{{ problema.titulo }}</a></li>
         {% empty %}
-        <li>Nenhum problema encontrado</li>
+            <li>Nenhum problema encontrado</li>
         {% endfor %}
         </ul>
 
@@ -37,8 +38,6 @@
                 <a href="?page={{ next }}">próxima</a>
             {% endif %}
         {% endif %}
-</div>
-
-        <br/>
     </div>
+</div>
 {% endblock %}
