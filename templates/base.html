@@ -28,22 +28,17 @@
     </div><!--/header-->
 
     <div id="content">
-        <div class="one-column-content">
-            {% block one-column-content %}{% endblock %}
-        </div><!--/one-column-content-->
+        {% block one-column-content %}{% endblock %}
    
         <div class="two-column-content">
-            <div id="column-one-content" class="box-content">
-                {% block column-one-content %}{% endblock %}
-            </div><!--column-one-content-->
-            <div id="sidebar" class="box-content">
-                {% block sidebar %}{% endblock %}
-            </div><!--/sidebar-->
+            {% block column-one-content %}{% endblock %}
+            {% block sidebar %}{% endblock %}
         </div><!--two-column-content-->
     </div><!--/content-->
 
-    <div id="footer">
-    </div><!--/footer-->
+    <div style="clear: both;"/>
+
+    <div id="footer">&nbsp;</div><!--/footer-->
     
     {% block javascript %}
     {% endblock javascript %}

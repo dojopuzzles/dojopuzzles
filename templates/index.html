@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
 {% block one-column-content %}
+<div class="one-column-content">
     {% if messages %}
         {% for message in messages %}
         <h2>{{ message }}</h2>
@@ -15,9 +16,11 @@
     <p>Existem diversas p&aacute;ginas na Internet com problemas dos mais
     variados formatos que podem ser utilizados em um Dojo. Aqui voc&ecirc; tem
     mais uma op&ccedil;&atilde;o para encontrar o seu problema.</p>
+</div>
 {% endblock %}
 
 {% block column-one-content %}
+<div id="column-one-content" class="box-content">
     <div class="main-content">
         <h1>Escolhendo o problema</h1>
 
@@ -32,9 +35,11 @@
         indique na página do problema, para que possamos saber quais são os 
         problemas mais escolhidos e quais os que não escolhidos.</p>
     </div>
+</div>
 {% endblock %}
 
 {% block sidebar %}
+<div id="sidebar" class="box-content">
     <div class="sidebar-box">
         <h1>CONTRIBUA</h1>
         <p>Participou de um Dojo e resolveu um problema interessante? Ou 
@@ -42,4 +47,5 @@
         problemas dispon&iacute;veis. Envie <a href="{% url contribua %}">aqui</a> o seu 
         problema.</p>
     </div>
+</div>
 {% endblock %}

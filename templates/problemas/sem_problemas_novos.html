@@ -1,13 +1,16 @@
 {% extends "base.html" %}
 
 {% block column-one-content %}
+<div id="column-one-content" class="box-content">
     <div class="main-content">
         <h1>Não existem mais problemas</h1>
         <p>Você já visualizou todos os problemas cadastrados. Tem certeza que nenhum deles ter agradou?</p>
     </div>
+</div>
 {% endblock %}
 
 {% block sidebar %}
+<div id="sidebar" class="box-content">
     <div class="sidebar-box">
         <h1>Já Visualizados</h1>
         <ul>
@@ -16,4 +19,5 @@
         {% endfor %}
         </ul>
     </div>
+</div>
 {% endblock %}

@@ -1,23 +1,21 @@
+#!-*- coding: utf-8 -*-
 # Django settings for dojopuzzles project.
 import os
-
 SITE_ROOT = os.path.dirname(os.path.realpath(__file__))
 
 DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
-    ('Renne Rocha', 'rennerocha@gmail.com'),
+    ('Administrador', 'administrador@dojopuzzles.com'),
 )
 
 MANAGERS = ADMINS
 
-_db_name = os.path.join(SITE_ROOT, 'dojopuzzles.db')
-
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': _db_name, # Or path to database file if using sqlite3.
+        'ENGINE': 'django.db.backends.', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
+        'NAME': '', # Or path to database file if using sqlite3.
         'USER': '',                      # Not used with sqlite3.
         'PASSWORD': '',                  # Not used with sqlite3.
         'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
@@ -50,13 +48,12 @@ USE_L10N = True
 
 # Absolute path to the directory that holds media.
 # Example: "/home/media/media.lawrence.com/"
-MEDIA_ROOT = '/home/rennerocha/webapps/dojopuzzles_media'
+MEDIA_ROOT = '/directory/that/holds/media/'
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash if there is a path component (optional in other cases).
 # Examples: "http://media.lawrence.com", "http://example.com/media/"
-#MEDIA_URL = 'http://dojopuzzles.com/media/'
-
+MEDIA_URL = 'http://myhost/media/'
 
 # URL prefix for admin media -- CSS, JavaScript and images. Macontribuicoes/contribua/ke sure to use a
 # trailing slash.
@@ -111,10 +108,11 @@ INSTALLED_APPS = (
     'dojopuzzles.contribuicoes',
 )
 
+# Suas configurações de e-mail
 EMAIL_USE_TLS       = True
-EMAIL_HOST          = 'smtp.gmail.com'
-EMAIL_HOST_USER     = 'usuario@gmail.com'
-EMAIL_HOST_PASSWORD = 'senha'
+EMAIL_HOST          = ''
+EMAIL_HOST_USER     = ''
+EMAIL_HOST_PASSWORD = ''
 EMAIL_PORT          = 587
 
 try:
