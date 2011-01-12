@@ -18,7 +18,7 @@ class UrlsTestCase(TestCase):
         response = self.client.get(reverse('problema-aleatorio'))
         self.assertNotEqual(response.status_code, 404)   
 
-        response = self.client.get(reverse('exibe-problema', args=[self.problema.id]))
+        response = self.client.get(reverse('exibe-problema', args=[self.problema.slug]))
         self.assertNotEqual(response.status_code, 404)
         titulo = "<title>DojoPuzzles.com - {0}</title>"
         self.assertContains(response, titulo.format(self.problema.titulo), 1)
@@ -53,7 +53,7 @@ class ExibicaoProblemaTestCase(TestCase):
         """ Se o usuário visualizar um problema, ao exibir outro problema, 
         o problema anterior deve estar na lista de problemas visualizados """
         problema_exibido1 = Problema.objects.all()[0]
-        response = self.client.get(reverse('exibe-problema', args=[problema_exibido1.id]), follow=True)
+        response = self.client.get(reverse('exibe-problema', args=[problema_exibido1.slug]), follow=True)
         try:
             problemas_visualizados = self.client.session['problemas_visualizados']
             self.assertTrue(problema_exibido1 in problemas_visualizados)
@@ -61,7 +61,7 @@ class ExibicaoProblemaTestCase(TestCase):
             self.fail('Não existe lista de problemas visualizados.')
             
         problema_exibido2 = Problema.objects.all()[1]
-        response = self.client.get(reverse('exibe-problema', args=[problema_exibido2.id]), follow=True)
+        response = self.client.get(reverse('exibe-problema', args=[problema_exibido2.slug]), follow=True)
         try:
             problemas_visualizados = self.client.session['problemas_visualizados']
             self.assertTrue(problema_exibido1 in problemas_visualizados)
@@ -73,11 +73,11 @@ class ExibicaoProblemaTestCase(TestCase):
         """ Não é permitido um problema estar na lista de problemas visualizados mais de uma vez """
         problema_exibido1 = Problema.objects.all()[0]
 
-        response = self.client.get(reverse('exibe-problema', args=[problema_exibido1.id]), follow=True)
+        response = self.client.get(reverse('exibe-problema', args=[problema_exibido1.slug]), follow=True)
         problemas_visualizados = self.client.session['problemas_visualizados']
         self.assertEqual(problemas_visualizados.count(problema_exibido1), 1)
 
-        response = self.client.get(reverse('exibe-problema', args=[problema_exibido1.id]), follow=True)
+        response = self.client.get(reverse('exibe-problema', args=[problema_exibido1.slug]), follow=True)
         problemas_visualizados = self.client.session['problemas_visualizados']
         self.assertEqual(problemas_visualizados.count(problema_exibido1), 1)
 
@@ -136,7 +136,7 @@ class ProblemaNaoDesejadoTest(TestCase):
         visualizados """
         numero_problemas = Problema.objects.count()
         problema_nao_gostei = Problema.objects.all()[0]
-        response = self.client.get(reverse('exibe-problema', args=[problema_nao_gostei.id]), follow=True)
+        response = self.client.get(reverse('exibe-problema', args=[problema_nao_gostei.slug]), follow=True)
         problemas_visualizados = self.client.session['problemas_visualizados']
 
         try:
@@ -177,14 +177,14 @@ class ProblemasGosteiTestCase(TestCase):
 
     def test_problema_exibido_pela_primeira_vez(self):
         """ Um problema exibido pela primeira vez deve informar que nunca foi utilizado em um Dojo """
-        response = self.client.get(reverse('exibe-problema', args=[self.problema.id]))
+        response = self.client.get(reverse('exibe-problema', args=[self.problema.slug]))
         self.assertContains(response, 'Este problema ainda não foi utilizado em nenhum Dojo.', 1)
 
     def test_problema_utilizado_em_um_dojo(self):
         """ Se alguém informar que gostou e vai utilizar um problema em um Dojo
         ao exibir este problema ele tem que informar quantas vezes ele já foi utilizado """
 
-        url_gostei_e_vou_usar = "{0}?gostei".format(reverse('exibe-problema', args=[self.problema.id]))
+        url_gostei_e_vou_usar = "{0}?gostei".format(reverse('exibe-problema', args=[self.problema.slug]))
         response = self.client.get(url_gostei_e_vou_usar)
         self.assertEqual(self.problema.utilizacoes, 1)
         self.assertContains(response, 'Este problema foi utilizado em 1 Dojo(s).', 1)
@@ -198,20 +198,20 @@ class ProblemasGosteiTestCase(TestCase):
 
         # Se um novo usuário escolher este problema
         self.client.session.flush()
-        url_gostei_e_vou_usar = "{0}?gostei".format(reverse('exibe-problema', args=[self.problema.id]))
+        url_gostei_e_vou_usar = "{0}?gostei".format(reverse('exibe-problema', args=[self.problema.slug]))
         response = self.client.get(url_gostei_e_vou_usar)
         self.assertEqual(self.problema.utilizacoes, 2)
         self.assertContains(response, 'Este problema foi utilizado em 2 Dojo(s).', 1)
         
     def test_exibicao_problema_utilizado(self):
         """ Ao selecionar um problema para exibir não deve mais mostrar os botãoes de escolha """
-        response = self.client.get(reverse('exibe-problema', args=[self.problema.id]))
+        response = self.client.get(reverse('exibe-problema', args=[self.problema.slug]))
         self.assertContains(response, 'id="botao_gostei"')
         self.assertContains(response, 'id="botao_talvez"')
         self.assertContains(response, 'id="botao_nao_gostei"')
 
-        url_gostei_e_vou_usar = "{0}?gostei".format(reverse('exibe-problema', args=[self.problema.id]))
+        url_gostei_e_vou_usar = "{0}?gostei".format(reverse('exibe-problema', args=[self.problema.slug]))
         response = self.client.get(url_gostei_e_vou_usar)
         self.assertNotContains(response, 'id="botao_gostei"')
         self.assertNotContains(response, 'id="botao_talvez"')
-        self.assertNotContains(response, 'id="botao_nao_gostei"')        
+        self.assertNotContains(response, 'id="botao_nao_gostei"')

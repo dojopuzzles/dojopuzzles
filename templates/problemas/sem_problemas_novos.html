@@ -15,7 +15,7 @@
         <h1>Já Visualizados</h1>
         <ul>
         {% for problema in problemas_visualizados %}
-            <li><a href="{% url exibe-problema problema.id %}">{{ problema.titulo }}</a></li>
+            <li><a href="{{ problema.get_absolute_url }}">{{ problema.titulo }}</a></li>
         {% endfor %}
         </ul>
     </div>

@@ -41,7 +41,7 @@
         <h1>Já visualizados</h1>
         <ul>
         {% for visualizado in problemas_visualizados %}
-            <li><a href="{% url exibe-problema visualizado.id %}">{{ visualizado.titulo }}</a></li>
+            <li><a href="{{ visualizado.get_absolute_url }}">{{ visualizado.titulo }}</a></li>
         {% endfor %}
         </ul>
     </div>
@@ -53,7 +53,7 @@
     <script type="text/javascript">
         $(document).ready(function(){
             $('#botao_gostei').click(function() {
-                window.location='{% url exibe-problema problema.id %}?gostei';
+                window.location='{{ problema.get_absolute_url }}?gostei';
             });
             $('#botao_nao_gostei').click(function() {
                 window.location='/problemas/?nao_gostei={{ problema.id }}';

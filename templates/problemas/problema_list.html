@@ -14,7 +14,7 @@
 
         <ul>
         {% for problema in object_list %}
-            <li><a href="{% url exibe-problema problema.id %}">{{ problema.titulo }}</a></li>
+            <li><a href="{{ problema.get_absolute_url }}">{{ problema.titulo }}</a></li>
         {% empty %}
             <li>Nenhum problema encontrado</li>
         {% endfor %}

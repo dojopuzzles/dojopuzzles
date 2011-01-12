@@ -45,14 +45,12 @@ def problema_aleatorio(request):
         return HttpResponseRedirect(reverse('sem-problemas-novos'))
     else:
         problema_escolhido = problemas[0]
-    
+    return HttpResponseRedirect(reverse('exibe-problema', args=[problema_escolhido.slug]))
 
-    return HttpResponseRedirect(reverse('exibe-problema', args=[problema_escolhido.id]))
-
-def exibe_problema(request, problema_id):
+def exibe_problema(request, slug):
     """ Exibe o problema informado """
     try:
-        problema = Problema.objects.get(pk = problema_id)
+        problema = Problema.objects.get(slug = slug)
         
         if 'gostei' in request.GET:
             ProblemaUtilizado(problema=problema).save()
@@ -65,8 +63,7 @@ def exibe_problema(request, problema_id):
         problemas_visualizados = list(set(problemas_visualizados))
         request.session['problemas_visualizados'] = problemas_visualizados
         titulo_pagina = problema.titulo
-        response = render_to_response('problema.html', locals(), RequestContext(request))
-        return response
+        return render_to_response('problema.html', locals(), RequestContext(request))
     except Problema.DoesNotExist:
         raise Http404
 
