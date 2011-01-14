@@ -76,6 +76,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
+    'dojopuzzles.webanalytics.middleware.WebAnalyticsMiddleware',
 )
 
 ROOT_URLCONF = 'dojopuzzles.urls'
