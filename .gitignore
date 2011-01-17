@@ -1,4 +1,4 @@
 *.swp
-*pyc
+*.pyc
 local_settings.py
-*db
+*.db
