@@ -63,6 +63,13 @@ def exibe_problema(request, slug):
     except Problema.DoesNotExist:
         raise Http404
 
+def exibe_problema_pelo_id(request, problema_id):
+    try:
+        problema = Problema.objects.get(pk=problema_id)
+        return HttpResponseRedirect(reverse('exibe-problema', args=[problema.slug]))
+    except Problema.DoesNotExist:
+        raise Http404
+
 def sem_problemas_novos(request):
     """ Exibido se todos os problemas cadastrados já tiverem sido exibidos """
     problemas_visualizados = []

@@ -22,6 +22,11 @@ class UrlsTestCase(TestCase):
         self.assertNotEqual(response.status_code, 404)
         titulo = "<title>DojoPuzzles.com - {0}</title>"
         self.assertContains(response, titulo.format(self.problema.titulo), 1)
+        
+        response = self.client.get(reverse('exibe-problema-pelo-id', args=[self.problema.id]))
+        self.assertNotEqual(response.status_code, 404)
+        self.assertEqual(response.status_code, 302)
+        self.assertEquals(response['Location'], 'http://testserver{0}'.format(reverse('exibe-problema', args=[self.problema.slug])))
 
         response = self.client.get(reverse('sem-problemas-novos'))
         self.assertNotEqual(response.status_code, 404)
