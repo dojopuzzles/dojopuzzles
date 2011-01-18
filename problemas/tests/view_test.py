@@ -34,6 +34,11 @@ class UrlsTestCase(TestCase):
         response = self.client.get(reverse('todos-problemas'))
         self.assertNotEqual(response.status_code, 404)
         self.assertContains(response, "<title>DojoPuzzles.com - Problemas cadastrados</title>", 1)
+        
+        response = self.client.get(reverse('problema-utilizado-em-dojo', args=[self.problema.id]), follow=True)
+        self.assertNotEqual(response.status_code, 404)
+        titulo = "<title>DojoPuzzles.com - {0}</title>"
+        self.assertContains(response, titulo.format(self.problema.titulo), 1)
 
 class ExibicaoProblemaTestCase(TestCase):
 
@@ -183,9 +188,8 @@ class ProblemasGosteiTestCase(TestCase):
     def test_problema_utilizado_em_um_dojo(self):
         """ Se alguém informar que gostou e vai utilizar um problema em um Dojo
         ao exibir este problema ele tem que informar quantas vezes ele já foi utilizado """
-
-        url_gostei_e_vou_usar = "{0}?gostei".format(reverse('exibe-problema', args=[self.problema.slug]))
-        response = self.client.get(url_gostei_e_vou_usar)
+        url_gostei_e_vou_usar = reverse('problema-utilizado-em-dojo', args=[self.problema.id])
+        response = self.client.get(url_gostei_e_vou_usar, follow=True)
         self.assertEqual(self.problema.utilizacoes, 1)
         self.assertContains(response, 'Este problema foi utilizado em 1 Dojo(s).', 1)
         self.assertContains(response, 'Você está resolvendo este problema.', 1)
@@ -198,20 +202,21 @@ class ProblemasGosteiTestCase(TestCase):
 
         # Se um novo usuário escolher este problema
         self.client.session.flush()
-        url_gostei_e_vou_usar = "{0}?gostei".format(reverse('exibe-problema', args=[self.problema.slug]))
-        response = self.client.get(url_gostei_e_vou_usar)
+        url_gostei_e_vou_usar = reverse('problema-utilizado-em-dojo', args=[self.problema.id])
+        response = self.client.get(url_gostei_e_vou_usar, follow=True)
         self.assertEqual(self.problema.utilizacoes, 2)
         self.assertContains(response, 'Este problema foi utilizado em 2 Dojo(s).', 1)
-        
+
     def test_exibicao_problema_utilizado(self):
-        """ Ao selecionar um problema para exibir não deve mais mostrar os botãoes de escolha """
-        response = self.client.get(reverse('exibe-problema', args=[self.problema.slug]))
+        """ Ao selecionar um problema para exibir não deve mais mostrar os botões de escolha """
+        response = self.client.get(reverse('exibe-problema', args=[self.problema.slug]), follow=True)
         self.assertContains(response, 'id="botao_gostei"')
         self.assertContains(response, 'id="botao_talvez"')
         self.assertContains(response, 'id="botao_nao_gostei"')
 
-        url_gostei_e_vou_usar = "{0}?gostei".format(reverse('exibe-problema', args=[self.problema.slug]))
-        response = self.client.get(url_gostei_e_vou_usar)
+        url_gostei_e_vou_usar = reverse('problema-utilizado-em-dojo', args=[self.problema.id])
+        response = self.client.get(url_gostei_e_vou_usar, follow=True)
         self.assertNotContains(response, 'id="botao_gostei"')
         self.assertNotContains(response, 'id="botao_talvez"')
         self.assertNotContains(response, 'id="botao_nao_gostei"')
+

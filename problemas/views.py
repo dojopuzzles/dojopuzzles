@@ -51,10 +51,6 @@ def exibe_problema(request, slug):
     """ Exibe o problema informado """
     try:
         problema = Problema.objects.get(slug = slug)
-        
-        if 'gostei' in request.GET:
-            ProblemaUtilizado(problema=problema).save()
-            request.session['problema_utilizado'] = problema
 
         problemas_visualizados = []
         if request.session.has_key('problemas_visualizados'):
@@ -79,3 +75,12 @@ def sem_problemas(request):
     """ Exibido se nenhum problema estiver cadastrado no sistema """
     titulo_pagina = 'Nenhum problema cadastrado'
     return render_to_response('sem_problemas.html', locals(), RequestContext(request))
+    
+def problema_utilizado(request, problema_id):
+    try:
+        problema = Problema.objects.get(pk=problema_id)
+        ProblemaUtilizado(problema=problema).save()
+        request.session['problema_utilizado'] = problema
+        return HttpResponseRedirect(reverse('exibe-problema', args=[problema.slug]))
+    except Problema.DoesNotExist:
+        raise Http404
