@@ -2,8 +2,7 @@
 from django import forms
 
 ASSUNTO_CHOICES = (
-    ('PROBLEMA', 'Sugestão de Problema'),
-    ('SITE', 'Sugestão para o site'),
+    ('PROBLEMA_NOVO', 'Contribuir com um problema novo'),
     ('CONTATO', 'Contato'),
 )
 
