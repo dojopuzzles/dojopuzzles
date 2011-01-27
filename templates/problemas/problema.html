@@ -8,8 +8,8 @@
         {% if not request.session.problema_utilizado %}
         <p>
             <a id="botao_gostei" class="button" href="#" onclick="this.blur();"><span>Gostei! Vamos usar esse!</span></a>
-            <!--a id="botao_talvez" class="button" href="#" onclick="this.blur();"><span>Talvez. Mas mostre-me outro.</span></a-->
-            <a id="botao_nao_gostei" class="button" href="#" onclick="this.blur();"><span>Não gostei! Mostre-me outro problema.</span></a>
+            <a id="botao_talvez" class="button" href="#" onclick="this.blur();"><span>Talvez. Mas mostre-me outro.</span></a>
+            <a id="botao_nao_gostei" class="button" href="#" onclick="this.blur();"><span>Não gostei! Mostre-me outro.</span></a>
         </p>
         {% else %}
             {% if request.session.problema_utilizado == problema %}
@@ -73,8 +73,12 @@
 	        });
         });
 
+        $('#botao_talvez').click(function() {
+            window.location = '{% url problema-aleatorio %}';
+        });
+
         $('#botao_nao_gostei').click(function() {
-            window.location='/problemas/?nao_gostei={{ problema.id }}';
+            window.location = '/problemas/?nao_gostei={{ problema.id }}';
         });
     });
     </script>
