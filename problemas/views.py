@@ -21,11 +21,14 @@ def problema_aleatorio(request):
     problemas_nao_gostei = []
     if request.session.has_key('problemas_que_nao_gostei'):
         problemas_nao_gostei = request.session['problemas_que_nao_gostei']
+
     if 'nao_gostei' in request.GET:
         problema_nao_gostei = Problema.objects.get(pk=int(request.GET['nao_gostei']))
-        problemas_visualizados.remove(problema_nao_gostei)
-        request.session['problemas_visualizados'] = problemas_visualizados
-        problemas_nao_gostei.append(problema_nao_gostei)
+        if problema_nao_gostei in problemas_visualizados:
+            problemas_visualizados.remove(problema_nao_gostei)
+            request.session['problemas_visualizados'] = problemas_visualizados
+        if problema_nao_gostei not in problemas_nao_gostei:
+            problemas_nao_gostei.append(problema_nao_gostei)
         request.session['problemas_que_nao_gostei'] = problemas_nao_gostei
 
     # TODO Acho que dá para melhorar esse trecho

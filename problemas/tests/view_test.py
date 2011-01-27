@@ -1,4 +1,4 @@
-#:-*- coding: utf-8 -*-
+#-*- coding: utf-8 -*-
 from django.test import TestCase
 from django.test.client import Client
 
@@ -171,7 +171,25 @@ class ProblemaNaoDesejadoTest(TestCase):
             self.assertTrue(problema_nao_gostei in problemas_que_nao_gostei)
         except KeyError:
             self.fail('Problema que o usuário não gostou não está na lista de problemas recusados.')
-            
+
+    def test_informando_que_nao_gostou_do_mesmo_problema_de_novo(self):
+        """ Se por algum motivo, forem feitas duas requisições informando que um problema não foi desejado
+        deve ignorar o fato e simplesmente abrir um novo problema aleatório """
+        problema_nao_gostei = Problema.objects.all()[0]
+        url_nao_gostei = "{0}?nao_gostei={1}".format(reverse('problema-aleatorio'), problema_nao_gostei.id)
+        response = self.client.get(url_nao_gostei, follow=True)
+        self.assertEqual(response.status_code, 200)
+        response = self.client.get(url_nao_gostei, follow=True)
+        self.assertEqual(response.status_code, 200)
+
+    def test_lista_de_nao_gostei_nao_tem_problemas_duplicados(self):
+        problema_nao_gostei = Problema.objects.all()[0]
+        url_nao_gostei = "{0}?nao_gostei={1}".format(reverse('problema-aleatorio'), problema_nao_gostei.id)
+        response = self.client.get(url_nao_gostei, follow=True)
+        response = self.client.get(url_nao_gostei, follow=True)
+        self.assertEqual(self.client.session['problemas_que_nao_gostei'], [problema_nao_gostei])
+
+
 class ProblemasGosteiTestCase(TestCase):
 
     def setUp(self):
