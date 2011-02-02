@@ -243,3 +243,6 @@ class ProblemasGosteiTestCase(TestCase):
         self.assertNotContains(response, 'id="botao_talvez"')
         self.assertNotContains(response, 'id="botao_nao_gostei"')
 
+    def test_pagina_404(self):
+      response = self.client.get(reverse('exibe-problema', args=['lala']))
+      self.assertTemplateUsed(response, '404.html')
