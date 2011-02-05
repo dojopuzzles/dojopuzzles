@@ -4,7 +4,10 @@
 <div id="column-one-content" class="box-content">
     <div class="main-content">
         <h1>{{ problema.titulo }}</h1>
-        
+        {% if problema.nome_contribuidor %}
+        <h2>Contribuição de: {{ problema.nome_contribuidor }}</h2>
+        {% endif %}
+
         {% if not request.session.problema_utilizado %}
         <p>
             <a id="botao_gostei" class="button" href="#" onclick="this.blur();"><span>Gostei! Vamos usar esse!</span></a>

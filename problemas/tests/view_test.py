@@ -6,6 +6,7 @@ from django.core.urlresolvers import reverse
 
 from dojopuzzles.problemas.models import Problema, ProblemaUtilizado
 
+
 class UrlsTestCase(TestCase):
     """ Testa as URLs da aplicação """
     def setUp(self):
@@ -13,16 +14,16 @@ class UrlsTestCase(TestCase):
                                  descricao="Descrição do Problema 1")
         self.problema.save()
         self.client = Client()
-            
+
     def test_existencia_urls(self):
         response = self.client.get(reverse('problema-aleatorio'))
-        self.assertNotEqual(response.status_code, 404)   
+        self.assertNotEqual(response.status_code, 404)
 
         response = self.client.get(reverse('exibe-problema', args=[self.problema.slug]))
         self.assertNotEqual(response.status_code, 404)
         titulo = "<title>DojoPuzzles.com - {0}</title>"
         self.assertContains(response, titulo.format(self.problema.titulo), 1)
-        
+
         response = self.client.get(reverse('exibe-problema-pelo-id', args=[self.problema.id]))
         self.assertNotEqual(response.status_code, 404)
         self.assertEqual(response.status_code, 302)
@@ -31,7 +32,7 @@ class UrlsTestCase(TestCase):
         response = self.client.get(reverse('sem-problemas-novos'))
         self.assertNotEqual(response.status_code, 404)
         self.assertContains(response, "<title>DojoPuzzles.com - Todos os problemas visualizados</title>", 1)
-        
+
         response = self.client.get(reverse('nenhum-problema-cadastrado'))
         self.assertNotEqual(response.status_code, 404)
         self.assertContains(response, "<title>DojoPuzzles.com - Nenhum problema cadastrado</title>", 1)
@@ -39,17 +40,18 @@ class UrlsTestCase(TestCase):
         response = self.client.get(reverse('todos-problemas'))
         self.assertNotEqual(response.status_code, 404)
         self.assertContains(response, "<title>DojoPuzzles.com - Problemas cadastrados</title>", 1)
-        
+
         response = self.client.get(reverse('problema-utilizado-em-dojo', args=[self.problema.id]), follow=True)
         self.assertNotEqual(response.status_code, 404)
         titulo = "<title>DojoPuzzles.com - {0}</title>"
         self.assertContains(response, titulo.format(self.problema.titulo), 1)
 
+
 class ExibicaoProblemaTestCase(TestCase):
 
     def setUp(self):
         # Cadastra 2 problemas que serão utilizados nos testes
-        for i in xrange(1,3):
+        for i in xrange(1, 3):
             titulo = "Título do Problema {0}".format(i)
             descricao = "Descrição do Problema {0}".format(i)
             problema = Problema(titulo=titulo, descricao=descricao)
@@ -90,6 +92,24 @@ class ExibicaoProblemaTestCase(TestCase):
         response = self.client.get(reverse('exibe-problema', args=[problema_exibido1.slug]), follow=True)
         problemas_visualizados = self.client.session['problemas_visualizados']
         self.assertEqual(problemas_visualizados.count(problema_exibido1), 1)
+
+    def test_problema_sem_contribuidor_nao_exibe_nome(self):
+        """ Um problema onde o contribuidor não é indicado, não deve exibir o título 'Contribuição de:' """
+        problema = Problema(titulo='Problema Não Contribuído',
+                            descricao='Problema Teste')
+        problema.save()
+        response = self.client.get(reverse('exibe-problema', args=[problema.slug]), follow=True)
+        self.assertNotContains(response, 'Contribuição de:')
+
+    def test_problema_com_contribuidor_exibe_nome(self):
+        """ Um problema onde o contribuidor é indicado, deve exibir o título 'Contribuição de: nome_contribuidor' """
+        problema = Problema(titulo='Problema Não Contribuído',
+                            descricao='Problema Teste',
+                            nome_contribuidor='Eu Que Contribui')
+        problema.save()
+        response = self.client.get(reverse('exibe-problema', args=[problema.slug]), follow=True)
+        self.assertContains(response, 'Contribuição de: Eu Que Contribui', 1)
+
 
 class ProblemaAleatorioTest(TestCase):
 
