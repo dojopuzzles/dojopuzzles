@@ -55,7 +55,7 @@ MEDIA_ROOT = '/directory/that/holds/media/'
 # Examples: "http://media.lawrence.com", "http://example.com/media/"
 MEDIA_URL = 'http://myhost/media/'
 
-# URL prefix for admin media -- CSS, JavaScript and images. Macontribuicoes/contribua/ke sure to use a
+# URL prefix for admin media -- CSS, JavaScript and images. Make sure to use a
 # trailing slash.
 # Examples: "http://foo.com/media/", "/media/".
 ADMIN_MEDIA_PREFIX = '/media_admin/'
@@ -86,6 +86,7 @@ TEMPLATE_DIRS = (
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
     os.path.join(SITE_ROOT, 'templates'),
+    os.path.join(SITE_ROOT, 'templates/admin'),
     os.path.join(SITE_ROOT, 'templates/problemas'),
     
 )
