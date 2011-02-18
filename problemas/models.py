@@ -26,6 +26,8 @@ class ProblemaUtilizado(models.Model):
     problema = models.ForeignKey(Problema)
     data_utilizacao = models.DateField(auto_now_add=True)
 
+    def __unicode__(self):
+        return "Problema utilizado: %s" % (self.problema.titulo, )
 
 def problema_pre_save(signal, instance, sender, **kwargs):
     instance.slug = slugify(instance.titulo)
