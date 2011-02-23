@@ -27,28 +27,36 @@ def contribuicao(request):
     if request.method == 'POST':
         form = ContribuicaoForm(request.POST)
         if form.is_valid():
+            emails_a_enviar = []
+
             assunto = form.cleaned_data['assunto']
             if assunto == 'CONTATO':
                 subject = 'DojoPuzzles.com - Contato realizado através do site'
 
-                send_mail(subject,
-                          form.cleaned_data['mensagem'],
-                          form.cleaned_data['email'],
-                          ['rennerocha@gmail.com'],
-                          fail_silently=False)
+                emails_a_enviar.append({'subject':subject,
+                                        'message':form.cleaned_data['mensagem'],
+                                        'from_email':form.cleaned_data['email'],
+                                        'recipient_list':['rennerocha@gmail.com'],
+                                        'fail_silently':False})
 
             elif assunto == 'PROBLEMA_NOVO':
                 subject = 'DojoPuzzles.com - Obrigado pela contribuição'
-                send_mail(subject,
-                          MENSAGEM_AGRADECIMENTO.format(form.cleaned_data['nome']),
-                          'contato@dojopuzzles.com',
-                          [form.cleaned_data['email']],
-                          fail_silently=False)
+
+                emails_a_enviar.append({'subject':subject,
+                                        'message':MENSAGEM_AGRADECIMENTO.format(form.cleaned_data['nome']),
+                                        'from_email':'contato@dojopuzzles.com',
+                                        'recipient_list':[form.cleaned_data['email']],
+                                        'fail_silently':False})
 
                 subject = 'DojoPuzzles.com - Nova contribuição de problema'
-                send_mail(subject, form.cleaned_data['mensagem'], 
-                          form.cleaned_data['email'], ['rennerocha@gmail.com'], 
-                          fail_silently=False)
+                emails_a_enviar.append({'subject':subject,
+                                        'message':form.cleaned_data['mensagem'],
+                                        'from_email':form.cleaned_data['email'],
+                                        'recipient_list':['rennerocha@gmail.com'],
+                                        'fail_silently':False})
+
+            for email in emails_a_enviar:
+                send_mail(**email)
 
             return HttpResponseRedirect(reverse('contribuicao-recebida'))
     else:
