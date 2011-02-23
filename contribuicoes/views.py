@@ -45,7 +45,7 @@ def contribuicao(request):
             elif assunto == 'PROBLEMA_NOVO':
                 subject = 'DojoPuzzles.com - Obrigado pela contribuição'
                 mensagem_agradecimento = MENSAGEM_AGRADECIMENTO.format(form.cleaned_data['nome'])
-                
+
                 emails_a_enviar.append({'subject': subject,
                                         'message': mensagem_agradecimento,
                                         'from_email': email_administracao,
