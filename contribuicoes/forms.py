@@ -1,9 +1,10 @@
-#!-*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 from django import forms
 
 ASSUNTO_CHOICES = (
-    ('PROBLEMA_NOVO', 'Contribuir com um problema novo'),
-    ('CONTATO', 'Contato'),
+    ('', '---------'),
+    ('PROBLEMA_NOVO', u'Envio de novo problema'),
+    ('CONTATO', 'Quero entrar em contato com a equipe'),
 )
 
 class ContribuicaoForm(forms.Form):

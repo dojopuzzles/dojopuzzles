@@ -43,6 +43,18 @@
             $('#botao_enviar').click(function() {
                 $('#contribua_form').submit();
             });
+
+            $('#id_assunto').change(function() {
+                var assunto = $('#id_assunto').val();
+
+                if (assunto == 'PROBLEMA_NOVO') {
+                    $('label[for=id_mensagem]').html('Seu Problema');
+                } else {
+                    $('label[for=id_mensagem]').html('Sua Mensagem');
+                }
+
+            });
+
         });
     </script>
 {% endblock javascript %}
