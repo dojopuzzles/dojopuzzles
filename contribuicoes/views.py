@@ -29,31 +29,35 @@ def contribuicao(request):
         if form.is_valid():
             emails_a_enviar = []
 
+            mensagem = form.cleaned_data['mensagem']
+            email_administracao = 'contato@dojopuzzles.com'
+            remetente = form.cleaned_data['email']
+
             assunto = form.cleaned_data['assunto']
             if assunto == 'CONTATO':
                 subject = 'DojoPuzzles.com - Contato realizado através do site'
-
-                emails_a_enviar.append({'subject':subject,
-                                        'message':form.cleaned_data['mensagem'],
-                                        'from_email':form.cleaned_data['email'],
-                                        'recipient_list':['rennerocha@gmail.com'],
-                                        'fail_silently':False})
+                emails_a_enviar.append({'subject': subject,
+                                        'message': mensagem,
+                                        'from_email': remetente,
+                                        'recipient_list': [email_administracao],
+                                        'fail_silently': False})
 
             elif assunto == 'PROBLEMA_NOVO':
                 subject = 'DojoPuzzles.com - Obrigado pela contribuição'
-
-                emails_a_enviar.append({'subject':subject,
-                                        'message':MENSAGEM_AGRADECIMENTO.format(form.cleaned_data['nome']),
-                                        'from_email':'contato@dojopuzzles.com',
-                                        'recipient_list':[form.cleaned_data['email']],
-                                        'fail_silently':False})
+                mensagem_agradecimento = MENSAGEM_AGRADECIMENTO.format(form.cleaned_data['nome'])
+                
+                emails_a_enviar.append({'subject': subject,
+                                        'message': mensagem_agradecimento,
+                                        'from_email': email_administracao,
+                                        'recipient_list': [remetente],
+                                        'fail_silently': False})
 
                 subject = 'DojoPuzzles.com - Nova contribuição de problema'
                 emails_a_enviar.append({'subject':subject,
-                                        'message':form.cleaned_data['mensagem'],
-                                        'from_email':form.cleaned_data['email'],
-                                        'recipient_list':['rennerocha@gmail.com'],
-                                        'fail_silently':False})
+                                        'message': mensagem,
+                                        'from_email': remetente,
+                                        'recipient_list': [email_administracao],
+                                        'fail_silently': False})
 
             for email in emails_a_enviar:
                 send_mail(**email)

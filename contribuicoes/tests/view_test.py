@@ -44,7 +44,7 @@ class EnvioContribuicaoTestCase(TestCase):
         self.assertEqual(mail.outbox[0].body, 'Esta mensagem de teste')
         self.assertEqual(mail.outbox[0].subject, 'DojoPuzzles.com - Contato realizado através do site')
         self.assertEqual(mail.outbox[0].from_email, 'usuario@teste.com')
-        self.assertEqual(mail.outbox[0].to, ['rennerocha@gmail.com'])
+        self.assertEqual(mail.outbox[0].to, ['contato@dojopuzzles.com'])
         self.assertRedirects(response, reverse('contribuicao-recebida'))
 
     def test_deve_enviar_email_de_agradecimento_ao_remetente(self):
@@ -70,6 +70,6 @@ class EnvioContribuicaoTestCase(TestCase):
         self.assertEqual(mail.outbox[1].body, 'Esta mensagem de teste')
         self.assertEqual(mail.outbox[1].subject, 'DojoPuzzles.com - Nova contribuição de problema')
         self.assertEqual(mail.outbox[1].from_email, 'usuario@teste.com')
-        self.assertEqual(mail.outbox[1].to, ['rennerocha@gmail.com'])
+        self.assertEqual(mail.outbox[1].to, ['contato@dojopuzzles.com'])
 
         self.assertRedirects(response, reverse('contribuicao-recebida'))
