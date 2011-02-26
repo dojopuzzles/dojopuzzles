@@ -7,6 +7,7 @@ from django.shortcuts import render_to_response
 from django.template import RequestContext
 
 from dojopuzzles.contribuicoes.forms import ContribuicaoForm
+from dojopuzzles.problemas.models import Problema
 
 MENSAGEM_AGRADECIMENTO = """
   {0},
@@ -32,6 +33,7 @@ def contribuicao(request):
             mensagem = form.cleaned_data['mensagem']
             email_administracao = 'contato@dojopuzzles.com'
             remetente = form.cleaned_data['email']
+            nome_remetente = form.cleaned_data['nome']
 
             assunto = form.cleaned_data['assunto']
             if assunto == 'CONTATO':
@@ -44,7 +46,7 @@ def contribuicao(request):
 
             elif assunto == 'PROBLEMA_NOVO':
                 subject = 'DojoPuzzles.com - Obrigado pela contribuição'
-                mensagem_agradecimento = MENSAGEM_AGRADECIMENTO.format(form.cleaned_data['nome'])
+                mensagem_agradecimento = MENSAGEM_AGRADECIMENTO.format(nome_remetente)
 
                 emails_a_enviar.append({'subject': subject,
                                         'message': mensagem_agradecimento,
@@ -58,6 +60,11 @@ def contribuicao(request):
                                         'from_email': remetente,
                                         'recipient_list': [email_administracao],
                                         'fail_silently': False})
+
+                problema = Problema(descricao=mensagem,
+                                    nome_contribuidor=nome_remetente,
+                                    publicado=False)
+                problema.save()
 
             for email in emails_a_enviar:
                 send_mail(**email)

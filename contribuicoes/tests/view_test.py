@@ -73,3 +73,24 @@ class EnvioContribuicaoTestCase(TestCase):
         self.assertEqual(mail.outbox[1].to, ['contato@dojopuzzles.com'])
 
         self.assertRedirects(response, reverse('contribuicao-recebida'))
+
+    def test_contribuicao_de_problema_cria_novo_problema_no_bd(self):
+        """
+        Ao enviar um novo problema pelo formulário de contato deve cadastrar
+        esta contribuição na tabela de Problemas como um problema não publicado.
+        """
+        from dojopuzzles.problemas.models import Problema
+
+        self.assertEquals(Problema.objects.count(), 0)
+        dados_formulario = {'nome':'Usuario Teste',
+                            'email':'usuario@teste.com',
+                            'assunto':'PROBLEMA_NOVO',
+                            'mensagem':'Esta mensagem de teste',}
+        response = self.client.post(reverse('contribua'), dados_formulario)
+
+        self.assertEquals(Problema.objects.count(), 1)
+        problema = Problema.objects.all()[0]
+
+        self.assertEquals(problema.descricao, 'Esta mensagem de teste')
+        self.assertEquals(problema.nome_contribuidor, 'Usuario Teste')
+        self.assertFalse(problema.publicado)
