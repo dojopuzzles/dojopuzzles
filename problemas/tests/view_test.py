@@ -7,12 +7,22 @@ from django.core.urlresolvers import reverse
 from dojopuzzles.problemas.models import Problema, ProblemaUtilizado
 
 
+def novo_problema(dados_problema):
+    numero_problemas = Problema.objects.count()
+    indice = numero_problemas + 1
+
+    dados_problema.setdefault('titulo', "Título Problema Teste {0}".format(indice))
+    dados_problema.setdefault('publicado', True)
+
+    problema = Problema(**dados_problema)
+    problema.save()
+
+    return problema
+
 class UrlsTestCase(TestCase):
     """ Testa as URLs da aplicação """
     def setUp(self):
-        self.problema = Problema(titulo="Título do Problema 1",
-                                 descricao="Descrição do Problema 1")
-        self.problema.save()
+        self.problema = novo_problema({})
         self.client = Client()
 
     def test_existencia_urls(self):
@@ -52,10 +62,11 @@ class ExibicaoProblemaTestCase(TestCase):
     def setUp(self):
         # Cadastra 2 problemas que serão utilizados nos testes
         for i in xrange(1, 3):
-            titulo = "Título do Problema {0}".format(i)
-            descricao = "Descrição do Problema {0}".format(i)
-            problema = Problema(titulo=titulo, descricao=descricao)
-            problema.save()
+            #titulo = "Título do Problema {0}".format(i)
+            #descricao = "Descrição do Problema {0}".format(i)
+            #problema = Problema(titulo=titulo, descricao=descricao)
+            #problema.save()
+            novo_problema({})
         self.client = Client()
         
     def tearDown(self):
@@ -95,20 +106,23 @@ class ExibicaoProblemaTestCase(TestCase):
 
     def test_problema_sem_contribuidor_nao_exibe_nome(self):
         """ Um problema onde o contribuidor não é indicado, não deve exibir o título 'Contribuição de:' """
-        problema = Problema(titulo='Problema Não Contribuído',
-                            descricao='Problema Teste')
-        problema.save()
+        problema = novo_problema({})
         response = self.client.get(reverse('exibe-problema', args=[problema.slug]), follow=True)
         self.assertNotContains(response, 'Contribuição de:')
 
     def test_problema_com_contribuidor_exibe_nome(self):
         """ Um problema onde o contribuidor é indicado, deve exibir o título 'Contribuição de: nome_contribuidor' """
-        problema = Problema(titulo='Problema Não Contribuído',
-                            descricao='Problema Teste',
-                            nome_contribuidor='Eu Que Contribui')
-        problema.save()
+        problema = novo_problema({'nome_contribuidor': 'Eu Que Contribui'})
         response = self.client.get(reverse('exibe-problema', args=[problema.slug]), follow=True)
         self.assertContains(response, 'Contribuição de: Eu Que Contribui', 1)
+
+    def test_nao_exibe_problema_nao_publicado(self):
+        """
+        Um problema não publicado não pode ser exibido para o usuário
+        """
+        problema = novo_problema({'publicado': False})
+        response = self.client.get(reverse('exibe-problema', args=[problema.slug]))
+        self.assertTemplateUsed(response, '404.html')
 
 
 class ProblemaAleatorioTest(TestCase):
@@ -116,10 +130,7 @@ class ProblemaAleatorioTest(TestCase):
     def setUp(self):
         # Cadastra 10 problemas que serão utilizados nos testes
         for i in xrange(1,11):
-            titulo = "Título do Problema {0}".format(i)
-            descricao = "Descrição do Problema {0}".format(i)
-            problema = Problema(titulo=titulo, descricao=descricao)
-            problema.save()
+            novo_problema({})
         self.client = Client()
 
     def tearDown(self):
@@ -149,15 +160,27 @@ class ProblemaAleatorioTest(TestCase):
         self.assertEqual(len(self.client.session['problemas_visualizados']), numero_problemas)
         self.assertRedirects(response, reverse('sem-problemas-novos'))
 
+    def test_nao_deve_exibir_nao_publicado_como_aleatorio(self):
+        """
+        Ao solicitar um problema aleatório não deve exibir os problemas não publicados
+        """
+        Problema.objects.all().delete()
+        problema_publicado = novo_problema({'publicado': True})
+        problema_nao_publicado = novo_problema({'publicado': False})
+        response = self.client.get(reverse('problema-aleatorio'), follow=True)
+        titulo = "<title>DojoPuzzles.com - {0}</title>"
+        self.assertContains(response, titulo.format(problema_publicado.titulo), 1)
+
+        response = self.client.get(reverse('problema-aleatorio'), follow=True)
+        self.assertRedirects(response, reverse('sem-problemas-novos'))
+
+
 class ProblemaNaoDesejadoTest(TestCase):
 
     def setUp(self):
         # Cadastra 5 problemas que serão utilizados nos testes
         for i in xrange(1,6):
-            titulo = "Título do Problema {0}".format(i)
-            descricao = "Descrição do Problema {0}".format(i)
-            problema = Problema(titulo=titulo, descricao=descricao)
-            problema.save()
+            novo_problema({})
         self.client = Client()
 
     def test_se_usuario_nao_gostar_do_problema(self):
@@ -213,9 +236,7 @@ class ProblemaNaoDesejadoTest(TestCase):
 class ProblemasGosteiTestCase(TestCase):
 
     def setUp(self):
-        titulo = "Título do Problema 1"
-        descricao = "Descrição do Problema 1"
-        self.problema = Problema(titulo=titulo, descricao=descricao)
+        self.problema = novo_problema({})
         self.problema.save()
         self.client = Client()
         

@@ -10,6 +10,7 @@ class Problema(models.Model):
     descricao = models.TextField()
     nome_contribuidor = models.CharField(max_length=100, blank=True)
     slug = models.SlugField(max_length=100, blank=False, unique=True)
+    publicado = models.BooleanField(default=False)
 
     def __unicode__(self):
         return self.titulo

@@ -43,7 +43,7 @@ def problema_aleatorio(request):
     # TODO Este modo de obter um registro aleatório é considerado muito
     # lento pela documentação do Django. É necessário fazer uma
     # solução melhor.
-    problemas = Problema.objects.exclude(id__in=ids_problemas_visualizados).exclude(id__in=ids_problemas_nao_gostei).order_by('?')
+    problemas = Problema.objects.exclude(id__in=ids_problemas_visualizados).exclude(id__in=ids_problemas_nao_gostei).exclude(publicado=False).order_by('?')
     if(len(problemas) == 0):
         return HttpResponseRedirect(reverse('sem-problemas-novos'))
     else:
@@ -53,7 +53,7 @@ def problema_aleatorio(request):
 def exibe_problema(request, slug):
     """ Exibe o problema informado """
     try:
-        problema = Problema.objects.get(slug = slug)
+        problema = Problema.objects.get(slug = slug, publicado = True)
 
         problemas_visualizados = []
         if request.session.has_key('problemas_visualizados'):
