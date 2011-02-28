@@ -287,3 +287,21 @@ class ProblemasGosteiTestCase(TestCase):
     def test_pagina_404(self):
       response = self.client.get(reverse('exibe-problema', args=['lala']))
       self.assertTemplateUsed(response, '404.html')
+
+
+class ListagemProblemasTestCase(TestCase):
+
+    def setUp(self):
+        self.client = Client()
+
+    def test_listagem_exibe_so_publicados(self):
+        """
+        A listagem de problemas deve exibir somente os problemas publicados.
+        """
+        problema1 = novo_problema({'publicado': False})
+        problema2 = novo_problema({'publicado': True})
+
+        response = self.client.get(reverse('todos-problemas'))
+
+        self.assertNotContains(response, problema1.titulo)
+        self.assertContains(response, problema2.titulo, 1)

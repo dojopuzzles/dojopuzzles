@@ -11,6 +11,6 @@ urlpatterns = patterns('',
     url(r'^todos_visualizados/$', 'dojopuzzles.problemas.views.sem_problemas_novos', name='sem-problemas-novos'),
     url(r'^nenhum_problema/$', 'dojopuzzles.problemas.views.sem_problemas', name='nenhum-problema-cadastrado'),
     url(r'^todos/$', 'django.views.generic.list_detail.object_list',
-        {'queryset':Problema.objects.all().order_by('titulo'),
+        {'queryset':Problema.objects.filter(publicado=True).order_by('titulo'),
          'paginate_by': 15, 'extra_context':{'titulo_pagina': 'Problemas cadastrados'}},  name='todos-problemas'), 
 )
