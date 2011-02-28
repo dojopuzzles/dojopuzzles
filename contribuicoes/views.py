@@ -34,6 +34,7 @@ def contribuicao(request):
             email_administracao = 'contato@dojopuzzles.com'
             remetente = form.cleaned_data['email']
             nome_remetente = form.cleaned_data['nome']
+            titulo_problema = form.cleaned_data['titulo_problema']
 
             assunto = form.cleaned_data['assunto']
             if assunto == 'CONTATO':
@@ -61,7 +62,8 @@ def contribuicao(request):
                                         'recipient_list': [email_administracao],
                                         'fail_silently': False})
 
-                problema = Problema(descricao=mensagem,
+                problema = Problema(titulo=titulo_problema,
+                                    descricao=mensagem,
                                     nome_contribuidor=nome_remetente,
                                     publicado=False)
                 problema.save()

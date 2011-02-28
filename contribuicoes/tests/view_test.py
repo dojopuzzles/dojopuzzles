@@ -1,4 +1,4 @@
-#:-*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 from django.test import TestCase
 from django.test.client import Client
 
@@ -57,6 +57,7 @@ class EnvioContribuicaoTestCase(TestCase):
         dados_formulario = {'nome':'Usuario Teste',
                             'email':'usuario@teste.com',
                             'assunto':'PROBLEMA_NOVO',
+                            'titulo_problema': 'Problema Teste',
                             'mensagem':'Esta mensagem de teste',}
         response = self.client.post(reverse('contribua'), dados_formulario)
         self.assertEqual(len(mail.outbox), 2)
@@ -85,12 +86,30 @@ class EnvioContribuicaoTestCase(TestCase):
         dados_formulario = {'nome':'Usuario Teste',
                             'email':'usuario@teste.com',
                             'assunto':'PROBLEMA_NOVO',
+                            'titulo_problema': 'Problema Teste',
                             'mensagem':'Esta mensagem de teste',}
         response = self.client.post(reverse('contribua'), dados_formulario)
 
         self.assertEquals(Problema.objects.count(), 1)
         problema = Problema.objects.all()[0]
 
+        self.assertEquals(problema.titulo, 'Problema Teste')
         self.assertEquals(problema.descricao, 'Esta mensagem de teste')
         self.assertEquals(problema.nome_contribuidor, 'Usuario Teste')
         self.assertFalse(problema.publicado)
+
+    def test_contribuicao_problema_deve_ter_titulo(self):
+        """
+        Ao contribuir com um problema, o campo 'Título do Problema' deve ser de preenchimento
+        obrigatório.
+        """
+        from dojopuzzles.problemas.models import Problema
+
+        self.assertEquals(Problema.objects.count(), 0)
+        dados_formulario = {'nome':'Usuario Teste',
+                            'email':'usuario@teste.com',
+                            'assunto':'PROBLEMA_NOVO',
+                            'mensagem':'Esta mensagem de teste',}
+        response = self.client.post(reverse('contribua'), dados_formulario)
+        self.assertContains(response, 'Informe o título do problema.', 1)
+        self.assertEquals(Problema.objects.count(), 0)

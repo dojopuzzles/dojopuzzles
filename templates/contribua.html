@@ -25,10 +25,12 @@
     mais pessoas possam utilizá-los em seus encontros.</p>
     <hr/>
     <form method="POST" action="." id="contribua_form">{% csrf_token %}<br/>
+    {{ form.non_field_errors }}
     <ul class="formulario">
         <li>{{ form.nome.label_tag }}{{ form.nome }}{{ form.nome.errors }}</li>
         <li>{{ form.email.label_tag }}{{ form.email }}{{ form.email.errors }}</li>
         <li>{{ form.assunto.label_tag }}{{ form.assunto }}{{ form.assunto.errors }}</li>
+        <li>{{ form.titulo_problema.label_tag }}{{ form.titulo_problema }}{{ form.titulo_problema.errors }}</li>
         <li>{{ form.mensagem.label_tag }}{{ form.mensagem }}{{ form.mensagem.errors }}</li>
     </ul>
     <a id="botao_enviar" class="button" href="#" onclick="this.blur();"><span>Enviar mensagem</span></a>
