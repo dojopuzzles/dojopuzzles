@@ -8,7 +8,7 @@ from django.template.defaultfilters import slugify
 class Problema(models.Model):
     titulo = models.CharField(max_length=100, unique=True)
     descricao = models.TextField()
-    nome_contribuidor = models.CharField(max_length=100, blank=True)
+    nome_contribuidor = models.CharField(max_length=100, blank=True, null=True)
     slug = models.SlugField(max_length=100, blank=False, unique=True)
     publicado = models.BooleanField(default=False)
 
