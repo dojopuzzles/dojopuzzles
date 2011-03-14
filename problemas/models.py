@@ -1,4 +1,4 @@
-#-*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 from django.core.urlresolvers import reverse
 from django.db import models
 from django.db.models import signals
@@ -22,10 +22,17 @@ class Problema(models.Model):
         return ProblemaUtilizado.objects.filter(problema=self).count()
     utilizacoes = property(_get_utilizacoes)
 
+    def utilizar(self):
+        """
+        Informa que o problema foi utilizado em um Dojo.
+        """
+        utilizado = ProblemaUtilizado(problema=self)
+        utilizado.save()
+
 
 class ProblemaUtilizado(models.Model):
     problema = models.ForeignKey(Problema)
-    data_utilizacao = models.DateField(auto_now_add=True)
+    data_utilizacao = models.DateTimeField(auto_now_add=True)
 
     def __unicode__(self):
         return "Problema utilizado: %s" % (self.problema.titulo, )

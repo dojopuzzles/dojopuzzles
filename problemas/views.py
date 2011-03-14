@@ -5,7 +5,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 
-from dojopuzzles.problemas.models import Problema, ProblemaUtilizado
+from dojopuzzles.problemas.models import Problema
 
 def problema_aleatorio(request):
     """ Exibe um problema aleatório da lista de problemas cadastrados """
@@ -89,7 +89,7 @@ def sem_problemas(request):
 def problema_utilizado(request, problema_id):
     try:
         problema = Problema.objects.get(pk=problema_id)
-        ProblemaUtilizado(problema=problema).save()
+        problema.utilizar()
         request.session['problema_utilizado'] = problema
         return HttpResponseRedirect(reverse('exibe-problema', args=[problema.slug]))
     except Problema.DoesNotExist:

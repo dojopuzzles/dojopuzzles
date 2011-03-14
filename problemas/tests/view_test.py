@@ -5,19 +5,8 @@ from django.test.client import Client
 from django.core.urlresolvers import reverse
 
 from dojopuzzles.problemas.models import Problema, ProblemaUtilizado
+from dojopuzzles.problemas.tests.utils_test import novo_problema
 
-
-def novo_problema(dados_problema):
-    numero_problemas = Problema.objects.count()
-    indice = numero_problemas + 1
-
-    dados_problema.setdefault('titulo', "Título Problema Teste {0}".format(indice))
-    dados_problema.setdefault('publicado', True)
-
-    problema = Problema(**dados_problema)
-    problema.save()
-
-    return problema
 
 class UrlsTestCase(TestCase):
     """ Testa as URLs da aplicação """

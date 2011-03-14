@@ -6,13 +6,16 @@ from dojopuzzles.problemas.models import Problema, ProblemaUtilizado
 
 register = Library()
 
+
 class ProblemasMaisUtilizadosNode(Node):
 
     def render(self, context):
         context['problemas_utilizados'] = []
-        problemas_utilizados = ProblemaUtilizado.objects.values('problema').annotate(Count('problema'))[:5]
+        problemas_utilizados = ProblemaUtilizado.objects.values('problema').annotate(Count('id')).order_by('id__count', '-data_utilizacao')[:5]
+        problemas = []
         for problema in problemas_utilizados:
-            context['problemas_utilizados'].append(Problema.objects.get(pk=problema['problema']))
+            problemas.append(Problema.objects.get(pk=problema['problema']))
+        context['problemas_utilizados'] = sorted(problemas, key=lambda a: a.utilizacoes, reverse=True)
         return ''
 
 def get_problemas_mais_utilizados(parser, token):
