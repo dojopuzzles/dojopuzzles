@@ -100,6 +100,15 @@ body {
     font-size: 12px;
 }
 
+.two-column-content a:link, a:visited, a:active, a:hover {
+    text-decoration: none;
+    color: #010101;
+}
+
+.two-column-content a:hover {
+    color: #E91B1B;
+}
+
 .main-content {
     padding: 10px;
     font-family: Verdana, sans-serif;
