@@ -6,6 +6,7 @@ from django.test.client import Client
 from dojopuzzles.problemas.models import ProblemaUtilizado
 from dojopuzzles.problemas.tests.utils_test import novo_problema
 
+ITEM_MAIS_UTILIZADO = u"%s (%s)"
 
 class VisualizacaoProblemasMaisUtilizadosTestCase(TestCase):
 
@@ -86,6 +87,7 @@ class VisualizacaoProblemasMaisUtilizadosTestCase(TestCase):
         problema2.utilizar()
         problema3.utilizar()
         problema4.utilizar()
+        problema5.utilizar()
         problema5.utilizar()
         problema6.utilizar()
 
