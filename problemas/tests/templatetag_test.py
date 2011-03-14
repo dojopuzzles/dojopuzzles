@@ -22,7 +22,7 @@ class VisualizacaoProblemasMaisUtilizadosTestCase(TestCase):
         self.assertNotContains(response, u'MAIS UTILIZADOS')
 
     def teste_existe_problema_utilizado(self):
-    """
+        """
         Se ao menos um problema tiver sido indicado como utilizado
         deve exibir o bloca de problemas utilizados.
         """
