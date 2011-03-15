@@ -11,7 +11,9 @@ class ProblemasMaisUtilizadosNode(Node):
 
     def render(self, context):
         context['problemas_utilizados'] = []
-        problemas_utilizados = ProblemaUtilizado.objects.values('problema').annotate(Count('id')).order_by('id__count', '-data_utilizacao')[:5]
+
+        # TODO Para problemas com o mesmo número de utilizações, não está sendo ordenado pela data de utilização
+        problemas_utilizados = ProblemaUtilizado.objects.all().values('problema').annotate(Count('problema')).order_by('-problema__count')
         problemas = []
         for problema in problemas_utilizados:
             problemas.append(Problema.objects.get(pk=problema['problema']))
