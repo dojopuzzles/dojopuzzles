@@ -84,18 +84,31 @@ class VisualizacaoProblemasMaisUtilizadosTestCase(TestCase):
         problema6 = novo_problema({})
 
         problema1.utilizar()
+        problema1.utilizar()
+        problema1.utilizar()
+        problema1.utilizar()
+
         problema2.utilizar()
+        problema2.utilizar()
+        problema2.utilizar()
+
         problema3.utilizar()
+        problema3.utilizar()
+
         problema4.utilizar()
+        problema4.utilizar()
+
         problema5.utilizar()
         problema5.utilizar()
+
+        problema6.utilizar()
         problema6.utilizar()
 
         response = self.client.get(reverse('inicio'))
 
-        self.assertNotContains(response, problema1.titulo)
+        self.assertNotContains(response, problema6.titulo)
+        self.assertContains(response, problema1.titulo, 1)
         self.assertContains(response, problema2.titulo, 1)
         self.assertContains(response, problema3.titulo, 1)
         self.assertContains(response, problema4.titulo, 1)
         self.assertContains(response, problema5.titulo, 1)
-        self.assertContains(response, problema6.titulo, 1)
