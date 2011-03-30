@@ -17,6 +17,11 @@
     <p>Existem diversas p&aacute;ginas na Internet com problemas dos mais
     variados formatos que podem ser utilizados em um Dojo. Aqui voc&ecirc; tem
     mais uma op&ccedil;&atilde;o para encontrar o seu problema.</p>
+
+    {% if problemas_utilizados > 0 %}
+    <h2>Os problemas deste site já foram utilizados em {{ problemas_utilizados }} Coding Dojos!!!</h2>
+    {% endif %}
+
 </div>
 {% endblock %}
 
