@@ -110,6 +110,8 @@ INSTALLED_APPS = (
     'dojopuzzles.contribuicoes',
 )
 
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+
 # Suas configurações de e-mail
 EMAIL_USE_TLS       = True
 EMAIL_HOST          = ''
