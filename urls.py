@@ -5,6 +5,8 @@ from django.http import HttpResponse
 
 from django.views.generic.simple import direct_to_template
 
+from dojopuzzles.problemas.models import ProblemaUtilizado
+
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
 admin.autodiscover()
@@ -14,7 +16,9 @@ urlpatterns = patterns('',
     (r'contribuicoes/', include('dojopuzzles.contribuicoes.urls')),
 
     url(r'^$', 'django.views.generic.simple.direct_to_template',
-        {'template': 'index.html'}, name='inicio'),
+        {'template': 'index.html', 
+         'extra_context': {'problemas_utilizados': ProblemaUtilizado.objects.count()}}, 
+         name='inicio'),
     url(r'^sobre/$', 'django.views.generic.simple.direct_to_template',
         {'template': 'sobre.html', 'extra_context':{'titulo_pagina':'Sobre'}}, name='sobre'),
 
