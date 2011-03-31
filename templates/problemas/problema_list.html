@@ -2,44 +2,42 @@
 
 {% block column-one-content %}
 <div class="grid_9">
-    <div id="column-one-content" class="box-content">
-        <div class="main-content">
-            <h1>Todos os problemas</h1>
+    <div class="one-column-content box-content">
+        <h1>Todos os problemas</h1>
 
-            {{ hits }} problemas cadastrados.
-            
-            {% if is_paginated %}
-                <br/><br/>
-                Problema {{ first_on_page }} ao problema {{ last_on_page }}.
+        {{ hits }} problemas cadastrados.
+        
+        {% if is_paginated %}
+            <br/><br/>
+            Problema {{ first_on_page }} ao problema {{ last_on_page }}.
+        {% endif %}
+
+        <ul>
+        {% for problema in object_list %}
+            <li><a href="{{ problema.get_absolute_url }}">{{ problema.titulo }}</a></li>
+        {% empty %}
+            <li>Nenhum problema encontrado</li>
+        {% endfor %}
+        </ul>
+
+        {% if is_paginated %}
+            <br/>
+            {% if has_previous %}
+                <a href="?page={{ previous }}">anterior</a> |
             {% endif %}
 
-            <ul>
-            {% for problema in object_list %}
-                <li><a href="{{ problema.get_absolute_url }}">{{ problema.titulo }}</a></li>
-            {% empty %}
-                <li>Nenhum problema encontrado</li>
+            {% for pagenumber in page_range %}
+                {% if pagenumber == page %}
+                    {{ pagenumber }} |
+                {% else %}
+                    <a href="?page={{ pagenumber }}">{{ pagenumber }}</a> |
+                {% endif %}
             {% endfor %}
-            </ul>
 
-            {% if is_paginated %}
-                <br/>
-                {% if has_previous %}
-                    <a href="?page={{ previous }}">anterior</a> |
-                {% endif %}
-
-                {% for pagenumber in page_range %}
-                    {% if pagenumber == page %}
-                        {{ pagenumber }} |
-                    {% else %}
-                        <a href="?page={{ pagenumber }}">{{ pagenumber }}</a> |
-                    {% endif %}
-                {% endfor %}
-
-                {% if has_next %}
-                    <a href="?page={{ next }}">próxima</a>
-                {% endif %}
+            {% if has_next %}
+                <a href="?page={{ next }}">próxima</a>
             {% endif %}
-        </div>
+        {% endif %}
     </div>
 </div>
 {% endblock %}

@@ -2,39 +2,36 @@
 
 {% block column-one-content %}
 <div class="grid_9">
-    <div id="column-one-content" class="box-content">
-        <div class="main-content">
-            <h1>{{ problema.titulo }}</h1>
-            {% if problema.nome_contribuidor %}
-            <h2>Contribuição de: {{ problema.nome_contribuidor }}</h2>
-            {% endif %}
+    <div class="one-column-content box-content">
+        <h1>{{ problema.titulo }}</h1>
+        {% if problema.nome_contribuidor %}
+        <h2>Contribuição de: {{ problema.nome_contribuidor }}</h2>
+        {% endif %}
 
-            {% if not request.session.problema_utilizado %}
-            <p>
-                <a id="botao_gostei" class="button" href="#" onclick="this.blur();"><span>Gostei! Vamos usar esse!</span></a>
-                <a id="botao_talvez" class="button" href="#" onclick="this.blur();"><span>Talvez. Mas mostre-me outro.</span></a>
-                <a id="botao_nao_gostei" class="button" href="#" onclick="this.blur();"><span>Não gostei! Mostre-me outro.</span></a>
-            </p>
-            {% else %}
-                {% if request.session.problema_utilizado == problema %}
-                Você está resolvendo este problema.
-                {% endif %}
+        {% if not request.session.problema_utilizado %}
+        <p>
+            <a id="botao_gostei" class="button" href="#" onclick="this.blur();"><span>Gostei! Vamos usar esse!</span></a>
+            <a id="botao_talvez" class="button" href="#" onclick="this.blur();"><span>Talvez. Mas mostre-me outro.</span></a>
+            <a id="botao_nao_gostei" class="button" href="#" onclick="this.blur();"><span>Não gostei! Mostre-me outro.</span></a>
+        </p>
+        {% else %}
+            {% if request.session.problema_utilizado == problema %}
+            Você está resolvendo este problema.
             {% endif %}
+        {% endif %}
 
-            <br/><p>
-            {% if problema.utilizacoes == 0 %}
-                Este problema ainda não foi utilizado em nenhum Dojo.
-            {% else %}
-                Este problema foi utilizado em {{ problema.utilizacoes }} Dojo(s).
-            {% endif %}
-            </p>
+        <br/><p>
+        {% if problema.utilizacoes == 0 %}
+            Este problema ainda não foi utilizado em nenhum Dojo.
+        {% else %}
+            Este problema foi utilizado em {{ problema.utilizacoes }} Dojo(s).
+        {% endif %}
+        </p>
 
-            <div id="descricao_problema">
-                {% autoescape off %}
-                    {{ problema.descricao }}
-                {% endautoescape %}
-            </div>
-            <br/>
+        <div id="descricao_problema">
+            {% autoescape off %}
+                {{ problema.descricao }}
+            {% endautoescape %}
         </div>
     </div>
 </div>
@@ -42,15 +39,13 @@
 
 {% block sidebar %}
 <div class="grid_3">
-    <div id="sidebar" class="box-content">
-        <div class="sidebar-box">
-            <h1>Já visualizados</h1>
-            <ul>
-            {% for visualizado in problemas_visualizados %}
-                <li><a href="{{ visualizado.get_absolute_url }}">{{ visualizado.titulo }}</a></li>
-            {% endfor %}
-            </ul>
-        </div>
+    <div class="box-content">
+        <h1>Já visualizados</h1>
+        <ul>
+        {% for visualizado in problemas_visualizados %}
+            <li><a href="{{ visualizado.get_absolute_url }}">{{ visualizado.titulo }}</a></li>
+        {% endfor %}
+        </ul>
     </div>
 </div>
 {% endblock %}

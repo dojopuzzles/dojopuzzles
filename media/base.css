@@ -57,8 +57,7 @@ body {
 }
 
 .one-column-content {
-    margin-top: 10px;
-    padding: 15px;
+    padding: 10px;
 }
 
 .one-column-content p {
@@ -79,7 +78,7 @@ body {
 }
 
 .two-columns-content {
-    margin-top: 10px;
+    margin-top: 20px;
     line-height: 25px;
     font-family: Verdana, sans-serif;
     font-size: 12px;
@@ -95,55 +94,19 @@ body {
     padding: 10px;
 }
 
-.two-column-content #column-one-content {
-    border: 1px solid #D0C9B6;
-    float: left;
-    /*width: 680px;*/
-}
-
-.two-column-content #sidebar {
-    border: 1px solid #D0C9B6;
-    float: right;
-    /*width: 250px;*/
-    font-family: Verdana, sans-serif;
-    font-size: 12px;
-}
-
-.two-column-content a:link, a:visited, a:active, a:hover {
+.one-column-content a:link, a:visited, a:active, a:hover {
     text-decoration: none;
     color: #010101;
 }
 
-.two-column-content a:hover {
+.one-column-content a:hover {
     color: #E91B1B;
 }
 
-.main-content {
-    font-family: Verdana, sans-serif;
-}
-
-.main-content a:link, a:visited, a:active, a:hover {
-    text-decoration: none;
-    color: #010101;
-}
-.main-content a:hover {
-    color: #E91B1B;
-}
-
-.main-content p {
-    padding: 8px;
-}
-
-
-
-.main-content ul {
+.one-column-content ul {
     list-style-type: square;
     padding-left: 25px;
     line-height:25px;
-}
-
-.sidebar-box ul li {
-    margin-bottom: 8px;
 }
 
 h1 {
