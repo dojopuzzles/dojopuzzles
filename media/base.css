@@ -2,7 +2,6 @@
 /*@import 'styles.css';*/
 
 body {
-    width: 950px;
     margin: 0px auto;
 }
 
@@ -50,22 +49,24 @@ body {
     float: right;
 }
 
-.one-column-content {
-    margin-top: 10px;
-    padding: 15px;
+#content {
     font-family: Verdana, sans-serif;
     font-size: 12px;
     color: #696969;
     line-height: 20px;
 }
 
-.one-column-content p {
-    padding-top: 5px;
-    padding-bottom: 5px;
-    width: 70%;
+#one-column-content {
+    margin-top: 10px;
+    padding: 15px;
 }
 
-.one-column-content ul {
+#one-column-content p {
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+#one-column-content ul {
     list-style-type: circle;
     line-height: 20px;
     padding-left: 20px;
@@ -84,18 +85,19 @@ body {
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#EEE9E9'); /* for IE */
     background: -webkit-gradient(linear, left top, left bottom, from(#ffffff), to(#EEE9E9)); /* for webkit browsers */
     background: -moz-linear-gradient(top,  #ffffff,  #EEE9E9); /* for firefox 3.6+ */
+    border: 1px solid #D0C9B6;
 }
 
 .two-column-content #column-one-content {
     border: 1px solid #D0C9B6;
     float: left;
-    width: 680px;
+    /*width: 680px;*/
 }
 
 .two-column-content #sidebar {
     border: 1px solid #D0C9B6;
     float: right;
-    width: 250px;
+    /*width: 250px;*/
     font-family: Verdana, sans-serif;
     font-size: 12px;
 }
@@ -159,11 +161,11 @@ h2 {
     color: #FF7700;
     margin-bottom: 10px;
 }
-
-.clear { /* generic container (i.e. div) for floating buttons */
+/*
+.clear { / * generic container (i.e. div) for floating buttons * /
     overflow: hidden;
     width: 100%;
-}
+}*/
 
 /* Botões */
 a.button {

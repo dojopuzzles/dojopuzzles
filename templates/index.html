@@ -2,32 +2,33 @@
 {% load problemas_utilizados %}
 
 {% block one-column-content %}
-<div class="one-column-content">
-    {% if messages %}
-        {% for message in messages %}
-        <h2>{{ message }}</h2>
-        {% endfor %}
-    {% endif %}
+<div class="grid_12">
+    <div id="one-column-content">
+        {% if messages %}
+            {% for message in messages %}
+            <h2>{{ message }}</h2>
+            {% endfor %}
+        {% endif %}
 
-    <p>Um Coding Dojo &eacute; um encontro onde um grupo de programadores se
-    re&uacute;ne para treinar t&eacute;cnicas e metodologias de desenvolvimento
-    de software atrav&eacute;s da solu&ccedil;&atilde;o de um pequeno desafio
-    de programa&ccedil;&atilde;o. <a href="{% url sobre %}">Saiba mais...</a></p>
+        <p>Um Coding Dojo &eacute; um encontro onde um grupo de programadores se
+        re&uacute;ne para treinar t&eacute;cnicas e metodologias de desenvolvimento
+        de software atrav&eacute;s da solu&ccedil;&atilde;o de um pequeno desafio
+        de programa&ccedil;&atilde;o. <a href="{% url sobre %}">Saiba mais...</a></p>
 
-    <p>Existem diversas p&aacute;ginas na Internet com problemas dos mais
-    variados formatos que podem ser utilizados em um Dojo. Aqui voc&ecirc; tem
-    mais uma op&ccedil;&atilde;o para encontrar o seu problema.</p>
+        <p>Existem diversas p&aacute;ginas na Internet com problemas dos mais
+        variados formatos que podem ser utilizados em um Dojo. Aqui voc&ecirc; tem
+        mais uma op&ccedil;&atilde;o para encontrar o seu problema.</p>
 
-    {% if problemas_utilizados > 0 %}
-    <h2>Os problemas deste site já foram utilizados em {{ problemas_utilizados }} Coding Dojos!!!</h2>
-    {% endif %}
-
+        {% if problemas_utilizados > 0 %}
+        <h2>Os problemas deste site já foram utilizados em {{ problemas_utilizados }} Coding Dojos!!!</h2>
+        {% endif %}
+    </div>
 </div>
 {% endblock %}
 
 {% block column-one-content %}
-<div id="column-one-content" class="box-content">
-    <div class="main-content">
+<div class="grid_9">
+    <div class="box-content">
         <h1>Escolhendo o problema</h1>
 
         <p>Existem três maneiras de encontrar um bom problema nesta página:</p>
@@ -42,10 +43,11 @@
         problemas mais escolhidos e quais os que não escolhidos.</p>
     </div>
 </div>
+    
 {% endblock %}
 
 {% block sidebar %}
-<div id="sidebar">
+<div class="grid_3">
     <div class="sidebar-box box-content">
         <h1>CONTRIBUA</h1>
         <p>Participou de um Dojo e resolveu um problema interessante? Ou 
