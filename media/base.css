@@ -56,25 +56,31 @@ body {
     line-height: 20px;
 }
 
-#one-column-content {
+.one-column-content {
     margin-top: 10px;
     padding: 15px;
 }
 
-#one-column-content p {
+.one-column-content p {
     padding-top: 5px;
     padding-bottom: 5px;
 }
 
-#one-column-content ul {
+.one-column-content ul {
     list-style-type: circle;
     line-height: 20px;
     padding-left: 20px;
 }
 
-.two-column-content {
+.one-column-content ol {
+    list-style-type: lower-roman;
+    padding-left: 25px;
+    line-height:25px;
+}
+
+.two-columns-content {
     margin-top: 10px;
-    line-height: 20px;
+    line-height: 25px;
     font-family: Verdana, sans-serif;
     font-size: 12px;
     color: #4C4C4C;   
@@ -86,6 +92,7 @@ body {
     background: -webkit-gradient(linear, left top, left bottom, from(#ffffff), to(#EEE9E9)); /* for webkit browsers */
     background: -moz-linear-gradient(top,  #ffffff,  #EEE9E9); /* for firefox 3.6+ */
     border: 1px solid #D0C9B6;
+    padding: 10px;
 }
 
 .two-column-content #column-one-content {
@@ -112,7 +119,6 @@ body {
 }
 
 .main-content {
-    padding: 10px;
     font-family: Verdana, sans-serif;
 }
 
@@ -128,20 +134,12 @@ body {
     padding: 8px;
 }
 
-.main-content ol {
-    list-style-type: lower-roman;
-    padding-left: 25px;
-    line-height:25px;
-}
+
 
 .main-content ul {
     list-style-type: square;
     padding-left: 25px;
     line-height:25px;
-}
-
-.sidebar-box {
-    padding: 10px;
 }
 
 .sidebar-box ul li {
@@ -161,11 +159,6 @@ h2 {
     color: #FF7700;
     margin-bottom: 10px;
 }
-/*
-.clear { / * generic container (i.e. div) for floating buttons * /
-    overflow: hidden;
-    width: 100%;
-}*/
 
 /* Botões */
 a.button {

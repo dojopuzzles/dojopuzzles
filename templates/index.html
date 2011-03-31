@@ -1,15 +1,17 @@
 {% extends "base.html" %}
 {% load problemas_utilizados %}
 
-{% block one-column-content %}
-<div class="grid_12">
-    <div id="one-column-content">
+{% block column-one-content %}
+<div class="grid_9">
+    <div class="one-column-content">
         {% if messages %}
             {% for message in messages %}
             <h2>{{ message }}</h2>
             {% endfor %}
         {% endif %}
 
+        <h1>O que &eacute;?</h1>
+        
         <p>Um Coding Dojo &eacute; um encontro onde um grupo de programadores se
         re&uacute;ne para treinar t&eacute;cnicas e metodologias de desenvolvimento
         de software atrav&eacute;s da solu&ccedil;&atilde;o de um pequeno desafio
@@ -22,14 +24,8 @@
         {% if problemas_utilizados > 0 %}
         <h2>Os problemas deste site já foram utilizados em {{ problemas_utilizados }} Coding Dojos!!!</h2>
         {% endif %}
-    </div>
-</div>
-{% endblock %}
 
-{% block column-one-content %}
-<div class="grid_9">
-    <div class="box-content">
-        <h1>Escolhendo o problema</h1>
+        <h1>Como funciona?</h1>
 
         <p>Existem três maneiras de encontrar um bom problema nesta página:</p>
         <ol>
@@ -43,12 +39,11 @@
         problemas mais escolhidos e quais os que não escolhidos.</p>
     </div>
 </div>
-    
 {% endblock %}
 
 {% block sidebar %}
 <div class="grid_3">
-    <div class="sidebar-box box-content">
+    <div class="box-content">
         <h1>CONTRIBUA</h1>
         <p>Participou de um Dojo e resolveu um problema interessante? Ou 
         voc&ecirc; criou um novo problema? Ajude a aumentar a nossa base de
@@ -57,10 +52,10 @@
         <p style="text-align: center; margin-top: 10px;">
             <a href="http://www.twitter.com/dojopuzzles"><img src="http://twitter-badges.s3.amazonaws.com/follow_me-b.png" alt="Follow dojopuzzles on Twitter"/></a>
         </p>
-    </div>
+    </div><br/>
     {% get_problemas_mais_utilizados %}
     {% if problemas_utilizados %}
-    <div class="sidebar-box box-content">
+    <div class="box-content">
         <h1>MAIS UTILIZADOS</h1>
         <ul>
         {% for problema in problemas_utilizados %}
@@ -70,5 +65,4 @@
     </div>
     {% endif %}
 </div>
-
 {% endblock %}
