@@ -8,6 +8,51 @@ from dojopuzzles.problemas.models import Problema, ProblemaUtilizado
 from dojopuzzles.problemas.tests.utils_test import novo_problema
 
 
+#FIXME Esta classe de teste não deveria ficar aqui
+class CoreTestCase(TestCase):
+    """ Testes não relacionados a nenhuma aplicação """
+
+    def setUp(self):
+        self.client = Client()
+
+    def tearDown(self):
+        ProblemaUtilizado.objects.all().delete()
+        Problema.objects.all().delete()
+
+
+    def test_nenhum_problema_utilizado(self):
+        """
+        Se nenhum problema foi utilizado ainda, não deve exibir nenhuma
+        informação referente a problemas utilizados.
+        """
+        problema1 = novo_problema({})
+        problema2 = novo_problema({})
+        client = Client()
+        response = client.get(reverse('inicio'))
+        self.assertNotContains(response, u"Os problemas deste site já foram utilizados")
+
+    def test_exibe_numero_problemas_utilizados(self):
+        """
+        Deve exibir na página inicial a quantidade de vezes que
+        algum problema foi utilizado em um Coding Dojo
+        """
+        problema1 = novo_problema({})
+        problema2 = novo_problema({})
+
+        contador = 0
+        for utilizacao in range(1,11):
+            problema1.utilizar()
+            problema2.utilizar()
+            contador += 1
+
+        response = self.client.get(reverse('inicio'))
+        self.assertContains(response, u"Os problemas deste site já foram utilizados em 20 Coding Dojos!!!", 1)
+
+        problema2.utilizar()
+        response = self.client.get(reverse('inicio'))
+        self.assertContains(response, u"Os problemas deste site já foram utilizados em 21 Coding Dojos!!!", 1)
+
+
 class UrlsTestCase(TestCase):
     """ Testa as URLs da aplicação """
     def setUp(self):

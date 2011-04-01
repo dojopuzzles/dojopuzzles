@@ -17,7 +17,7 @@ urlpatterns = patterns('',
 
     url(r'^$', 'django.views.generic.simple.direct_to_template',
         {'template': 'index.html', 
-         'extra_context': {'problemas_utilizados': ProblemaUtilizado.objects.count()}}, 
+         'extra_context': {'problemas_utilizados': ProblemaUtilizado.objects.count}}, 
          name='inicio'),
     url(r'^sobre/$', 'django.views.generic.simple.direct_to_template',
         {'template': 'sobre.html', 'extra_context':{'titulo_pagina':'Sobre'}}, name='sobre'),
