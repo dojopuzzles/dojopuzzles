@@ -12,8 +12,8 @@ from django.contrib import admin
 admin.autodiscover()
 
 urlpatterns = patterns('',
-    (r'problemas/', include('dojopuzzles.problemas.urls')),
-    (r'contribuicoes/', include('dojopuzzles.contribuicoes.urls')),
+    (r'^problemas/', include('dojopuzzles.problemas.urls')),
+    (r'^contribuicoes/', include('dojopuzzles.contribuicoes.urls')),
 
     url(r'^$', 'django.views.generic.simple.direct_to_template',
         {'template': 'index.html', 
