@@ -23,6 +23,10 @@
                 <li><a href="{% url contribua %}">Contribua</a></li>
                 <li><a href="{% url sobre %}">Sobre</a></li>
             </ul>
+            <form action="/problemas/busca/" method="POST">{% csrf_token %}
+                <input type="text" name="titulo" height="18px" />
+                <input type="submit" value="Buscar" style="float: right" />
+            </form>
         </div><!--/navigation-->
     </div><!--/header-->
 

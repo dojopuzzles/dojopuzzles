@@ -3,9 +3,11 @@ from django.core.urlresolvers import reverse
 from django.http import Http404
 from django.http import HttpResponseRedirect
 from django.shortcuts import render_to_response
+from django.shortcuts import get_object_or_404
 from django.template import RequestContext
 
 from dojopuzzles.problemas.models import Problema
+from forms import FormBusca
 
 def problema_aleatorio(request):
     """ Exibe um problema aleatório da lista de problemas cadastrados """
@@ -85,7 +87,7 @@ def sem_problemas(request):
     """ Exibido se nenhum problema estiver cadastrado no sistema """
     titulo_pagina = 'Nenhum problema cadastrado'
     return render_to_response('sem_problemas.html', locals(), RequestContext(request))
-    
+
 def problema_utilizado(request, problema_id):
     try:
         problema = Problema.objects.get(pk=problema_id)
@@ -94,3 +96,12 @@ def problema_utilizado(request, problema_id):
         return HttpResponseRedirect(reverse('exibe-problema', args=[problema.slug]))
     except Problema.DoesNotExist:
         raise Http404
+
+def busca_problema_por_titulo(request):
+    if request.method == 'POST':
+        form = FormBusca(request.POST)
+        if form.is_valid():
+            titulo = form.data['titulo']
+            problema = get_object_or_404(Problema, titulo__icontains=titulo)
+
+    return HttpResponseRedirect(reverse('exibe-problema', args=[problema.slug]))
