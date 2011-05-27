@@ -49,6 +49,11 @@ body {
     float: right;
 }
 
+#navigation form input[type=text]  {
+    width: 150px;
+    margin-right: 10px;
+}
+
 #content {
     font-family: Verdana, sans-serif;
     font-size: 12px;
