@@ -339,3 +339,29 @@ class ListagemProblemasTestCase(TestCase):
 
         self.assertNotContains(response, problema1.titulo)
         self.assertContains(response, problema2.titulo, 1)
+
+
+class BuscaProblemaTestCase(TestCase):
+
+    def setUp(self):
+        self.problema = Problema()
+        self.problema.titulo = 'Teste de busca'
+        self.problema.descricao = u'descrição do problema'
+        self.problema.nome_contribuidor = 'Mestre dos Magos'
+        self.problema.slug = 'teste-de-busca'
+        self.problema.publicado = True
+        self.problema.save()
+
+    def test_POST_com_problema_existente(self):
+        dados = {'titulo': 'busca'}
+
+        response = self.client.post('/problemas/busca/', dados)
+
+        self.assertRedirects(response, reverse('exibe-problema', args=[self.problema.slug]))
+
+    def test_POST_com_problema_inexistente(self):
+        dados = {'titulo': 'nao_existe'}
+
+        response = self.client.post('/problemas/busca/', dados)
+
+        self.assertTemplateUsed(response, '404.html')
