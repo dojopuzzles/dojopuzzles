@@ -5,9 +5,10 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render_to_response
 from django.shortcuts import get_object_or_404
 from django.template import RequestContext
+from django.views.generic.list_detail import object_list
 
 from dojopuzzles.problemas.models import Problema
-from forms import FormBusca
+from dojopuzzles.problemas.forms import FormBusca
 
 def problema_aleatorio(request):
     """ Exibe um problema aleatório da lista de problemas cadastrados """
@@ -101,7 +102,12 @@ def busca_problema_por_titulo(request):
     if request.method == 'POST':
         form = FormBusca(request.POST)
         if form.is_valid():
-            titulo = form.data['titulo']
-            problema = get_object_or_404(Problema, titulo__icontains=titulo)
+            titulo = form.data['titulo'].strip()
+            if len(titulo) > 0 :
+                problema = Problema.objects.filter(titulo__icontains=titulo, publicado=True)
+                if len(problema) == 1:
+                    return HttpResponseRedirect(reverse('exibe-problema', args=[problema[0].slug]))
+                retorno_args = {'queryset': problema, 'paginate_by': 15, 'extra_context': {'titulo_pagina': 'Busca de Problemas', 'acao': 'busca', 'titulo_busca': titulo}}
+                return object_list(request, **retorno_args)
 
-    return HttpResponseRedirect(reverse('exibe-problema', args=[problema.slug]))
+    return HttpResponseRedirect(reverse('todos-problemas'))

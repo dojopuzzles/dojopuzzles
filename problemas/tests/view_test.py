@@ -342,19 +342,50 @@ class ListagemProblemasTestCase(TestCase):
 
 class BuscaProblemaTestCase(TestCase):
 
-    def setUp(self):
-        self.problema = novo_problema({'titulo': u'Teste de Busca', 'publicado': True})
+    def tearDown(self):
+        Problema.objects.all().delete()
 
-    def test_POST_com_problema_existente(self):
-        dados = {'titulo': 'busca'}
+    def test_buscando_com_palavra_chave_unica(self):
+        """ Ao buscar um problema utilizando uma palavra chave que só exista
+        em um único problema cadastrado deve redirecionar diretamente para ele """
+        problema_unico = novo_problema({'titulo': u'Teste de Busca de Problema Único'})
+        dados_busca = {'titulo': 'Único'}
+        response = self.client.post(reverse('busca-problema-por-titulo'), dados_busca)
+        self.assertRedirects(response, reverse('exibe-problema', args=[problema_unico.slug]))
 
-        response = self.client.post('/problemas/busca/', dados)
+    def test_buscando_problema_nao_publicado(self):
+        """ Ao buscar um problema utilizando uma palavra chave que só exista
+        em um único problema cadastrado mas não publicado deve informar que a busca
+        não retornou nenhum registro """
+        problema_nao_publicado = novo_problema({'titulo': u'Teste de Busca de Problema Não Publicado', 'publicado': False})
+        dados_busca = {'titulo': 'não publicado'}
+        response = self.client.post(reverse('busca-problema-por-titulo'), dados_busca)
+        self.assertContains(response, "Nenhum problema encontrado contendo 'não publicado' em seu título.")
 
-        self.assertRedirects(response, reverse('exibe-problema', args=[self.problema.slug]))
+    def test_buscando_com_palavra_chave_repetida(self):
+        """ Ao buscar um problema utilizando uma palavra chave que exista
+        em mais de problema cadastrado deve exibir a lista de problemas encontrado """
+        problema1 = novo_problema({'titulo': 'Título de Problema Repetido'})
+        problema2 = novo_problema({'titulo': 'Outro Título Com Palavra Repetido'})
+        dados_busca = {'titulo': 'repetido'}
+        response = self.client.post(reverse('busca-problema-por-titulo'), dados_busca)
+        self.assertContains(response, problema1.titulo)
+        self.assertContains(response, problema2.titulo)
 
-    def test_POST_com_problema_inexistente(self):
-        dados = {'titulo': 'nao_existe'}
+    def test_buscando_problema_inexistente(self):
+        """ Ao buscar um problema utilizando uma palavra chave que não exista
+        em nenhum problema cadastrado deve informar que a busca não retornou nenhum registro """
+        dados_busca = {'titulo': 'não existe'}
+        response = self.client.post(reverse('busca-problema-por-titulo'), dados_busca)
+        self.assertContains(response, "Nenhum problema encontrado contendo 'não existe' em seu título.")
 
-        response = self.client.post('/problemas/busca/', dados)
+    def test_busca_vazia(self):
+        """ Se nenhum parâmetro de busca for passado deve retornar listagem com todos os
+        problemas cadastrados. """
+        dados_busca = {'titulo': ''}
+        response = self.client.post(reverse('busca-problema-por-titulo'), dados_busca)
+        self.assertRedirects(response, reverse('todos-problemas'))
 
-        self.assertTemplateUsed(response, '404.html')
+        dados_busca = {'titulo': ' '}
+        response = self.client.post(reverse('busca-problema-por-titulo'), dados_busca)
+        self.assertRedirects(response, reverse('todos-problemas'))

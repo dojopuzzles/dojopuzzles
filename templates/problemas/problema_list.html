@@ -3,10 +3,14 @@
 {% block column-one-content %}
 <div class="grid_9">
     <div class="one-column-content box-content">
-        <h1>Todos os problemas</h1>
 
+        {% if acao == 'busca' %}
+        <h1>Busca de problemas</h1>
+        {% else %}
+        <h1>Todos os problemas</h1>
         {{ hits }} problemas cadastrados.
-        
+        {% endif %}
+
         {% if is_paginated %}
             <br/><br/>
             Problema {{ first_on_page }} ao problema {{ last_on_page }}.
@@ -16,7 +20,7 @@
         {% for problema in object_list %}
             <li><a href="{{ problema.get_absolute_url }}">{{ problema.titulo }}</a></li>
         {% empty %}
-            <li>Nenhum problema encontrado</li>
+            <li>Nenhum problema encontrado contendo '{{ titulo_busca }}' em seu título.</li>
         {% endfor %}
         </ul>
 
