@@ -271,7 +271,6 @@ class ProblemasGosteiTestCase(TestCase):
 
     def setUp(self):
         self.problema = novo_problema({})
-        self.problema.save()
         self.client = Client()
         
     def tearDown(self):
@@ -344,13 +343,7 @@ class ListagemProblemasTestCase(TestCase):
 class BuscaProblemaTestCase(TestCase):
 
     def setUp(self):
-        self.problema = Problema()
-        self.problema.titulo = 'Teste de busca'
-        self.problema.descricao = u'descrição do problema'
-        self.problema.nome_contribuidor = 'Mestre dos Magos'
-        self.problema.slug = 'teste-de-busca'
-        self.problema.publicado = True
-        self.problema.save()
+        self.problema = novo_problema({'titulo': u'Teste de Busca', 'publicado': True})
 
     def test_POST_com_problema_existente(self):
         dados = {'titulo': 'busca'}
