@@ -37,6 +37,12 @@ class ProblemaUtilizado(models.Model):
     def __unicode__(self):
         return "Problema utilizado: %s" % (self.problema.titulo, )
 
+
+class SolucaoProblema(models.Model):
+    problema = models.ForeignKey(Problema)
+    solucao = models.URLField()
+
+
 def problema_pre_save(signal, instance, sender, **kwargs):
     instance.slug = slugify(instance.titulo)
 

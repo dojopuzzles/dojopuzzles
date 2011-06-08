@@ -4,6 +4,7 @@ from django.test import TestCase
 from dojopuzzles.problemas.models import Problema
 from dojopuzzles.problemas.tests.utils_test import novo_problema
 
+
 class ProblemasTestCase(TestCase):
 
     def test_problema_inicia_nao_publicado(self):
