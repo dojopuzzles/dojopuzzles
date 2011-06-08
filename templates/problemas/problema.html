@@ -47,6 +47,19 @@
         {% endfor %}
         </ul>
     </div>
+</div><br/>&nbsp;
+<div class="grid_3">
+    <div class="box-content">
+        <h1>Soluções</h1>
+
+        <p>
+            <a id="botao_envie_solucoes" class="button" href="#" onclick="this.blur();"><span>Envie sua solução!</span></a>&nbsp;
+            {% if problema.solucaoproblema_set.count > 0 %}
+            <a id="botao_veja_solucoes" class="button" href="#" onclick="this.blur();"><span>Veja outras soluções!</span></a>&nbsp;
+            {% endif %}
+        </p>
+        <br/>
+    </div>
 </div>
 {% endblock %}
 

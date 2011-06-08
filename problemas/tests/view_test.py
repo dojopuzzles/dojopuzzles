@@ -4,7 +4,7 @@ from django.test.client import Client
 
 from django.core.urlresolvers import reverse
 
-from dojopuzzles.problemas.models import Problema, ProblemaUtilizado
+from dojopuzzles.problemas.models import Problema, ProblemaUtilizado, SolucaoProblema
 from dojopuzzles.problemas.tests.utils_test import novo_problema
 
 
@@ -157,6 +157,26 @@ class ExibicaoProblemaTestCase(TestCase):
         problema = novo_problema({'publicado': False})
         response = self.client.get(reverse('exibe-problema', args=[problema.slug]))
         self.assertTemplateUsed(response, '404.html')
+
+    def test_nao_exibe_solucao_se_nao_tiver_nenhuma(self):
+        """
+        Ao exibir um problema, o botão que exibe as soluções que já estão cadastradas
+        não deve ser exibido, caso o problema não tenha nenhuma solução.
+        """
+        problema = novo_problema({})
+        response = self.client.get(reverse('exibe-problema', args=[problema.slug]))
+        self.assertNotContains(response, 'id="botao_veja_solucoes"')
+
+    def test_exibe_solucao_se_tiver_alguma(self):
+        """
+        Ao exibir um problema, o botão que exibe as soluções que já estão cadastradas
+        não deve ser exibido, caso o problema não tenha nenhuma solução.
+        """
+        problema = novo_problema({})
+        solucao = SolucaoProblema(problema=problema, solucao='http://teste.com/solucao')
+        solucao.save()
+        response = self.client.get(reverse('exibe-problema', args=[problema.slug]))
+        self.assertContains(response, 'id="botao_veja_solucoes"')
 
 
 class ProblemaAleatorioTest(TestCase):
