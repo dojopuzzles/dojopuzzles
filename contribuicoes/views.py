@@ -61,11 +61,10 @@ def contribuicao(request):
                                     'recipient_list': [email_administracao],
                                     'fail_silently': False})
 
-            problema = Problema(titulo=titulo_problema,
-                                descricao=mensagem,
-                                nome_contribuidor=nome_remetente,
-                                publicado=False)
-            problema.save()
+            Problema.objects.create(titulo=titulo_problema,
+                                    descricao=mensagem,
+                                    nome_contribuidor=nome_remetente,
+                                    publicado=False)
 
         for email in emails_a_enviar:
             send_mail(**email)
