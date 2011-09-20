@@ -18,11 +18,11 @@ def problema_aleatorio(request):
         return HttpResponseRedirect(reverse('nenhum-problema-cadastrado'))
 
     problemas_visualizados = []
-    if request.session.has_key('problemas_visualizados'):
+    if 'problemas_visualizados' in request.session:
         problemas_visualizados = request.session['problemas_visualizados']
 
     problemas_nao_gostei = []
-    if request.session.has_key('problemas_que_nao_gostei'):
+    if 'problemas_que_nao_gostei' in request.session:
         problemas_nao_gostei = request.session['problemas_que_nao_gostei']
 
     if 'nao_gostei' in request.GET:
@@ -59,7 +59,7 @@ def exibe_problema(request, slug):
         problema = Problema.objects.get(slug = slug, publicado = True)
 
         problemas_visualizados = []
-        if request.session.has_key('problemas_visualizados'):
+        if 'problemas_visualizados' in request.session:
             problemas_visualizados = request.session['problemas_visualizados']
         problemas_visualizados.append(problema)
         problemas_visualizados = list(set(problemas_visualizados))
@@ -79,7 +79,7 @@ def exibe_problema_pelo_id(request, problema_id):
 def sem_problemas_novos(request):
     """ Exibido se todos os problemas cadastrados já tiverem sido exibidos """
     problemas_visualizados = []
-    if request.session.has_key('problemas_visualizados'):
+    if 'problemas_visualizados' in request.session:
         problemas_visualizados = request.session['problemas_visualizados']
     titulo_pagina = 'Todos os problemas visualizados'
     return render_to_response('sem_problemas_novos.html', locals(), RequestContext(request))
