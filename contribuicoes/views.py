@@ -16,7 +16,7 @@ MENSAGEM_AGRADECIMENTO = """
         
   Nós tomamos o direito de, a nosso critério, editar o texto dos problemas para:
   - Corrigir de eventuais erros de digitação;
-  - Tornar as descrições mais curtas, sem alterar o objetivo do problema
+  - Tornar as descrições mais curtas, sem alterar o objetivo do problema.
 
   Caso não concorde com isso, responda esse e-mail informando que não deseja que o corpo do problema seja alterado ou que o problema seja publicado.
 
@@ -24,50 +24,45 @@ MENSAGEM_AGRADECIMENTO = """
                     
   DojoPuzzles.com"""
 
+def _enviar_email_contato(form, agradecer=False):
+    operacao = form.cleaned_data['assunto']
+    email = {}
+
+    if agradecer == True:
+        email['subject'] = 'DojoPuzzles.com - Obrigado pela contribuição'
+        email['message'] = MENSAGEM_AGRADECIMENTO.format(form.cleaned_data['nome'])
+        email['recipient_list'] = [form.cleaned_data['email']]
+        email['from_email'] = 'contato@dojopuzzles.com'
+        send_mail(**email)
+
+    if operacao == 'CONTATO':
+        email['subject'] = 'DojoPuzzles.com - Contato realizado através do site'
+    elif operacao == 'PROBLEMA_NOVO':
+        email['subject'] = 'DojoPuzzles.com - Nova contribuição de problema'
+
+    email['message'] = form.cleaned_data['mensagem']
+    email['from_email'] = form.cleaned_data['email']
+    email['recipient_list'] = ['contato@dojopuzzles.com']
+    email['fail_silently'] = False
+    send_mail(**email)
+
 def contribuicao(request):
     form = ContribuicaoForm(request.POST or None)
     if form.is_valid():
-        emails_a_enviar = []
+        operacao = form.cleaned_data['assunto']
 
-        mensagem = form.cleaned_data['mensagem']
-        email_administracao = 'contato@dojopuzzles.com'
-        remetente = form.cleaned_data['email']
-        nome_remetente = form.cleaned_data['nome']
-        titulo_problema = form.cleaned_data['titulo_problema']
-
-        assunto = form.cleaned_data['assunto']
-        if assunto == 'CONTATO':
-            subject = 'DojoPuzzles.com - Contato realizado através do site'
-            emails_a_enviar.append({'subject': subject,
-                                    'message': mensagem,
-                                    'from_email': remetente,
-                                    'recipient_list': [email_administracao],
-                                    'fail_silently': False})
-
-        elif assunto == 'PROBLEMA_NOVO':
-            subject = 'DojoPuzzles.com - Obrigado pela contribuição'
-            mensagem_agradecimento = MENSAGEM_AGRADECIMENTO.format(nome_remetente)
-
-            emails_a_enviar.append({'subject': subject,
-                                    'message': mensagem_agradecimento,
-                                    'from_email': email_administracao,
-                                    'recipient_list': [remetente],
-                                    'fail_silently': False})
-
-            subject = 'DojoPuzzles.com - Nova contribuição de problema'
-            emails_a_enviar.append({'subject':subject,
-                                    'message': mensagem,
-                                    'from_email': remetente,
-                                    'recipient_list': [email_administracao],
-                                    'fail_silently': False})
-
+        if operacao == 'CONTATO':
+            _enviar_email_contato(form)
+        if operacao == 'PROBLEMA_NOVO':
+            _enviar_email_contato(form, agradecer=True)
+            titulo_problema = form.cleaned_data['titulo_problema']
+            descricao_problema = form.cleaned_data['mensagem']
+            nome_remetente = form.cleaned_data['nome']
+            mensagem = form.cleaned_data['mensagem']
             Problema.objects.create(titulo=titulo_problema,
                                     descricao=mensagem,
                                     nome_contribuidor=nome_remetente,
                                     publicado=False)
-
-        for email in emails_a_enviar:
-            send_mail(**email)
 
         return HttpResponseRedirect(reverse('contribuicao-recebida'))
 
