@@ -25,55 +25,52 @@ MENSAGEM_AGRADECIMENTO = """
   DojoPuzzles.com"""
 
 def contribuicao(request):
-    if request.method == 'POST':
-        form = ContribuicaoForm(request.POST)
-        if form.is_valid():
-            emails_a_enviar = []
+    form = ContribuicaoForm(request.POST or None)
+    if form.is_valid():
+        emails_a_enviar = []
 
-            mensagem = form.cleaned_data['mensagem']
-            email_administracao = 'contato@dojopuzzles.com'
-            remetente = form.cleaned_data['email']
-            nome_remetente = form.cleaned_data['nome']
-            titulo_problema = form.cleaned_data['titulo_problema']
+        mensagem = form.cleaned_data['mensagem']
+        email_administracao = 'contato@dojopuzzles.com'
+        remetente = form.cleaned_data['email']
+        nome_remetente = form.cleaned_data['nome']
+        titulo_problema = form.cleaned_data['titulo_problema']
 
-            assunto = form.cleaned_data['assunto']
-            if assunto == 'CONTATO':
-                subject = 'DojoPuzzles.com - Contato realizado através do site'
-                emails_a_enviar.append({'subject': subject,
-                                        'message': mensagem,
-                                        'from_email': remetente,
-                                        'recipient_list': [email_administracao],
-                                        'fail_silently': False})
+        assunto = form.cleaned_data['assunto']
+        if assunto == 'CONTATO':
+            subject = 'DojoPuzzles.com - Contato realizado através do site'
+            emails_a_enviar.append({'subject': subject,
+                                    'message': mensagem,
+                                    'from_email': remetente,
+                                    'recipient_list': [email_administracao],
+                                    'fail_silently': False})
 
-            elif assunto == 'PROBLEMA_NOVO':
-                subject = 'DojoPuzzles.com - Obrigado pela contribuição'
-                mensagem_agradecimento = MENSAGEM_AGRADECIMENTO.format(nome_remetente)
+        elif assunto == 'PROBLEMA_NOVO':
+            subject = 'DojoPuzzles.com - Obrigado pela contribuição'
+            mensagem_agradecimento = MENSAGEM_AGRADECIMENTO.format(nome_remetente)
 
-                emails_a_enviar.append({'subject': subject,
-                                        'message': mensagem_agradecimento,
-                                        'from_email': email_administracao,
-                                        'recipient_list': [remetente],
-                                        'fail_silently': False})
+            emails_a_enviar.append({'subject': subject,
+                                    'message': mensagem_agradecimento,
+                                    'from_email': email_administracao,
+                                    'recipient_list': [remetente],
+                                    'fail_silently': False})
 
-                subject = 'DojoPuzzles.com - Nova contribuição de problema'
-                emails_a_enviar.append({'subject':subject,
-                                        'message': mensagem,
-                                        'from_email': remetente,
-                                        'recipient_list': [email_administracao],
-                                        'fail_silently': False})
+            subject = 'DojoPuzzles.com - Nova contribuição de problema'
+            emails_a_enviar.append({'subject':subject,
+                                    'message': mensagem,
+                                    'from_email': remetente,
+                                    'recipient_list': [email_administracao],
+                                    'fail_silently': False})
 
-                problema = Problema(titulo=titulo_problema,
-                                    descricao=mensagem,
-                                    nome_contribuidor=nome_remetente,
-                                    publicado=False)
-                problema.save()
+            problema = Problema(titulo=titulo_problema,
+                                descricao=mensagem,
+                                nome_contribuidor=nome_remetente,
+                                publicado=False)
+            problema.save()
 
-            for email in emails_a_enviar:
-                send_mail(**email)
+        for email in emails_a_enviar:
+            send_mail(**email)
 
-            return HttpResponseRedirect(reverse('contribuicao-recebida'))
-    else:
-        form = ContribuicaoForm()
+        return HttpResponseRedirect(reverse('contribuicao-recebida'))
 
     titulo_pagina = 'Contribua'
     return render_to_response('contribua.html', 
