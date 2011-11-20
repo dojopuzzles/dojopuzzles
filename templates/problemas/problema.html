@@ -38,6 +38,16 @@
 {% endblock %}
 
 {% block sidebar %}
+{% if request.session.problema_utilizado %}
+    <div class="grid_3">
+        <div class="box-content">
+            <h1>Problema sendo resolvido</h1>
+            {% with request.session.problema_utilizado as utilizado %}
+                <a href="{{ utilizado.get_absolute_url }}">{{ utilizado.titulo }}</a>
+            {% endwith %}
+        </div>
+    </div><br/>&nbsp;
+{% endif %}
 <div class="grid_3">
     <div class="box-content">
         <h1>Já visualizados</h1>

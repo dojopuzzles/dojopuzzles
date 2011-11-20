@@ -19,6 +19,19 @@ class CoreTestCase(TestCase):
         ProblemaUtilizado.objects.all().delete()
         Problema.objects.all().delete()
 
+    def test_nenhum_problema_sendo_resolvido_nao_exibe_problema_sendo_resolvido(self):
+        problema = novo_problema({})
+        response = self.client.get(reverse('exibe-problema', args=[problema.slug]), follow=True)
+
+        self.assertNotContains(response, 'Problema sendo resolvido')
+
+    def test_deve_exibir_o_problema_sendo_resolvido(self):
+        problema = novo_problema({})
+        url_gostei_e_vou_usar = reverse('problema-utilizado-em-dojo', args=[problema.id])
+        response = self.client.get(url_gostei_e_vou_usar, follow=True)
+
+        self.assertContains(response, 'Problema sendo resolvido')
+
 
     def test_nenhum_problema_utilizado(self):
         """
