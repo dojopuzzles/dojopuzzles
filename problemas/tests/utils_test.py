@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from dojopuzzles.problemas.models import Problema
 
+
 def novo_problema(dados_problema):
     """
     Cadastra um novo problema no sistema para ser utilizado

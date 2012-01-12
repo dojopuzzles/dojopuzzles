@@ -10,6 +10,7 @@ from django.views.generic.list_detail import object_list
 from dojopuzzles.problemas.models import Problema
 from dojopuzzles.problemas.forms import FormBusca
 
+
 def problema_aleatorio(request):
     """ Exibe um problema aleatório da lista de problemas cadastrados """
     numero_problemas = len(Problema.objects.all())
@@ -53,10 +54,11 @@ def problema_aleatorio(request):
         problema_escolhido = problemas[0]
     return HttpResponseRedirect(reverse('exibe-problema', args=[problema_escolhido.slug]))
 
+
 def exibe_problema(request, slug):
     """ Exibe o problema informado """
     try:
-        problema = Problema.objects.get(slug = slug, publicado = True)
+        problema = Problema.objects.get(slug=slug, publicado=True)
 
         problemas_visualizados = []
         if 'problemas_visualizados' in request.session:
@@ -69,12 +71,14 @@ def exibe_problema(request, slug):
     except Problema.DoesNotExist:
         raise Http404
 
+
 def exibe_problema_pelo_id(request, problema_id):
     try:
         problema = Problema.objects.get(pk=problema_id)
         return HttpResponseRedirect(reverse('exibe-problema', args=[problema.slug]))
     except Problema.DoesNotExist:
         raise Http404
+
 
 def sem_problemas_novos(request):
     """ Exibido se todos os problemas cadastrados já tiverem sido exibidos """
@@ -84,10 +88,12 @@ def sem_problemas_novos(request):
     titulo_pagina = 'Todos os problemas visualizados'
     return render_to_response('sem_problemas_novos.html', locals(), RequestContext(request))
 
+
 def sem_problemas(request):
     """ Exibido se nenhum problema estiver cadastrado no sistema """
     titulo_pagina = 'Nenhum problema cadastrado'
     return render_to_response('sem_problemas.html', locals(), RequestContext(request))
+
 
 def problema_utilizado(request, problema_id):
     try:
@@ -98,12 +104,13 @@ def problema_utilizado(request, problema_id):
     except Problema.DoesNotExist:
         raise Http404
 
+
 def busca_problema_por_titulo(request):
     if request.method == 'POST':
         form = FormBusca(request.POST)
         if form.is_valid():
             titulo = form.data['titulo'].strip()
-            if len(titulo) > 0 :
+            if len(titulo) > 0:
                 problema = Problema.objects.filter(titulo__icontains=titulo, publicado=True)
                 if len(problema) == 1:
                     return HttpResponseRedirect(reverse('exibe-problema', args=[problema[0].slug]))

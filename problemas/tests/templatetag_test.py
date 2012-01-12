@@ -8,6 +8,7 @@ from dojopuzzles.problemas.tests.utils_test import novo_problema
 
 ITEM_MAIS_UTILIZADO = u"%s (%s)"
 
+
 class VisualizacaoProblemasMaisUtilizadosTestCase(TestCase):
 
     def setUp(self):
@@ -69,7 +70,7 @@ class VisualizacaoProblemasMaisUtilizadosTestCase(TestCase):
 
         response = self.client.get(reverse('inicio'))
 
-        # Como o problema1 foi utilizado pela última vez, ele deve aparecer antes do problema2 
+        # Como o problema1 foi utilizado pela última vez, ele deve aparecer antes do problema2
         self.assertTrue(response.content.find(problema1.titulo) < response.content.find(problema2.titulo))
 
     def teste_so_exibe_os_5_ultimos_mais_utilizados(self):

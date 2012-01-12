@@ -16,11 +16,11 @@ urlpatterns = patterns('',
     (r'^contribuicoes/', include('dojopuzzles.contribuicoes.urls')),
 
     url(r'^$', 'django.views.generic.simple.direct_to_template',
-        {'template': 'index.html', 
-         'extra_context': {'problemas_utilizados': ProblemaUtilizado.objects.count}}, 
+        {'template': 'index.html',
+         'extra_context': {'problemas_utilizados': ProblemaUtilizado.objects.count}},
          name='inicio'),
     url(r'^sobre/$', 'django.views.generic.simple.direct_to_template',
-        {'template': 'sobre.html', 'extra_context':{'titulo_pagina':'Sobre'}}, name='sobre'),
+        {'template': 'sobre.html', 'extra_context': {'titulo_pagina': 'Sobre'}}, name='sobre'),
 
     # Uncomment the admin/doc line below to enable admin documentation:
     (r'^admin/doc/', include('django.contrib.admindocs.urls')),

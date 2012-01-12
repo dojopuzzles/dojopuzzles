@@ -19,7 +19,6 @@ class CoreTestCase(TestCase):
         ProblemaUtilizado.objects.all().delete()
         Problema.objects.all().delete()
 
-
     def test_nenhum_problema_utilizado(self):
         """
         Se nenhum problema foi utilizado ainda, não deve exibir nenhuma
@@ -40,7 +39,7 @@ class CoreTestCase(TestCase):
         problema2 = novo_problema({})
 
         contador = 0
-        for utilizacao in range(1,11):
+        for utilizacao in range(1, 11):
             problema1.utilizar()
             problema2.utilizar()
             contador += 1
@@ -102,12 +101,12 @@ class ExibicaoProblemaTestCase(TestCase):
             #problema.save()
             novo_problema({})
         self.client = Client()
-        
+
     def tearDown(self):
         Problema.objects.all().delete()
 
     def test_visualizacao_de_problema(self):
-        """ Se o usuário visualizar um problema, ao exibir outro problema, 
+        """ Se o usuário visualizar um problema, ao exibir outro problema,
         o problema anterior deve estar na lista de problemas visualizados """
         problema_exibido1 = Problema.objects.all()[0]
         response = self.client.get(reverse('exibe-problema', args=[problema_exibido1.slug]), follow=True)
@@ -116,7 +115,7 @@ class ExibicaoProblemaTestCase(TestCase):
             self.assertTrue(problema_exibido1 in problemas_visualizados)
         except KeyError:
             self.fail('Não existe lista de problemas visualizados.')
-            
+
         problema_exibido2 = Problema.objects.all()[1]
         response = self.client.get(reverse('exibe-problema', args=[problema_exibido2.slug]), follow=True)
         try:
@@ -183,7 +182,7 @@ class ProblemaAleatorioTest(TestCase):
 
     def setUp(self):
         # Cadastra 10 problemas que serão utilizados nos testes
-        for i in xrange(1,11):
+        for i in xrange(1, 11):
             novo_problema({})
         self.client = Client()
 
@@ -202,13 +201,13 @@ class ProblemaAleatorioTest(TestCase):
         já foram visualizados """
         numero_problemas = Problema.objects.count()
         for i in xrange(1, numero_problemas + 1):
-            # Como temos 'numero_problemas' problemas de teste cadastrados, 
-            # após 'numero_problemas' chamadas de problemas aleatórios, 
+            # Como temos 'numero_problemas' problemas de teste cadastrados,
+            # após 'numero_problemas' chamadas de problemas aleatórios,
             # todos os problemas devem ser visualizados uma única vez
             response = self.client.get(reverse('problema-aleatorio'), follow=True)
 
-        # Após exibir todos os problemas, uma solicitação de um problema 
-        # aleatório deve informar que não existe mais nenhum problema novo 
+        # Após exibir todos os problemas, uma solicitação de um problema
+        # aleatório deve informar que não existe mais nenhum problema novo
         # cadastrado
         response = self.client.get(reverse('problema-aleatorio'), follow=True)
         self.assertEqual(len(self.client.session['problemas_visualizados']), numero_problemas)
@@ -233,13 +232,13 @@ class ProblemaNaoDesejadoTest(TestCase):
 
     def setUp(self):
         # Cadastra 5 problemas que serão utilizados nos testes
-        for i in xrange(1,6):
+        for i in xrange(1, 6):
             novo_problema({})
         self.client = Client()
 
     def test_se_usuario_nao_gostar_do_problema(self):
-        """ Se o usuário não gostar de um problema, ele não deve mais ser 
-        exibido nos problemas aleatórios e nem na lista de problemas 
+        """ Se o usuário não gostar de um problema, ele não deve mais ser
+        exibido nos problemas aleatórios e nem na lista de problemas
         visualizados """
         numero_problemas = Problema.objects.count()
         problema_nao_gostei = Problema.objects.all()[0]
@@ -292,7 +291,7 @@ class ProblemasGosteiTestCase(TestCase):
     def setUp(self):
         self.problema = novo_problema({})
         self.client = Client()
-        
+
     def tearDown(self):
         Problema.objects.all().delete()
         ProblemaUtilizado.objects.all().delete()
@@ -338,8 +337,8 @@ class ProblemasGosteiTestCase(TestCase):
         self.assertNotContains(response, 'id="botao_nao_gostei"')
 
     def test_pagina_404(self):
-      response = self.client.get(reverse('exibe-problema', args=['lala']))
-      self.assertTemplateUsed(response, '404.html')
+        response = self.client.get(reverse('exibe-problema', args=['lala']))
+        self.assertTemplateUsed(response, '404.html')
 
 
 class ListagemProblemasTestCase(TestCase):

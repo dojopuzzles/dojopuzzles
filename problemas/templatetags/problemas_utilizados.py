@@ -19,6 +19,7 @@ class ProblemasMaisUtilizadosNode(Node):
         context['problemas_utilizados'] = sorted(problemas, key=lambda a: a.utilizacoes, reverse=True)
         return ''
 
+
 def get_problemas_mais_utilizados(parser, token):
     return ProblemasMaisUtilizadosNode()
 get_problemas_mais_utilizados = register.tag(get_problemas_mais_utilizados)

@@ -27,7 +27,7 @@ class WebAnalyticsMiddleware(object):
         content = response.content
         index = content.upper().find('</BODY>')
         if index == -1:
-           return response
+            return response
         response.content = content[:index] + code + content[index:]
         return response
 

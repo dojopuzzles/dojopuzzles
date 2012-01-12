@@ -35,10 +35,10 @@ class EnvioContribuicaoTestCase(TestCase):
         Preenchendo o formulário para contato deve enviar e-mail para o destinatário adequado.
         """
         self.assertEqual(len(mail.outbox), 0)
-        dados_formulario = {'nome':'Usuario Teste',
-                            'email':'usuario@teste.com',
-                            'assunto':'CONTATO',
-                            'mensagem':'Esta mensagem de teste',}
+        dados_formulario = {'nome': 'Usuario Teste',
+                            'email': 'usuario@teste.com',
+                            'assunto': 'CONTATO',
+                            'mensagem': 'Esta mensagem de teste', }
         response = self.client.post(reverse('contribua'), dados_formulario)
         self.assertEqual(len(mail.outbox), 1)
         self.assertEqual(mail.outbox[0].body, 'Esta mensagem de teste')
@@ -50,15 +50,15 @@ class EnvioContribuicaoTestCase(TestCase):
     def test_deve_enviar_email_de_agradecimento_ao_remetente(self):
         """
         Preenchendo o formulário para envio de um novo problema deve enviar e-mail de agradecimento
-        confirmando o recebimento para o usuário e um e-mail com o novo problema para o administrador 
+        confirmando o recebimento para o usuário e um e-mail com o novo problema para o administrador
         do sistema.
         """
         self.assertEqual(len(mail.outbox), 0)
-        dados_formulario = {'nome':'Usuario Teste',
-                            'email':'usuario@teste.com',
-                            'assunto':'PROBLEMA_NOVO',
+        dados_formulario = {'nome': 'Usuario Teste',
+                            'email': 'usuario@teste.com',
+                            'assunto': 'PROBLEMA_NOVO',
                             'titulo_problema': 'Problema Teste',
-                            'mensagem':'Esta mensagem de teste',}
+                            'mensagem': 'Esta mensagem de teste', }
         response = self.client.post(reverse('contribua'), dados_formulario)
         self.assertEqual(len(mail.outbox), 2)
 
@@ -83,11 +83,11 @@ class EnvioContribuicaoTestCase(TestCase):
         from dojopuzzles.problemas.models import Problema
 
         self.assertEquals(Problema.objects.count(), 0)
-        dados_formulario = {'nome':'Usuario Teste',
-                            'email':'usuario@teste.com',
-                            'assunto':'PROBLEMA_NOVO',
+        dados_formulario = {'nome': 'Usuario Teste',
+                            'email': 'usuario@teste.com',
+                            'assunto': 'PROBLEMA_NOVO',
                             'titulo_problema': 'Problema Teste',
-                            'mensagem':'Esta mensagem de teste',}
+                            'mensagem': 'Esta mensagem de teste', }
         response = self.client.post(reverse('contribua'), dados_formulario)
 
         self.assertEquals(Problema.objects.count(), 1)
@@ -106,10 +106,10 @@ class EnvioContribuicaoTestCase(TestCase):
         from dojopuzzles.problemas.models import Problema
 
         self.assertEquals(Problema.objects.count(), 0)
-        dados_formulario = {'nome':'Usuario Teste',
-                            'email':'usuario@teste.com',
-                            'assunto':'PROBLEMA_NOVO',
-                            'mensagem':'Esta mensagem de teste',}
+        dados_formulario = {'nome': 'Usuario Teste',
+                            'email': 'usuario@teste.com',
+                            'assunto': 'PROBLEMA_NOVO',
+                            'mensagem': 'Esta mensagem de teste', }
         response = self.client.post(reverse('contribua'), dados_formulario)
         self.assertContains(response, 'Informe o título do problema.', 1)
         self.assertEquals(Problema.objects.count(), 0)

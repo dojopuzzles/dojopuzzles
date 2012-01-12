@@ -13,7 +13,7 @@ MENSAGEM_AGRADECIMENTO = """
   {0},
 
   Obrigado por colaborar com o DojoPuzzles.com. O seu problema enviado será analisado e caso realmente atenda aos nossos critérios ele será em breve disponibilizado para todos os nossos visitantes (você será avisado).
-        
+
   Nós tomamos o direito de, a nosso critério, editar o texto dos problemas para:
   - Corrigir de eventuais erros de digitação;
   - Tornar as descrições mais curtas, sem alterar o objetivo do problema.
@@ -21,8 +21,9 @@ MENSAGEM_AGRADECIMENTO = """
   Caso não concorde com isso, responda esse e-mail informando que não deseja que o corpo do problema seja alterado ou que o problema seja publicado.
 
   Atenciosamente,
-                    
+
   DojoPuzzles.com"""
+
 
 def _enviar_email_contato(form, agradecer=False):
     operacao = form.cleaned_data['assunto']
@@ -46,6 +47,7 @@ def _enviar_email_contato(form, agradecer=False):
     email['fail_silently'] = False
     send_mail(**email)
 
+
 def contribuicao(request):
     form = ContribuicaoForm(request.POST or None)
     if form.is_valid():
@@ -67,12 +69,13 @@ def contribuicao(request):
         return HttpResponseRedirect(reverse('contribuicao-recebida'))
 
     titulo_pagina = 'Contribua'
-    return render_to_response('contribua.html', 
-                              locals(), 
+    return render_to_response('contribua.html',
+                              locals(),
                               RequestContext(request))
-                              
+
+
 def contribuicao_recebida(request):
     messages.add_message(request, messages.INFO, 'Mensagem enviada com sucesso. Obrigado pelo contato!')
-    return render_to_response('index.html', 
-                              locals(), 
+    return render_to_response('index.html',
+                              locals(),
                               RequestContext(request))
