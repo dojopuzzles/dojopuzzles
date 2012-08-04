@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # Django settings for dojopuzzles project.
 
-DEBUG = False
+DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
@@ -121,6 +121,8 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.admin',
     'django.contrib.admindocs',
+    'problemas',
+    'contribuicoes',
 )
 
 # A sample logging configuration. The only tangible logging
