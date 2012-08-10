@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # Django settings for dojopuzzles project.
 
-DEBUG = True
+DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
@@ -155,6 +155,6 @@ LOGGING = {
 }
 
 try:
-    from local_settings import *
+    from dojopuzzles.local_settings import *
 except:
     pass
