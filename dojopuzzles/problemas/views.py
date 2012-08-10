@@ -7,8 +7,8 @@ from django.shortcuts import get_object_or_404
 from django.template import RequestContext
 from django.views.generic.list_detail import object_list
 
-from dojopuzzles.problemas.models import Problema
-from dojopuzzles.problemas.forms import FormBusca
+from problemas.models import Problema
+from problemas.forms import FormBusca
 
 
 def problema_aleatorio(request):

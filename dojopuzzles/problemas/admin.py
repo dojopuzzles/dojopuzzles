@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from django.contrib import admin
-from dojopuzzles.problemas.models import Problema, ProblemaUtilizado
+from problemas.models import Problema, ProblemaUtilizado
 
 
 class ProblemaAdmin(admin.ModelAdmin):

@@ -6,8 +6,8 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 
-from dojopuzzles.contribuicoes.forms import ContribuicaoForm
-from dojopuzzles.problemas.models import Problema
+from contribuicoes.forms import ContribuicaoForm
+from problemas.models import Problema
 
 MENSAGEM_AGRADECIMENTO = """
   {0},

@@ -2,7 +2,7 @@
 from django.db.models import Count
 from django.template import Library, Node
 
-from dojopuzzles.problemas.models import Problema, ProblemaUtilizado
+from problemas.models import Problema, ProblemaUtilizado
 
 register = Library()
 
