@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from dojopuzzles.problemas.models import Problema
+from problemas.models import Problema
 
 
 def novo_problema(dados_problema):

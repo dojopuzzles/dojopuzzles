@@ -5,7 +5,7 @@ from django.test.client import Client
 from django.core import mail
 from django.core.urlresolvers import reverse
 
-from dojopuzzles.contribuicoes.forms import ContribuicaoForm
+from contribuicoes.forms import ContribuicaoForm
 
 
 class EnvioContribuicaoTestCase(TestCase):
@@ -62,7 +62,7 @@ class EnvioContribuicaoTestCase(TestCase):
         response = self.client.post(reverse('contribua'), dados_formulario)
         self.assertEqual(len(mail.outbox), 2)
 
-        from dojopuzzles.contribuicoes.views import MENSAGEM_AGRADECIMENTO
+        from contribuicoes.views import MENSAGEM_AGRADECIMENTO
         self.assertEqual(mail.outbox[0].body, MENSAGEM_AGRADECIMENTO.format('Usuario Teste'))
         self.assertEqual(mail.outbox[0].subject, 'DojoPuzzles.com - Obrigado pela contribuição')
         self.assertEqual(mail.outbox[0].from_email, 'contato@dojopuzzles.com')
@@ -80,7 +80,7 @@ class EnvioContribuicaoTestCase(TestCase):
         Ao enviar um novo problema pelo formulário de contato deve cadastrar
         esta contribuição na tabela de Problemas como um problema não publicado.
         """
-        from dojopuzzles.problemas.models import Problema
+        from problemas.models import Problema
 
         self.assertEquals(Problema.objects.count(), 0)
         dados_formulario = {'nome': 'Usuario Teste',
@@ -103,7 +103,7 @@ class EnvioContribuicaoTestCase(TestCase):
         Ao contribuir com um problema, o campo 'Título do Problema' deve ser de preenchimento
         obrigatório.
         """
-        from dojopuzzles.problemas.models import Problema
+        from problemas.models import Problema
 
         self.assertEquals(Problema.objects.count(), 0)
         dados_formulario = {'nome': 'Usuario Teste',

@@ -4,8 +4,8 @@ from django.test.client import Client
 
 from django.core.urlresolvers import reverse
 
-from dojopuzzles.problemas.models import Problema, ProblemaUtilizado, SolucaoProblema
-from dojopuzzles.problemas.tests.utils_test import novo_problema
+from problemas.models import Problema, ProblemaUtilizado, SolucaoProblema
+from problemas.tests.utils_test import novo_problema
 
 
 #FIXME Esta classe de teste não deveria ficar aqui
