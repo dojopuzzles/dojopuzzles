@@ -57,27 +57,22 @@ def problema_aleatorio(request):
 
 def exibe_problema(request, slug):
     """ Exibe o problema informado """
-    try:
-        problema = Problema.objects.get(slug=slug, publicado=True)
+    problema = get_object_or_404(Problema, slug=slug, publicado=True)
 
-        problemas_visualizados = []
-        if 'problemas_visualizados' in request.session:
-            problemas_visualizados = request.session['problemas_visualizados']
-        problemas_visualizados.append(problema)
-        problemas_visualizados = list(set(problemas_visualizados))
-        request.session['problemas_visualizados'] = problemas_visualizados
-        titulo_pagina = problema.titulo
-        return render_to_response('problema.html', locals(), RequestContext(request))
-    except Problema.DoesNotExist:
-        raise Http404
+    problemas_visualizados = []
+    if 'problemas_visualizados' in request.session:
+        problemas_visualizados = request.session['problemas_visualizados']
+    problemas_visualizados.append(problema)
+    problemas_visualizados = list(set(problemas_visualizados))
+    request.session['problemas_visualizados'] = problemas_visualizados
+    titulo_pagina = problema.titulo
+
+    return render_to_response('problema.html', locals(), RequestContext(request))
 
 
 def exibe_problema_pelo_id(request, problema_id):
-    try:
-        problema = Problema.objects.get(pk=problema_id)
-        return HttpResponseRedirect(reverse('exibe-problema', args=[problema.slug]))
-    except Problema.DoesNotExist:
-        raise Http404
+    problema = get_object_or_404(Problema, pk=problema_id)
+    return HttpResponseRedirect(reverse('exibe-problema', args=[problema.slug]))
 
 
 def sem_problemas_novos(request):
@@ -96,13 +91,10 @@ def sem_problemas(request):
 
 
 def problema_utilizado(request, problema_id):
-    try:
-        problema = Problema.objects.get(pk=problema_id)
-        problema.utilizar()
-        request.session['problema_utilizado'] = problema
-        return HttpResponseRedirect(reverse('exibe-problema', args=[problema.slug]))
-    except Problema.DoesNotExist:
-        raise Http404
+    problema = get_object_or_404(Problema, pk=problema_id)
+    problema.utilizar()
+    request.session['problema_utilizado'] = problema
+    return HttpResponseRedirect(reverse('exibe-problema', args=[problema.slug]))
 
 
 def busca_problema_por_titulo(request):
