@@ -95,10 +95,6 @@ class ExibicaoProblemaTestCase(TestCase):
     def setUp(self):
         # Cadastra 2 problemas que serão utilizados nos testes
         for i in xrange(1, 3):
-            #titulo = "Título do Problema {0}".format(i)
-            #descricao = "Descrição do Problema {0}".format(i)
-            #problema = Problema(titulo=titulo, descricao=descricao)
-            #problema.save()
             novo_problema({})
         self.client = Client()
 
