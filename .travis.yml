@@ -5,5 +5,7 @@ env:
     - DJANGO_VERSION=1.4.3
 install:
     - pip install -q Django==$DJANGO_VERSION
+before_script:
+    - "pep8 --exclude=migrations --ignore=E501,E225 dojopuzzles"
 script:
     - python manage.py test --settings=test_settings.py
