@@ -6,8 +6,8 @@ from django.shortcuts import render_to_response
 from django.shortcuts import get_object_or_404
 from django.template import RequestContext
 from django.views.generic.list_detail import object_list
-
-from problemas.models import Problema
+from django.contrib.sites.models import get_current_site
+from problemas.models import Problema, AdministracaoSite
 from problemas.forms import FormBusca
 
 
@@ -59,6 +59,9 @@ def exibe_problema(request, slug):
     """ Exibe o problema informado """
     problema = get_object_or_404(Problema, slug=slug, publicado=True)
 
+    """ Busca o código Disqus """
+    admin = AdministracaoSite.objects.get(pk=(get_current_site(request).id))
+    """ Fim Busca Código Diqus """
     problemas_visualizados = []
     if 'problemas_visualizados' in request.session:
         problemas_visualizados = request.session['problemas_visualizados']
