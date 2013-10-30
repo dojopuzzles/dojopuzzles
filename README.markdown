@@ -20,3 +20,7 @@ Quero ajudar!
 > 2. [Sugerindo novas funcionalidades para serem desenvolvidas](http://dojopuzzles.com/contribuicoes/contribua/).
 >
 > 3. [Codificando uma nova funcionalidade ou corrigindo algum bug](https://github.com/rennerocha/dojopuzzles/issues).
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/rennerocha/dojopuzzles/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
