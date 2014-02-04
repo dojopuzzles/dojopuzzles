@@ -3,7 +3,11 @@ from django.core.urlresolvers import reverse
 from django.db import models
 from django.db.models import signals
 from django.template.defaultfilters import slugify
+from django.contrib.sites.models import Site
 
+class AdministracaoSite(models.Model):
+    site = models.ForeignKey(Site, unique=True)
+    disqusKey = models.CharField(max_length=50,blank=True,null=True)
 
 class Problema(models.Model):
     titulo = models.CharField(max_length=100, unique=True)
@@ -11,6 +15,7 @@ class Problema(models.Model):
     nome_contribuidor = models.CharField(max_length=100, blank=True, null=True)
     slug = models.SlugField(max_length=100, blank=False, unique=True)
     publicado = models.BooleanField(default=False)
+    habilitarComentario = models.BooleanField(default=True)
 
     def __unicode__(self):
         return self.titulo
