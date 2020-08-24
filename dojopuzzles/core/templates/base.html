@@ -23,7 +23,7 @@
                 <li><a href="{% url 'problems:problem_random' %}">Problema Aleatório</a></li>
                 <li><a href="">Todos os Problemas</a></li>
                 <li><a href="">Contribua</a></li>
-                <li><a href="">Sobre</a></li>
+                <li><a href="{% url 'core:about' %}">Sobre</a></li>
             </ul>
             <form action="" method="POST">{% csrf_token %}
                 <input name="titulo" type="text" size="10" /><input type="submit" value="Buscar" />
