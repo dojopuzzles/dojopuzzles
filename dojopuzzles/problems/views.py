@@ -1,5 +1,4 @@
-from django.shortcuts import render
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, redirect, render
 
 from problems.models import Problem
 
@@ -13,6 +12,4 @@ def problem_details(request, slug):
 def problem_random(request):
     problem = Problem.objects.random()
 
-    # TODO redirect instead of render
-    context = {"problem": problem}
-    return render(request, "problems/details.html", context)
+    return redirect(problem)
