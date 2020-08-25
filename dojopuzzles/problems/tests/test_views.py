@@ -34,11 +34,19 @@ class ProblemViewTestCase(TestCase):
 
 
 class RandomProblemViewTestCase(TestCase):
+    def setUp(self):
+        self.problem = baker.make(Problem, published=True)
+
     def test_access_random_problem(self):
         response = self.client.get(reverse("problems:problem_random"))
-        self.assertEqual(response.status_code, 200)
+        self.assertRedirects(
+            response,
+            reverse("problems:problem_details", kwargs={"slug": self.problem.slug}),
+        )
 
     @mock.patch.object(problems.views.Problem.objects, "random")
     def test_access_random_problem_call_random_method(self, mock_random_method):
-        response = self.client.get(reverse("problems:problem_random"))
+        mock_random_method.return_value = self.problem
+
+        self.client.get(reverse("problems:problem_random"))
         mock_random_method.assert_called_once()
