@@ -60,12 +60,12 @@
         </p>
     </div><br/>
 
-    {% if problemas_utilizados %}
+    {% if most_used %}
     <div class="box-content">
         <h1>MAIS UTILIZADOS</h1>
         <ul>
-        {% for problema in problemas_utilizados %}
-            <li><a href="{{ problema.get_absolute_url }}">{{ problema }} ({{ problema.utilizacoes }})</a></li>
+        {% for problem in most_used %}
+            <li><a href="{{ problem.get_absolute_url }}">{{ problem.title}} ({{ problem.uses }})</a></li>
         {% endfor %}
         </ul>
     </div>
