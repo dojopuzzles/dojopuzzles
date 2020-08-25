@@ -5,7 +5,7 @@
     <div class="one-column-content box-content">
         <h1>{{ problem.title }}</h1>
         {% if problem.author %}
-        <h2>Contribuição de: {{ problema.nome_contribuidor }}</h2>
+        <h2>Contribuição de: {{ problem.author }}</h2>
         {% endif %}
 
         {% if not request.session.problema_utilizado %}
