@@ -1,12 +1,48 @@
 image:
   file: .gitpod.Dockerfile
 
-# List the ports you want to expose and what to do when they are served. See https://www.gitpod.io/docs/config-ports/
 ports:
-  - port: 3000
+  - port: 8080
     onOpen: open-preview
 
-# List the start up tasks. You can start them in parallel in multiple terminals. See https://www.gitpod.io/docs/config-start-tasks/
 tasks:
-  - init: echo 'init script' # runs during prebuild
-    command: echo 'start script'
+  # manage is a [scripts] at Pipfile
+  # alias manage='python /workspace/dojopuzzles/dojopuzzles/manage.py'
+  - init: 
+      pipenv install && 
+      pipenv run manage migrate #--run-syncdb --noinput && 
+      # pipenv run manage loaddata 'problemas.json' &&
+      # pipenv run manage collectstatic --noinput
+      # pipenv shell &&
+      # cd dojopuzzles &&
+      # pipenv run manage test
+    command: 
+      pipenv run manage runserver 0.0.0.0:8080
+
+vscode:
+  extensions:
+    - almenon.arepl@1.0.20:Uu7lIOwyLgmNWpTwCl/iqQ==
+    - littlefoxteam.vscode-python-test-adapter@0.3.16:tZ/6xOSSdKUaq6JCUVkD+A==
+    - vscode.json-language-features@1.48.0:DuWypSrTW8Q9+ndOejK6kA==
+    - batisteo.vscode-django@0.20.0:gUr2ptf5xx2Pcb6pNcYqgw==
+    - samuelcolvin.jinjahtml@0.15.0:DAGgO4M/cnuxqBhFQ/C/Gw==
+    - eamodio.gitlens@10.2.1:WIWu3zHU4VPT8r/v866LUw==
+
+github:
+  prebuilds:
+    # enable for the master/default branch (defaults to true)
+    master: true
+    # enable for all branches in this repo (defaults to false)
+    branches: true
+    # enable for pull requests coming from this repo (defaults to true)
+    pullRequests: true
+    # enable for pull requests coming from forks (defaults to false)
+    pullRequestsFromForks: true
+    # add a check to pull requests (defaults to true)
+    addCheck: true
+    # add a "Review in Gitpod" button as a comment to pull requests (defaults to false)
+    addComment: true
+    # add a "Review in Gitpod" button to the pull request's description (defaults to false)
+    addBadge: true
+    # add a label once the prebuild is ready to pull requests (defaults to false)
+    addLabel: true
