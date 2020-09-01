@@ -13,9 +13,7 @@ tasks:
       pipenv run manage migrate #--run-syncdb --noinput && 
       # pipenv run manage loaddata 'problemas.json' &&
       # pipenv run manage collectstatic --noinput
-      # pipenv shell &&
-      # cd dojopuzzles &&
-      # pipenv run manage test
+      
     command: 
       pipenv run manage runserver 0.0.0.0:8080
 
