@@ -25,7 +25,7 @@ SECRET_KEY = "&@ws8(bt-n1gjmvoqnc2b^z5c1ml_k0w9y%dnmi%&0)@o_ojsg"
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
