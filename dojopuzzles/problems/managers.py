@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models import Sum
 
 
 class ProblemManager(models.Manager):
@@ -10,6 +11,9 @@ class ProblemManager(models.Manager):
             .filter(published=True)
             .order_by("-uses")
         )
+
+    def total_used(self):
+        return self.aggregate(Sum("uses")).get("uses__sum") or 0
 
     def random(self):
         return self.order_by("?").first()

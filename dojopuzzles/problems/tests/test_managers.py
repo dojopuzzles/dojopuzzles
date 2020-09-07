@@ -16,7 +16,7 @@ class MostUsedProblemTestCase(TestCase):
         self.assertEqual(list(most_used), [problem])
 
     def test_return_none_if_unpublished(self):
-        problem = baker.make(Problem, published=False, uses=1)
+        _ = baker.make(Problem, published=False, uses=1)
         most_used = Problem.objects.most_used()
         self.assertEqual(list(most_used), [])
 
@@ -27,3 +27,15 @@ class MostUsedProblemTestCase(TestCase):
 
         most_used = Problem.objects.most_used()
         self.assertEqual(list(most_used), [problem_3, problem_1, problem_2])
+
+
+class TotalUsedProblemTestCase(TestCase):
+    def test_zero_if_no_problems(self):
+        total_used = Problem.objects.total_used()
+        self.assertEqual(total_used, 0)
+
+    def test_sum_of_uses_of_all_problems(self):
+        _ = baker.make(Problem, published=True, uses=2)
+        _ = baker.make(Problem, published=True, uses=1)
+        total_used = Problem.objects.total_used()
+        self.assertEqual(total_used, 3)

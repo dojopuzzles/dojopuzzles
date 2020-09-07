@@ -5,7 +5,12 @@ from problems.models import Problem
 
 def home(request):
     most_used = Problem.objects.most_used()[:5]
-    return render(request, "core/home.html", context={"most_used": most_used})
+    problems_used = Problem.objects.total_used()
+    return render(
+        request,
+        "core/home.html",
+        context={"problems_used": problems_used, "most_used": most_used},
+    )
 
 
 def about(request):
