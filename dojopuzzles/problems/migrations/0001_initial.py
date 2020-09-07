@@ -29,6 +29,9 @@ class Migration(migrations.Migration):
                 ("published", models.BooleanField(default=False)),
                 ("uses", models.IntegerField(default=0)),
             ],
-            options={"verbose_name": "problem", "verbose_name_plural": "problems",},
+            options={
+                "verbose_name": "problem",
+                "verbose_name_plural": "problems",
+            },
         ),
     ]
