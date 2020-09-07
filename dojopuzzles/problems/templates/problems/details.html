@@ -10,8 +10,8 @@
 
         {% if not request.session.problem_selected %}
         <p>
-            <a class="button" href="{% url 'problems:problem_select' problem.id %}">Gostei! Vamos usar esse!</a>
-            <a class="button" href="{% url 'problems:problem_random' %}">Não gostei! Mostre-me outro.</a>
+            <a class="button" href="{% url 'problems:problem_select' problem.id %}"><span>Gostei! Vamos usar esse!</span></a>
+            <a class="button" href="{% url 'problems:problem_random' %}"><span>Não gostei! Mostre-me outro.</span></a>
         </p>
         {% else %}
             {% if request.session.problem_selected == problem.id %}
