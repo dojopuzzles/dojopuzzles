@@ -8,14 +8,13 @@
         <h2>Contribuição de: {{ problem.author }}</h2>
         {% endif %}
 
-        {% if not request.session.problema_utilizado %}
+        {% if not request.session.problem_selected %}
         <p>
-            <a id="botao_gostei" class="button" href="#" onclick="this.blur();"><span>Gostei! Vamos usar esse!</span></a>
-            <a id="botao_talvez" class="button" href="#" onclick="this.blur();"><span>Talvez. Mas mostre-me outro.</span></a>
-            <a id="botao_nao_gostei" class="button" href="#" onclick="this.blur();"><span>Não gostei! Mostre-me outro.</span></a>
+            <a class="button" href="{% url 'problems:problem_select' problem.id %}">Gostei! Vamos usar esse!</a>
+            <a class="button" href="{% url 'problems:problem_random' %}">Não gostei! Mostre-me outro.</a>
         </p>
         {% else %}
-            {% if request.session.problema_utilizado == problema %}
+            {% if request.session.problem_selected == problem.id %}
             Você está resolvendo este problema.
             {% endif %}
         {% endif %}
@@ -36,60 +35,3 @@
     </div>
 </div>
 {% endblock %}
-
-{% block sidebar %}
-
-{% comment %}
-<div class="grid_3">
-    <div class="box-content">
-        <h1>Já visualizados</h1>
-        <ul>
-        {% for visualizado in problemas_visualizados %}
-            <li><a href="{{ visualizado.get_absolute_url }}">{{ visualizado.titulo }}</a></li>
-        {% endfor %}
-        </ul>
-    </div>
-</div>
-{% endcomment %}
-{% endblock %}
-
-{% block javascript %}
-    <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.8/themes/smoothness/jquery-ui.css" type="text/css" />
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js" type="text/javascript"></script>
-    <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.8/jquery-ui.min.js" type="text/javascript" ></script>
-    <script type="text/javascript">
-    $(document).ready(function(){
-
-        $('#botao_gostei').click(function() {
-            $('#dialog-confirm').dialog({
-		        resizable: true,
-		        height:300,
-		        width:700,
-		        modal: true,
-		        buttons:
-		            {
-			            "Sim, vou usar agora este problema em um Dojo!!!": function() {
-                            window.location="";
-			            },
-				        "Gostei deste problema, mas ainda não vou usá-lo em um Dojo.": function() {
-				            $(this).dialog('close');
-			            }
-		            }
-	        });
-        });
-
-        $('#botao_talvez').click(function() {
-            window.location = '';
-        });
-
-        $('#botao_nao_gostei').click(function() {
-            window.location = '';
-        });
-    });
-    </script>
-
-    <div id="dialog-confirm" title="Importante!" style="display:none;">
-	<p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>Para obtermos uma estat&iacute;stica confi&aacute;vel dos problemas que realmente s&atilde;o utilizados em Dojos, informe se voc&ecirc; vai utilizar este problema em um Dojo neste exato momento, ou se voc&ecirc; apenas o considerou interessante.</p>
-</div>
-{% endblock javascript %}
-
