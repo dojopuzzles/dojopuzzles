@@ -12,7 +12,7 @@ class Problem(models.Model):
     title = models.CharField(max_length=100, blank=False)
     slug = models.CharField(max_length=100, blank=False)
     description = models.TextField(blank=False)
-    author = models.CharField(max_length=100)
+    author = models.CharField(max_length=100, blank=True, null=True)
     published = models.BooleanField(default=False)
     uses = models.IntegerField(default=0)
 
