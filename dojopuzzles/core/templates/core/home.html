@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% block one-column-content %}
+<div class="grid_9">
+    <div class="one-column-content">
+        <h1>O que &eacute;?</h1>
+
+        <p>Um Coding Dojo &eacute; um encontro onde um grupo de programadores se
+        re&uacute;ne para treinar t&eacute;cnicas e metodologias de desenvolvimento
+        de software atrav&eacute;s da solu&ccedil;&atilde;o de um pequeno desafio
+        de programa&ccedil;&atilde;o. <a href="{% url 'core:about' %}">Saiba mais...</a></p>
+
+        <p>Existem diversas p&aacute;ginas na Internet com problemas dos mais
+        variados formatos que podem ser utilizados em um Dojo. Aqui voc&ecirc; tem
+        mais uma op&ccedil;&atilde;o para encontrar o seu problema.</p>
+
+        {% if problems_used > 0 %}
+        <h2>Os problemas deste site já foram utilizados em {{ problems_used }} Coding Dojos!!!</h2>
+        {% endif %}
+
+        <h1>Como funciona?</h1>
+
+        <p>Existem três maneiras de encontrar um bom problema nesta página:</p>
+        <ol>
+            <li>Escolhendo um problema aleatório</li>
+            <li>Através do formulário de busca</li>
+            <li>Pela listagem completa de problemas</li>
+        </ol>
+
+        <p>Caso o problema que você escolha seja realmente utilizado em um Dojo
+        indique na página do problema, para que possamos saber quais são os
+        problemas mais escolhidos e quais os que não escolhidos.</p>
+
+        <h1>Gostou do site?</h1>
+        <p>Como você deve imaginar manter esse site consome um bom tempo. Tempo de desenvolvimento
+        de novas funcionalidades e de criação/busca de novos problemas. Se você quiser recompensar
+        o desenvolvedor por esse trabalho, considere fazer uma pequena <a href="http://bit.ly/ajude-o-lhc">doação via PayPal</a>!
+        Muito obrigado!</p>
+
+    </div>
+</div>
+{% endblock %}
+
+{% block sidebar %}
+<div class="grid_3">
+    {% comment %}
+    <div class="box-content">
+        <h1>CONTRIBUA</h1>
+        <p>Participou de um Dojo e resolveu um problema interessante? Ou
+        voc&ecirc; criou um novo problema? Ajude a aumentar a nossa base de
+        problemas dispon&iacute;veis. Envie <a href="">aqui</a> o seu
+        problema.</p>
+        <p style="text-align: center; margin-top: 10px;">
+            <a href="http://www.twitter.com/dojopuzzles"><img src="http://twitter-badges.s3.amazonaws.com/follow_me-b.png" alt="Follow dojopuzzles on Twitter"/></a>
+        </p>
+    </div><br/>
+    {% endcomment %}
+
+    {% if most_used %}
+    <div class="box-content">
+        <h1>MAIS UTILIZADOS</h1>
+        <ul>
+        {% for problem in most_used %}
+            <li><a href="{{ problem.get_absolute_url }}">{{ problem.title}} ({{ problem.uses }})</a></li>
+        {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

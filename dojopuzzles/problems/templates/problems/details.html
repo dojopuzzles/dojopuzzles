@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block column-one-content %}
+<div class="grid_9">
+    <div class="one-column-content box-content">
+        <h1>{{ problem.title }}</h1>
+        {% if problem.author %}
+        <h2>Contribuição de: {{ problem.author }}</h2>
+        {% endif %}
+
+        {% if not request.session.problem_selected %}
+        <p>
+            <a class="button" href="{% url 'problems:problem_select' problem.id %}"><span>Gostei! Vamos usar esse!</span></a>
+            <a class="button" href="{% url 'problems:problem_random' %}"><span>Não gostei! Mostre-me outro.</span></a>
+        </p>
+        {% else %}
+            {% if request.session.problem_selected == problem.id %}
+            Você está resolvendo este problema.
+            {% endif %}
+        {% endif %}
+
+        <br/><p>
+        {% if problem.uses == 0 %}
+            Este problema ainda não foi utilizado em nenhum Dojo.
+        {% else %}
+            Este problema foi utilizado em {{ problem.uses }} Dojo(s).
+        {% endif %}
+        </p>
+
+        <div id="descricao_problema">
+            {% autoescape off %}
+                {{ problem.description }}
+            {% endautoescape %}
+        </div>
+    </div>
+</div>
+{% endblock %}
