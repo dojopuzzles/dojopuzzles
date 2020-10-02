@@ -23,5 +23,5 @@ def problem_select(request, problem_id):
 
 
 def problem_list(request):
-    problems = Problem.objects.publisheds()
+    problems = Problem.objects.published()
     return render(request, 'problems/list.html', {'object_list': problems})
