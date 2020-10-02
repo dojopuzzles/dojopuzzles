@@ -6,3 +6,6 @@ migrate:
 
 update-static-files:
 	sudo rm -rf  staticfiles/* && python manage.py collectstatic
+
+install:
+	pip install -r requirements.txt
