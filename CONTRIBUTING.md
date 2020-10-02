@@ -18,7 +18,7 @@ Depois de criar um "fork" do projeto em sua conta GitHub e baixar o código loca
 - Crie e ative um ambiente virtual para o Django
   
 ```bash
-python -m venv venv
+python3 -m venv venv
 source venv/bin/activate
 ```
 
