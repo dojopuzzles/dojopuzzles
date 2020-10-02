@@ -24,3 +24,51 @@ Quero ajudar!
 
 [![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/rennerocha/dojopuzzles/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
 
+Rodando o projeto!
+----------------------
+
+### Requeriments
+
+   - Python 3.7
+   - Django 3
+
+### Instalando a VirtualEnv
+
+```sh
+$ virtualenv --python=python3 venv
+$ source venv/bin/Activate
+```
+
+### Instalando o projeto
+
+```sh
+$ make install
+```
+
+
+### Rodando o serviço
+```sh
+$ make run
+```
+
+## Criador
+
+* **Renne Rocha** - *Initial work* - [rennerocha](https://github.com/rennerocha)
+
+### Apoiadores
+
+<p>
+<a href="https://github.com/jamesperes">
+    <img width="42" height="42" src="https://avatars0.githubusercontent.com/u/16446613?s=400&u=816015caaf67a03facc2417416b624c25f25ee71&v=4" style="border-radius:50%;"/>
+</a>
+
+<a href="https://github.com/gustavobpereira">
+    <img width="42" height="42" src="https://avatars3.githubusercontent.com/u/40372649?s=400&u=add4da2c49ff31af01998d8aff9ab71b1f40595e&v=4" style="border-radius:50%;"/>
+</a>
+</p>
+
+Veja a lista de pessoas que ajudaram o projeto [contributors](https://github.com/dojopuzzles/dojopuzzles/graphs/contributors).
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
