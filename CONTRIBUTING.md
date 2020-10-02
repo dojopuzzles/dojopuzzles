@@ -13,7 +13,7 @@ Este projeto é implementado usando [Django](https://docs.djangoproject.com/pt-b
 
 Para poder trabalhar em bugs e novas funcionalidades, você provavelmente vai querer rodar o projeto na sua máquina, para poder testar as alterações.
 
-Siga estes passos para rodar o projeto localmente:
+Depois de criar um "fork" do projeto em sua conta GitHub e baixar o código localmente, siga os passos a seguir para rodar o projeto localmente:
 
 - Crie e ative um ambiente virtual para o Django
   
