@@ -20,3 +20,8 @@ def problem_select(request, problem_id):
     problem.select()
     request.session["problem_selected"] = problem.id
     return redirect(problem)
+
+
+def problem_list(request):
+    problems = Problem.objects.publisheds()
+    return render(request, 'problems/list.html', {'object_list': problems})
