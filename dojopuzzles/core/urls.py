@@ -8,4 +8,5 @@ app_name = "core"
 urlpatterns = [
     path("home/", views.home, name="home"),
     path("about/", views.about, name="about"),
+    path("success/", views.success, name="success"),
 ]

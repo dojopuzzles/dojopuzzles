@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block column-one-content %}
+    <div class="grid_9">
+        <div class="one-column-content box-content">
+            <h2>Success!</h2>
+            <p>Your problem is now under review by a moderator. This may take some time.</p>
+            <p>Click <strong><a href={% url 'core:home' %}>HERE</a></strong> to return to the dashboard.</p>
+        </div>
+    </div>
+{% endblock %}

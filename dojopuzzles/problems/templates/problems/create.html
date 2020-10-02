@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block column-one-content %}
+<div class="grid_9">
+    <div class="one-column-content box-content">
+        <h2>Create your own problem</h2>
+        <form action="" method="POST">
+            {% csrf_token %}
+            <table>
+                {{ form.as_table }}
+            </table>
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+</div>
+{% endblock %}

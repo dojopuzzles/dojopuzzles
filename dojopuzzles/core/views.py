@@ -15,3 +15,7 @@ def home(request):
 
 def about(request):
     return render(request, "core/about.html")
+
+
+def success(request):
+    return render(request, 'core/success.html')

@@ -115,3 +115,14 @@ USE_TZ = True
 STATIC_ROOT = "static/"
 
 STATIC_URL = "/static/"
+
+
+
+#form email information (change these settings accordingly)
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com' #change this to the appropriate host server
+EMAIL_HOST_USER = "Enter host email to receive problem emails"
+EMAIL_HOST_PASSWORD = "enter password for host email"
+EMAIL_PORT = '587'
