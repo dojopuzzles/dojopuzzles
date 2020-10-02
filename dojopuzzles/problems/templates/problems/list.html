@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block column-one-content %}
+<div class="grid_9">
+    <div class="one-column-content box-content">
+
+        <h1>Todos os problemas</h1>
+
+        <ul>
+        {% for problem in object_list %}
+            <li><a href="{{ problem.get_absolute_url }}">{{ problem.title }}</a></li>
+        {% empty %}
+            <li>Nenhum problema encontrado.</li>
+        {% endfor %}
+        </ul>
+
+    </div>
+</div>
+{% endblock %}
