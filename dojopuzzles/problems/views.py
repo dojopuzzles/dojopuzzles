@@ -26,7 +26,7 @@ def problem_select(request, problem_id):
 def problem_list(request):
     problems = Problem.objects.published()
     page = request.GET.get('page')
-    paginator = Paginator(problems, 3)
+    paginator = Paginator(problems, 15)
 
     try:
         problems = paginator.page(page)
