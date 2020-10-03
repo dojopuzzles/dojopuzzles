@@ -1,3 +1,4 @@
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.shortcuts import get_object_or_404, redirect, render
 
 from problems.models import Problem
@@ -24,4 +25,14 @@ def problem_select(request, problem_id):
 
 def problem_list(request):
     problems = Problem.objects.published()
-    return render(request, "problems/list.html", {"object_list": problems})
+    page = request.GET.get('page')
+    paginator = Paginator(problems, 3)
+
+    try:
+        problems = paginator.page(page)
+    except PageNotAnInteger:
+        problems = paginator.page(1)
+    except EmptyPage:
+        problems = paginator.page(paginator.num_pages)
+
+    return render(request, "problems/list.html", {"problems": problems})
