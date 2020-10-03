@@ -4,6 +4,7 @@ from model_bakery import baker
 
 from problems.models import Problem, SelectUnpublishedProblemException
 
+baker.generators.add('markdownx.models.MarkdownxField', lambda: 'value with *markdown*')
 
 class ProblemTestCase(TestCase):
     def test_create_new_problem(self):
