@@ -24,3 +24,16 @@ Quero ajudar!
 
 [![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/rennerocha/dojopuzzles/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
 
+Development
+-----------
+
+All code must be formatted using (`black`)[https://github.com/psf/black] and
+(`isort`)[https://github.com/PyCQA/isort]. (`pre-commit`)[] hooks are available
+so make sure to install and ensure they are executed then before submitting any
+code to the project.
+
+```bash
+pip install -r requirements-dev.txt
+pip install pre-commit
+pre-commit install
+```
