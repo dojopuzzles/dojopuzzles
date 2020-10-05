@@ -2,7 +2,8 @@ from django.db import models
 from django.utils.text import slugify
 
 from problems.managers import ProblemManager
-
+from markdownx.models import MarkdownxField
+from markdownx.utils import markdownify
 
 class SelectUnpublishedProblemException(Exception):
     ...
@@ -11,7 +12,7 @@ class SelectUnpublishedProblemException(Exception):
 class Problem(models.Model):
     title = models.CharField(max_length=100, blank=False)
     slug = models.CharField(max_length=100, blank=False)
-    description = models.TextField(blank=False)
+    description = MarkdownxField(blank=False)
     author = models.CharField(max_length=100, blank=True, null=True)
     published = models.BooleanField(default=False)
     uses = models.IntegerField(default=0)
@@ -34,6 +35,9 @@ class Problem(models.Model):
         if not self.slug:
             self.slug = slugify(self.title)
         super().save(*args, **kwargs)
+
+    def formatted_description(self):
+        return markdownify(self.description)
 
     def select(self):
         """ Problem is selected for Coding Dojo """

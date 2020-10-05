@@ -4,6 +4,7 @@ from django.test import TestCase
 from django.urls import reverse
 
 from model_bakery import baker
+from markdownx.utils import markdownify
 
 import problems.views
 from problems.models import Problem
@@ -31,6 +32,12 @@ class ProblemViewTestCase(TestCase):
         )
         self.assertTrue("problem" in response.context)
         self.assertEqual(self.problem, response.context["problem"])
+
+    def test_access_problem_detail_description_is_formatted_with_markdown(self):
+        response = self.client.get(
+            reverse("problems:problem_details", kwargs={"slug": self.problem.slug})
+        )
+        self.assertEqual(self.problem.formatted_description(), markdownify(self.problem.description))
 
 
 class RandomProblemViewTestCase(TestCase):

@@ -2,3 +2,7 @@
 *.pyc
 local_settings.py
 *.db
+venv
+*.sqlite3
+dojopuzzles/static/*
+.vscode
