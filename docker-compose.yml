@@ -1,0 +1,30 @@
+version: "3.3"
+
+services:
+  dojopuzzles-app:
+    build: .
+    container_name: dojopuzzles-app
+    restart: always
+    volumes:
+      - dojopuzzles_static_data:/static
+    expose:
+      - "8100"
+    env_file:
+      - .env
+    command: "/dojopuzzles/start_app.sh"
+
+  dojopuzzles-app-static:
+    image: nginx:latest
+    container_name: dojopuzzles-app-static
+    restart: always
+    volumes:
+      - dojopuzzles_static_data:/usr/share/nginx/html
+    ports:
+      - "8101:80"
+    env_file:
+      - .env
+    depends_on:
+      - dojopuzzles-app
+
+volumes:
+  dojopuzzles_static_data:
