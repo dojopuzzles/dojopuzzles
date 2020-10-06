@@ -10,6 +10,7 @@ tasks:
   - init:
       pipenv install && 
       pipenv run manage migrate && 
+      pipenv run manage createsuperuser --email a@a.com --no-input &&
       pipenv run manage loaddata 'problems.json'
 
     command: 
