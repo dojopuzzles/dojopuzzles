@@ -4,9 +4,13 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 
 [dev-packages]
+pre-commit = "*"
 
 [packages]
 Django = "==3.1"
+gunicorn = "==20.0.4"
+psycopg2-binary = "==2.8.6"
+python-decouple = "==3.3"
 
 [requires]
 python_version = "3.8"
