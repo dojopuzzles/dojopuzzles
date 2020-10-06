@@ -24,19 +24,13 @@ class ProblemTestCase(TestCase):
         self.assertEqual(repr(problem), f"<Problem: {problem.title}>")
 
     def test_new_problem_not_published_by_default(self):
-        problem = Problem(
-            title="Problem Title",
-            description="Problem Description",
-        )
+        problem = Problem(title="Problem Title", description="Problem Description",)
         problem.save()
 
         self.assertFalse(problem.published)
 
     def test_add_slug_to_problem_if_not_provided(self):
-        problem = Problem(
-            title="Problem Title",
-            description="Problem Description",
-        )
+        problem = Problem(title="Problem Title", description="Problem Description",)
         problem.save()
 
         saved_problem = Problem.objects.get(pk=problem.pk)

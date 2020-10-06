@@ -7,14 +7,11 @@ ports:
 
 tasks:
   # manage is a [scripts] at Pipfile
-  # alias manage='python /workspace/dojopuzzles/dojopuzzles/manage.py'
-  - init: 
+  - init:
       pipenv install && 
       pipenv run manage migrate && 
       pipenv run manage loaddata 'problems.json'
-      # pipenv run manage loaddata 'problemas.json' &&
-      # pipenv run manage collectstatic --noinput
-      
+
     command: 
       pipenv run manage runserver 0.0.0.0:8080
 

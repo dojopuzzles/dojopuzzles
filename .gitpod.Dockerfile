@@ -2,6 +2,8 @@ FROM gitpod/workspace-full
 
 USER gitpod
 
+ENV ALLOWED_HOSTS=.gitpod.io
+
 # Install custom tools, runtime, etc. using apt-get
 # For example, the command below would install "bastet" - a command line tetris clone:
 #
