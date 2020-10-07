@@ -1,4 +1,4 @@
-[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/berrondo/dojopuzzles/blob/django-version-upgrade)
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/dojopuzzles/dojopuzzles)
 
 DojoPuzzles.com
 ===============
