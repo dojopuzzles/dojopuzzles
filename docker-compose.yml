@@ -6,12 +6,16 @@ services:
     container_name: dojopuzzles-app
     restart: always
     volumes:
-      - dojopuzzles_static_data:/static
+      - dojopuzzles_static_data:/dojopuzzles/static
     expose:
       - "8100"
+    ports:
+      - "8100:80"
     env_file:
-      - .env
+      - .dojopuzzles-app.env
     command: "/dojopuzzles/start_app.sh"
+    networks:
+      - nginx-proxy
 
   dojopuzzles-app-static:
     image: nginx:latest
@@ -19,12 +23,18 @@ services:
     restart: always
     volumes:
       - dojopuzzles_static_data:/usr/share/nginx/html
-    ports:
-      - "8101:80"
     env_file:
-      - .env
+      - .dojopuzzles-app-static.env
     depends_on:
       - dojopuzzles-app
+    expose:
+      - "80"
+    networks:
+      - nginx-proxy
 
 volumes:
   dojopuzzles_static_data:
+
+networks:
+  nginx-proxy:
+    external: true
