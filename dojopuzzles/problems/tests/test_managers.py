@@ -39,3 +39,21 @@ class TotalUsedProblemTestCase(TestCase):
         _ = baker.make(Problem, published=True, uses=1)
         total_used = Problem.objects.total_used()
         self.assertEqual(total_used, 3)
+
+
+class PublishedProblemTestCase(TestCase):
+
+    def setUp(self):
+        self.problems = Problem.objects.published()
+
+    def test_none_if_no_problem(self):
+        self.assertEqual(0, self.problems.count())
+
+    def test_none_if_no_published_problem(self):
+        baker.make(Problem, published=False)
+        self.assertEqual(0, self.problems.count())
+
+    def test_two_problems_with_2_published__unpublished(self):
+        baker.make(Problem, published=True, _quantity=2)
+        baker.make(Problem, published=False)
+        self.assertEqual(2, self.problems.count())

@@ -86,3 +86,35 @@ class ProblemSelectViewTestCase(TestCase):
             follow=True,
         )
         self.assertEqual(self.client.session.get("problem_selected"), self.problem.id)
+
+
+class ProblemListTestCase(TestCase):
+
+    def test_template(self):
+        response = self.client.get(reverse("problems:problem_list"))
+        self.assertTemplateUsed(response, 'problems/list.html')
+
+    def test_empty_message(self):
+        baker.make(Problem, published=False)
+        response = self.client.get(reverse("problems:problem_list"))
+        self.assertContains(response, 'Nenhum problema encontrado.')
+
+    def test_not_empty_message(self):
+        baker.make(Problem, published=True)
+        response = self.client.get(reverse("problems:problem_list"))
+        self.assertNotContains(response, 'Nenhum problema encontrado.')
+
+    def test_page_2(self):
+        baker.make(Problem, published=True, _quantity=16)
+        response = self.client.get(reverse("problems:problem_list"))
+        self.assertContains(response, '<a href="?page=2">')
+
+    def test_redirect_last_page_if_access_gratter_pagenum(self):
+        baker.make(Problem, published=True, _quantity=16)
+        response = self.client.get(f'{reverse("problems:problem_list")}?page=42')
+        self.assertNotContains(response, '<a href="?page=2">')
+
+    def test_redirect_first_page_if_access_invalid_page(self):
+        baker.make(Problem, published=True, _quantity=16)
+        response = self.client.get(f'{reverse("problems:problem_list")}?page=invalid_page')
+        self.assertNotContains(response, '<a href="?page=1">')

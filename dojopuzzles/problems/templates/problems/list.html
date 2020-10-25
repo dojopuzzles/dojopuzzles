@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block column-one-content %}
+    <div class="grid_9">
+        <div class="one-column-content box-content">
+
+            <h1>Todos os problemas</h1>
+
+            <ul>
+                {% for problem in problems %}
+                    <li><a href="{{ problem.get_absolute_url }}">{{ problem.title }}</a></li>
+                    {% empty %}
+                    <li>Nenhum problema encontrado.</li>
+                {% endfor %}
+            </ul>
+
+            <div class="pagination">
+                <span class="step-links">
+                    {% if problems.has_previous %}
+                        <a href="?page={{ problems.previous_page_number }}">anterior</a>
+                    {% endif %}
+
+                     {% for pagenumber in problems.paginator.page_range %}
+                        {% if pagenumber == problems.number %}
+                            {{ pagenumber }} |
+                        {% else %}
+                            <a href="?page={{ pagenumber }}">{{ pagenumber }}</a> |
+                        {% endif %}
+                    {% endfor %}
+
+                    {% if problems.has_next %}
+                        <a href="?page={{ problems.next_page_number }}">próximo</a>
+                    {% endif %}
+                </span>
+            </div>
+        </div>
+    </div>
+{% endblock %}

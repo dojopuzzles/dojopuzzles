@@ -17,3 +17,6 @@ class ProblemManager(models.Manager):
 
     def random(self):
         return self.order_by("?").first()
+
+    def published(self):
+        return self.filter(published=True)
