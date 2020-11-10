@@ -1,0 +1,10 @@
+FROM gitpod/workspace-full
+
+USER gitpod
+
+# gitpod DEV enviroment variables:
+ENV SECRET_KEY=THIS_IS_NOT_A_GOOD_SECRET
+ENV DEBUG=True
+ENV ALLOWED_HOSTS=.gitpod.io
+ENV DJANGO_SUPERUSER_USERNAME=admin
+ENV DJANGO_SUPERUSER_PASSWORD=pass
