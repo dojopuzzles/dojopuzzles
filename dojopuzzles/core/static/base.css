@@ -11,8 +11,6 @@ body {
 }
 
 #navigation {
-    border-top: 1px solid #D0C9B6;
-    border-bottom: 1px solid #D0C9B6;
     height: 27px;
     font-family: Verdana, sans-serif;
     font-size: 13px;
@@ -22,12 +20,13 @@ body {
 #navigation ul {
     float: left;
 }
-
+/* 
+See at light.css and dark.css
 #navigation ul li:before {
     content: "\0020 \0020 \0020 \00BB \0020";
     color: #E91B1B;
 }
-
+*/
 #navigation ul li {
     display: inline;
     margin: auto;
@@ -38,11 +37,6 @@ body {
 
 #navigation a:link, a:visited, a:active, a:hover {
     text-decoration: none;
-    color: #010101;
-}
-
-#navigation a:hover {
-    color: #E91B1B;
 }
 
 #navigation form {
@@ -57,7 +51,6 @@ body {
 #content {
     font-family: Verdana, sans-serif;
     font-size: 12px;
-    color: #696969;
     line-height: 20px;
 }
 
@@ -87,25 +80,14 @@ body {
     line-height: 25px;
     font-family: Verdana, sans-serif;
     font-size: 12px;
-    color: #4C4C4C;   
 }
 
 .box-content {
-    background: #ffffff;
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#EEE9E9'); /* for IE */
-    background: -webkit-gradient(linear, left top, left bottom, from(#ffffff), to(#EEE9E9)); /* for webkit browsers */
-    background: -moz-linear-gradient(top,  #ffffff,  #EEE9E9); /* for firefox 3.6+ */
-    border: 1px solid #D0C9B6;
     padding: 10px;
 }
 
 .one-column-content a:link, a:visited, a:active, a:hover {
     text-decoration: none;
-    color: #010101;
-}
-
-.one-column-content a:hover {
-    color: #E91B1B;
 }
 
 .one-column-content ul {
@@ -116,7 +98,6 @@ body {
 
 h1 {
     font-family: Verdana, sans-serif;
-    color: #FF7700;
     font-size: 24px;
     margin-top: 10px;
     margin-bottom: 15px;
@@ -124,33 +105,25 @@ h1 {
 
 h2 {
     font-family: Verdana, sans-serif;
-    color: #FF7700;
     margin-bottom: 10px;
 }
 
 /* Botões */
 a.button {
-    background: transparent url('img/bg_button_a.gif') no-repeat scroll top right;
-    color: #444;
     display: block;
     float: left;
     font: normal 12px arial, sans-serif;
-    height: 24px;
-    margin-right: 6px;
-    padding-right: 18px; /* sliding doors padding */
+    /* height: 24px; */
     text-decoration: none;
 }
 
 a.button span {
-    background: transparent url('img/bg_button_span.gif') no-repeat;
     display: block;
     line-height: 14px;
-    padding: 5px 0 5px 18px;
 }
 
 a.button:active {
     background-position: bottom right;
-    color: #000;
     outline: none; /* hide dotted outline in Firefox */
 }
 
@@ -158,4 +131,3 @@ a.button:active span {
     background-position: bottom left;
     padding: 6px 0 4px 18px; /* push text down 1px */
 }
-

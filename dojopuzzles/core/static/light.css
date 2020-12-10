@@ -1,0 +1,70 @@
+body {
+    background-color: #FFF;
+}
+
+#navigation {
+    border-top: 1px solid #D0C9B6;
+    border-bottom: 1px solid #D0C9B6;
+}
+
+#navigation ul li:before {
+    content: "\0020 \0020 \0020 \00BB \0020";
+    color: #E91B1B;
+}
+
+#navigation a:link, a:visited, a:active, a:hover {
+    color: #010101;
+}
+
+#navigation a:hover {
+    color: #E91B1B;
+}
+
+#content {
+    color: #696969;
+}
+
+.two-columns-content {
+    color: #4C4C4C;   
+}
+
+.box-content {
+    background: #ffffff;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#EEE9E9'); /* for IE */
+    background: -webkit-gradient(linear, left top, left bottom, from(#ffffff), to(#EEE9E9)); /* for webkit browsers */
+    background: -moz-linear-gradient(top,  #ffffff,  #EEE9E9); /* for firefox 3.6+ */
+    border: 1px solid #D0C9B6;
+}
+
+.one-column-content a:link, a:visited, a:active, a:hover {
+    color: #010101;
+}
+
+.one-column-content a:hover {
+    color: #E91B1B;
+}
+
+h1 {
+    color: #FF7700;
+}
+
+h2 {
+    color: #FF7700;
+}
+
+/* Botões */
+a.button {
+    background: transparent url('img/bg_button_a.gif') no-repeat scroll top right;
+    color: #444;
+    margin-right: 6px;
+    padding-right: 18px; /* sliding doors padding */
+}
+
+a.button span {
+    background: transparent url('img/bg_button_span.gif') no-repeat;
+    padding: 5px 0 5px 18px;
+}
+
+a.button:active {
+    color: #000;
+}
